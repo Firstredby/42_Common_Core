@@ -3,8 +3,9 @@ NAME := libftprintf.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = ft_printf.c functionsone.c functionstwo.c
-LIBFTSRC = ../libft/
+SRC = ft_printf.c functionsone.c functionstwo.c libft/libft.a
+LIBFTSRC = libft/
+DEPS = ft_printf.h libft/libft.h
 
 #BONUS_SRC 
 
@@ -14,12 +15,11 @@ OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ) ft_printf.h
-	make -C $(LIBFTSRC)
-	mv $(LIBFTSRC)libft.a $(NAME)
-	ar rcs $(NAME) $(OBJ)
+$(NAME): $(OBJ)
+	make all -C ./libft
+	$(CC) -o $(NAME) $(OBJ) ./libft/libft.a
 
-%.o: %.c
+%.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
