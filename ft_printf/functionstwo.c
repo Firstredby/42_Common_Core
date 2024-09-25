@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:56:36 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/25 18:17:14 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:02:53 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	hexalow(void *str)
 {
 	size_t	ptr;
 	
-	ptr = str;
+	ptr = (size_t)str;
 	return (hexfound(ptr, 'a'));	
 }
 
@@ -24,7 +24,7 @@ int	hexaupp(void *str)
 {
 	size_t	ptr;
 	
-	ptr = str;
+	ptr = (size_t)str;
 	return (hexfound(ptr, 'A'));
 }
 
@@ -48,5 +48,5 @@ int	hexfound(size_t ptr, char chr)
 
 int	percent(void)
 {
-	return(write(1, '%', 1));
+	return(write(1, "%", 1));
 }
