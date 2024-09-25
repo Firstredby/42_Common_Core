@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:33:48 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/25 22:01:23 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:14:04 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,23 @@ int	parser(char c, va_list list)
 	return (0);
 }
 
-int ft_printf(const char *string, ...)
+int	ft_printf(const char *string, ...)
 {
-	va_list list;
-	int	i;
-	int	len;
+	va_list	list;
+	int		i;
+	int		len;
 
 	i = 0;
 	len = 0;
 	va_start(list, string);
-	while(string[i])
+	while (string[i])
 	{
 		if (string[i] == '%')
 			len += parser(string[i + 1], list);
 		else
 			len += write(1, &string[i], 1);
+		i++;
 	}
+	va_end(list);
 	return (len);
 }

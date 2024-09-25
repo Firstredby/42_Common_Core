@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:38:41 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/25 18:17:13 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/09/25 22:14:58 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	singchr(char c)
 	return (write(1, &c, 1));
 }
 
-int string(char *str)
+int	string(char *str)
 {
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		write(1, &str[i], 1);
 		i++;
@@ -30,7 +30,7 @@ int string(char *str)
 	return (i);
 }
 
-int integer(int num)
+int	integer(int num)
 {
 	static int	len;
 
@@ -56,12 +56,12 @@ int integer(int num)
 	return (len);
 }
 
-int vpointer(void *str)
+int	vpointer(void *str)
 {
 	return (write(1, "0x", 2) + hexalow(str));
 }
 
-int unsint(unsigned int num)
+int	unsint(unsigned int num)
 {
 	static int	len;
 

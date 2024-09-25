@@ -16,8 +16,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) ft_printf.h
 	make -C $(LIBFTSRC)
-	cp libft.a
-	mv libft.a $(NAME)
+	mv $(LIBFTSRC)libft.a $(NAME)
 	ar rcs $(NAME) $(OBJ)
 
 %.o: %.c
