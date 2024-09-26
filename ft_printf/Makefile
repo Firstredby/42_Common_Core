@@ -1,35 +1,22 @@
-NAME := libftprintf.a
-
-CC = cc
+CC     = cc
+AR     = ar rcs
 CFLAGS = -Wall -Wextra -Werror
-
-SRC = ft_printf.c functionsone.c functionstwo.c libft/libft.a
-LIBFTSRC = libft/
-DEPS = ft_printf.h libft/libft.h
-
-#BONUS_SRC 
-
-OBJ = $(SRC:.c=.o)
-
-#BONUS_OBJ = $(BONUS_SRC:.c=.o)
-
+HEADER = ft_printf.h
+NAME   = libftprintf.a
+CFILES = ft_printf.c functionsone.c functionstwo.c
+OFILES = $(CFILES:.c=.o)
+%.o    : %.c
+	$(CC) $(CFLAGS) -c $(CFILES)
 all: $(NAME)
-
-$(NAME): $(OBJ)
-	make all -C ./libft
-	$(CC) -o $(NAME) $(OBJ) ./libft/libft.a
-
-%.o: %.c $(DEPS)
-	$(CC) $(CFLAGS) -c $< -o $@
-
+getlib: 
+	make -C ./libft && cp ./libft/libft.a libftprintf.a
+$(NAME): getlib $(OFILES) 
+	$(AR) $(NAME) $(OFILES) $(HEADER)
 clean:
-	make clean -C $(LIBFTSRC)
-	rm -f $(OBJ) 
-
-fclean: clean
-	make fclean -C $(LIBFTSRC)
+	make clean -C ./libft
+	rm -f $(OFILES)
+fclean:    clean
+	make fclean -C ./libft
 	rm -f $(NAME)
-
-re: fclean all
-
-.PHONY: all clean re fclean
+re: fclean $(NAME)
+.PHONY:  all clean fclean re

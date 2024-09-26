@@ -6,44 +6,42 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:56:36 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/25 22:12:20 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:32:21 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	hexalow(void *str)
+int	hexprint(unsigned long long addr, char c)
 {
-	size_t	ptr;
-
-	ptr = (size_t)str;
-	return (hexfound(ptr, 'a'));
-}
-
-int	hexaupp(void *str)
-{
-	size_t	ptr;
-
-	ptr = (size_t)str;
-	return (hexfound(ptr, 'A'));
-}
-
-int	hexfound(size_t ptr, char chr)
-{
-	static int	len;
+	int	len;
 
 	len = 0;
-	if (ptr > 15)
-		return (ptr / 16);
-	else
-	{
-		if (ptr <= 9)
-			ft_putchar_fd(ptr % 16 + '0', 1);
-		else
-			ft_putchar_fd(ptr % 16 + chr - 10, 1);
+	if (addr == 0)
 		len++;
+	hexfound(addr, c);
+	while (addr)
+	{
+		len++;
+		addr /= 16;
 	}
 	return (len);
+}
+
+void	hexfound(unsigned long long addr, char chr)
+{
+	if (addr > 15)
+	{
+		hexfound(addr / 16, chr);
+		hexfound(addr % 16, chr);
+	}
+	else
+	{
+		if (addr <= 9)
+			ft_putchar_fd(addr % 16 + '0', 1);
+		else
+			ft_putchar_fd(addr % 16 + chr - 10, 1);
+	}
 }
 
 int	percent(void)
