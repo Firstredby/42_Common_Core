@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:21 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/05 17:59:07 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:14:23 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ t_list	*ft_lstlast(t_list *lst)
 
 int str_len(t_list *list)
 {
-	int i;
-	int len;
+	long int	i;
+	long int	len;
 
 	len = 0;
 	while (list)
@@ -53,13 +53,12 @@ int str_len(t_list *list)
 		i = 0;
 		while (list->str[i])
 		{
-			if (list->str[i++] == '\n')
-			{
-				len++;
-				return (len);
-			}
+			if (list->str[i] == '\n')
+				return (++len);
+			i++;
 			len++;
 		}
+		list = list->next;
 	}
 	return (len);
 }

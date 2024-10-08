@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/08 15:25:27 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:55:37 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	nlsearch(t_list *list)
 		i = 0;
 		while (list->str[i] && i < BUFFER_SIZE)
 		{
-			if (list->str[i] == '\n')
+			if (list->str[i] == '\n' || list->str[i] == '\0')
 				return (1);
 			i++;
 		}
@@ -70,7 +70,7 @@ void newlist(t_list **list, int fd)
 		buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 		if (!buf)
 			return ;
-		if ((char_read = read(fd, buf, BUFFER_SIZE)) < 0)
+		if ((char_read = read(fd, buf, BUFFER_SIZE)) <= 0)
 		{
 			free(buf);
 			return ;
@@ -94,18 +94,19 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-#include <stdio.h>
-#include <fcntl.h>
+// #include <stdio.h>
+// #include <fcntl.h>
+// #include <sys/stat.h>
 
-int main()
-{
-	char *line;
-	int fd = open("empty.txt", O_RDONLY);
-	while ((line = get_next_line(fd)))
-	{
-		printf("%s\n", line);
-		free(line);
-	}
-	close(fd);
-	return (0);
-}
+// int main()
+// {
+// 	char *line;
+// 	int fd = open("41_no_nl", O_RDONLY);
+// 	while ((line = get_next_line(fd)))
+// 	{
+// 		printf("%s\n", line);
+// 		free(line);
+// 	}
+// 	close(fd);
+// 	return (0);
+// }
