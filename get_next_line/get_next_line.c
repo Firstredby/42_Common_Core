@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/08 15:55:37 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:45:22 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ char	*get_line(t_list *list)
 
 	if (!list)
 		return (NULL);
-	line = ft_calloc(str_len(list) + 1, sizeof(char));
+	line = malloc(str_len(list) + 1);
 	if (!line)
 		return (NULL);
 	str_cpy(list, line);
 	return (line);
 }
 
-void addline(t_list **list, char *buf)
+void	addline(t_list **list, char *buf)
 {
-	t_list *new;
-	t_list *last;
+	t_list	*new;
+	t_list	*last;
 
 	new = malloc(sizeof(t_list));
 	if (!new)
@@ -44,7 +44,7 @@ void addline(t_list **list, char *buf)
 
 int	nlsearch(t_list *list)
 {
-	int i;
+	int	i;
 
 	while (list)
 	{
@@ -60,21 +60,23 @@ int	nlsearch(t_list *list)
 	return (0);
 }
 
-void newlist(t_list **list, int fd)
+void	newlist(t_list **list, int fd)
 {
-	int char_read;
-	char *buf;
+	int		char_read;
+	char	*buf;
 
-	while(!nlsearch(*list))
+	while (!nlsearch(*list))
 	{
-		buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+		buf = malloc(BUFFER_SIZE + 1);
 		if (!buf)
 			return ;
-		if ((char_read = read(fd, buf, BUFFER_SIZE)) <= 0)
+		char_read = read(fd, buf, BUFFER_SIZE);
+		if (char_read <= 0)
 		{
 			free(buf);
 			return ;
 		}
+		buf[char_read] = '\0';
 		addline(list, buf);
 	}
 }
@@ -83,11 +85,11 @@ char	*get_next_line(int fd)
 {
 	static t_list	*list;
 	char			*line;
-	
+
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
 	newlist(&list, fd);
-	if(!list)
+	if (!list)
 		return (NULL);
 	line = get_line(list);
 	list_clear(&list);
