@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/16 14:12:36 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:32:07 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_line(t_list *list)
 
 	if (!list)
 		return (NULL);
-	line = malloc(str_len(list) + 2);
+	line = malloc(str_len(list) + 1);
 	if (!line)
 		return (NULL);
 	str_cpy(list, line);
@@ -31,8 +31,8 @@ void	addline(t_list **list, char *buf)
 	t_list	*last;
 
 	new = malloc(sizeof(t_list));
-	if (!new || !list)
-		return ;
+	if (!new)
+		return (free(buf));
 	last = *list;
 	while (last && last->next)
 		last = last->next;
@@ -73,7 +73,7 @@ void	newlist(t_list **list, int fd)
 // }
 	while (!nlsearch(*list))
 	{
-		buf = malloc(BUFFER_SIZE + 2);
+		buf = malloc(BUFFER_SIZE + 1);
 		if (!buf)
 			return ;
 		char_read = read(fd, buf, BUFFER_SIZE);

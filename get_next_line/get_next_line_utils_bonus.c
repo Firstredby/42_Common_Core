@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:21 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/16 14:12:56 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:29:14 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,11 @@ void	list_cleaning(t_list **list)
 	int		j;
 
 	new = malloc(sizeof(t_list));
-	buf = malloc(BUFFER_SIZE + 1);
-	if (!new || !buf)
+	if (!new)
 		return ;
+	buf = malloc(BUFFER_SIZE + 1);
+	if (!buf)
+		return (free(new));
 	last = ft_lstlast(*list);
 	i = 0;
 	j = 0;
