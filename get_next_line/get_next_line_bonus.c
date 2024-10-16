@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/16 11:08:36 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:12:36 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_line(t_list *list)
 
 	if (!list)
 		return (NULL);
-	line = malloc(str_len(list) + 1);
+	line = malloc(str_len(list) + 2);
 	if (!line)
 		return (NULL);
 	str_cpy(list, line);
@@ -31,9 +31,11 @@ void	addline(t_list **list, char *buf)
 	t_list	*last;
 
 	new = malloc(sizeof(t_list));
-	if (!new)
+	if (!new || !list)
 		return ;
-	last = ft_lstlast(*list);
+	last = *list;
+	while (last && last->next)
+		last = last->next;
 	if (!last)
 		*list = new;
 	else
@@ -65,9 +67,13 @@ void	newlist(t_list **list, int fd)
 	int		char_read;
 	char	*buf;
 
+// if (!*list || !list)
+// {
+
+// }
 	while (!nlsearch(*list))
 	{
-		buf = malloc(BUFFER_SIZE + 1);
+		buf = malloc(BUFFER_SIZE + 2);
 		if (!buf)
 			return ;
 		char_read = read(fd, buf, BUFFER_SIZE);
@@ -89,7 +95,6 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
 		return (NULL);
-	fd_check = fd;
 	if (fd_check != fd)
 	{
 		t_list	*tmp;
@@ -106,7 +111,7 @@ char	*get_next_line(int fd)
 	if (!list)
 		return (NULL);
 	line = get_line(list);
-	list_clear(&list);
+	list_cleaning(&list);
 	return (line);
 }
 
@@ -117,12 +122,20 @@ char	*get_next_line(int fd)
 // int main()
 // {
 // 	char *line;
-// 	int fd = open("41_no_nl", O_RDONLY);
-// 	while ((line = get_next_line(fd)))
+// 	int i = 0;
+// 	int fd[3] = {open("41_with_nl", O_RDONLY), open("42_with_nl", O_RDONLY), open("43_with_nl", O_RDONLY)};
+// 	do 
 // 	{
-// 		printf("%s\n", line);
+// 		line = get_next_line(fd[i]);
+// 		if (!line)
+// 		{
+// 			close(fd[i]);
+// 			i++;
+// 		}
+// 		else
+// 			printf("%s\n", line);
 // 		free(line);
-// 	}
-// 	close(fd);
+// 	} while (i < 3);
+// 	close(fd[i]);
 // 	return (0);
 // }

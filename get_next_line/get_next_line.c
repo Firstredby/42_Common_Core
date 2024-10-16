@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/08 16:45:22 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:17:43 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ char	*get_next_line(int fd)
 	if (!list)
 		return (NULL);
 	line = get_line(list);
-	list_clear(&list);
+	list_cleaning(&list);
 	return (line);
 }
 

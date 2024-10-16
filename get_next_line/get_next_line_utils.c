@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:21 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/08 16:42:58 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/16 14:17:40 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	erase(t_list **list, char *buf, t_list *new)
 	}
 }
 
-void	list_clear(t_list **list)
+void	list_cleaning(t_list **list)
 {
 	t_list	*last;
 	t_list	*new;
