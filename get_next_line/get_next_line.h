@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:28 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/08 16:20:36 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/16 09:57:50 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ typedef struct s_list
 }	t_list;
 
 char	*get_next_line(int fd);
-void	*ft_calloc(size_t nmemb, size_t size);
 t_list	*ft_lstlast(t_list *lst);
 void	newlist(t_list **list, int fd);
 void	addline(t_list **list, char *buf);
