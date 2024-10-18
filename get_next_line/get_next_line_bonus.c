@@ -6,13 +6,13 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/16 14:32:07 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:34:59 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-char	*get_line(t_list *list)
+char	*get_line1(t_list *list)
 {
 	char	*line;
 
@@ -25,7 +25,7 @@ char	*get_line(t_list *list)
 	return (line);
 }
 
-void	addline(t_list **list, char *buf)
+void	addline(t_list **list, char *buf, int fd)
 {
 	t_list	*new;
 	t_list	*last;
@@ -41,6 +41,7 @@ void	addline(t_list **list, char *buf)
 	else
 		last->next = new;
 	new->str = buf;
+	new->fd = fd;
 	new->next = NULL;
 }
 
@@ -67,15 +68,11 @@ void	newlist(t_list **list, int fd)
 	int		char_read;
 	char	*buf;
 
-// if (!*list || !list)
-// {
-
-// }
 	while (!nlsearch(*list))
 	{
 		buf = malloc(BUFFER_SIZE + 1);
 		if (!buf)
-			return ;
+			return (big_red_button(list));
 		char_read = read(fd, buf, BUFFER_SIZE);
 		if (char_read <= 0)
 		{
@@ -83,7 +80,7 @@ void	newlist(t_list **list, int fd)
 			return ;
 		}
 		buf[char_read] = '\0';
-		addline(list, buf);
+		addline(list, buf, fd);
 	}
 }
 
@@ -91,13 +88,12 @@ char	*get_next_line(int fd)
 {
 	static t_list	*list;
 	char			*line;
-	static int		fd_check;
+	t_list			*tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
-		return (NULL);
-	if (fd_check != fd)
+		return (big_red_button(&list), NULL);
+	if (list && list->fd != fd)
 	{
-		t_list	*tmp;
 		while (list)
 		{
 			tmp = list->next;
@@ -105,37 +101,14 @@ char	*get_next_line(int fd)
 			free(list);
 			list = tmp;
 		}
-		fd_check = fd;
 	}
 	newlist(&list, fd);
 	if (!list)
 		return (NULL);
-	line = get_line(list);
-	list_cleaning(&list);
+	line = get_line1(list);
+	if (line)
+		list_cleaning(&list);
+	else
+		big_red_button(&list);
 	return (line);
 }
-
-// #include <stdio.h>
-// #include <fcntl.h>
-// #include <sys/stat.h>
-
-// int main()
-// {
-// 	char *line;
-// 	int i = 0;
-// 	int fd[3] = {open("41_with_nl", O_RDONLY), open("42_with_nl", O_RDONLY), open("43_with_nl", O_RDONLY)};
-// 	do 
-// 	{
-// 		line = get_next_line(fd[i]);
-// 		if (!line)
-// 		{
-// 			close(fd[i]);
-// 			i++;
-// 		}
-// 		else
-// 			printf("%s\n", line);
-// 		free(line);
-// 	} while (i < 3);
-// 	close(fd[i]);
-// 	return (0);
-// }

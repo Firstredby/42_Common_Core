@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/28 17:49:28 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/16 14:17:27 by ishchyro         ###   ########.fr       */
+/*   Created: 2024/10/18 14:10:11 by ishchyro          #+#    #+#             */
+/*   Updated: 2024/10/18 16:19:10 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 10
 # endif
 
 # include <unistd.h>
@@ -27,11 +27,11 @@ typedef struct s_list
 }	t_list;
 
 char	*get_next_line(int fd);
-t_list	*ft_lstlast(t_list *lst);
+void	big_red_button(t_list **list);
 void	newlist(t_list **list, int fd);
 void	addline(t_list **list, char *buf);
 int		nlsearch(t_list *list);
-char	*get_line(t_list *list);
+char	*get_line1(t_list *list);
 void	list_cleaning(t_list **list);
 void	str_cpy(t_list *list, char *line);
 int		str_len(t_list *list);

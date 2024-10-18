@@ -6,19 +6,26 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:21 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/16 14:29:14 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:33:18 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void	big_red_button(t_list **list)
 {
-	if (!lst)
-		return (NULL);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
+	t_list	*begin;
+
+	if (!*list)
+		return ;
+	while (*list)
+	{
+		begin = (*list)->next;
+		free((*list)->str);
+		free(*list);
+		*list = begin;
+	}
+	*list = NULL;
 }
 
 int	str_len(t_list *list)
@@ -72,6 +79,7 @@ void	erase(t_list **list, char *buf, t_list *newlst)
 
 	if (!*list)
 		return ;
+	newlst->fd = (*list)->fd;
 	while (*list)
 	{
 		begin = (*list)->next;
@@ -99,11 +107,13 @@ void	list_cleaning(t_list **list)
 
 	new = malloc(sizeof(t_list));
 	if (!new)
-		return ;
+		return (big_red_button(list));
 	buf = malloc(BUFFER_SIZE + 1);
 	if (!buf)
-		return (free(new));
-	last = ft_lstlast(*list);
+		return (free(new), big_red_button(list));
+	last = *list;
+	while (last && last->next)
+		last = last->next;
 	i = 0;
 	j = 0;
 	while (last->str[i] != '\n' && last->str[i] != '\0')
@@ -113,5 +123,5 @@ void	list_cleaning(t_list **list)
 	buf[j] = '\0';
 	new->str = buf;
 	new->next = NULL;
-	erase(list, buf, new);
+	return (erase(list, buf, new));
 }

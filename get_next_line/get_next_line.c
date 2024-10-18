@@ -6,13 +6,13 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/16 14:17:43 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/18 16:28:27 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_line(t_list *list)
+char	*get_line1(t_list *list)
 {
 	char	*line;
 
@@ -32,8 +32,10 @@ void	addline(t_list **list, char *buf)
 
 	new = malloc(sizeof(t_list));
 	if (!new)
-		return ;
-	last = ft_lstlast(*list);
+		return (free(buf));
+	last = *list;
+	while (last && last->next)
+		last = last->next;
 	if (!last)
 		*list = new;
 	else
@@ -69,7 +71,7 @@ void	newlist(t_list **list, int fd)
 	{
 		buf = malloc(BUFFER_SIZE + 1);
 		if (!buf)
-			return ;
+			return (big_red_button(list));
 		char_read = read(fd, buf, BUFFER_SIZE);
 		if (char_read <= 0)
 		{
@@ -87,12 +89,15 @@ char	*get_next_line(int fd)
 	char			*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
-		return (NULL);
+		return (big_red_button(&list), NULL);
 	newlist(&list, fd);
 	if (!list)
 		return (NULL);
-	line = get_line(list);
-	list_cleaning(&list);
+	line = get_line1(list);
+	if (line)
+		list_cleaning(&list);
+	else
+		big_red_button(&list);
 	return (line);
 }
 
@@ -103,7 +108,7 @@ char	*get_next_line(int fd)
 // int main()
 // {
 // 	char *line;
-// 	int fd = open("41_no_nl", O_RDONLY);
+// 	int fd = open("multiple_nl.txt", O_RDONLY);
 // 	while ((line = get_next_line(fd)))
 // 	{
 // 		printf("%s\n", line);
