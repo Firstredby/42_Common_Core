@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/18 16:34:59 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/18 17:38:04 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*get_next_line(int fd)
 	char			*line;
 	t_list			*tmp;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
+	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
 		return (big_red_button(&list), NULL);
 	if (list && list->fd != fd)
 	{
