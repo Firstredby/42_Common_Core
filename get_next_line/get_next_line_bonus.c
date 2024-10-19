@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/18 17:38:04 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/19 18:07:37 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_line1(t_list *list)
 	return (line);
 }
 
-void	addline(t_list **list, char *buf, int fd)
+void	addline(t_list *list[], char *buf)
 {
 	t_list	*new;
 	t_list	*last;
@@ -41,7 +41,6 @@ void	addline(t_list **list, char *buf, int fd)
 	else
 		last->next = new;
 	new->str = buf;
-	new->fd = fd;
 	new->next = NULL;
 }
 
@@ -63,7 +62,7 @@ int	nlsearch(t_list *list)
 	return (0);
 }
 
-void	newlist(t_list **list, int fd)
+void	newlist(t_list *list[], int fd)
 {
 	int		char_read;
 	char	*buf;
@@ -77,38 +76,29 @@ void	newlist(t_list **list, int fd)
 		if (char_read <= 0)
 		{
 			free(buf);
+			if (char_read < 0)
+				big_red_button(list);
 			return ;
 		}
 		buf[char_read] = '\0';
-		addline(list, buf, fd);
+		addline(list, buf);
 	}
 }
 
 char	*get_next_line(int fd)
 {
-	static t_list	*list;
+	static t_list	*list[1025];
 	char			*line;
-	t_list			*tmp;
 
 	if (fd < 0 || fd > 1024 || BUFFER_SIZE <= 0)
-		return (big_red_button(&list), NULL);
-	if (list && list->fd != fd)
-	{
-		while (list)
-		{
-			tmp = list->next;
-			free(list->str);
-			free(list);
-			list = tmp;
-		}
-	}
-	newlist(&list, fd);
-	if (!list)
+		return (big_red_button(&list[fd]), NULL);
+	newlist(&list[fd], fd);
+	if (!list[fd])
 		return (NULL);
-	line = get_line1(list);
+	line = get_line1(list[fd]);
 	if (line)
-		list_cleaning(&list);
+		list_cleaning(&list[fd]);
 	else
-		big_red_button(&list);
+		big_red_button(&list[fd]);
 	return (line);
 }

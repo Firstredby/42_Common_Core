@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:21 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/18 16:33:18 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:37:37 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ void	big_red_button(t_list **list)
 {
 	t_list	*begin;
 
-	if (!*list)
-		return ;
 	while (*list)
 	{
 		begin = (*list)->next;
@@ -73,28 +71,15 @@ void	str_cpy(t_list *list, char *line)
 	line[j] = '\0';
 }
 
-void	erase(t_list **list, char *buf, t_list *newlst)
+void	erase(t_list *list[], char *buf, t_list *new)
 {
-	t_list	*begin;
-
-	if (!*list)
+	if (!list)
 		return ;
-	newlst->fd = (*list)->fd;
-	while (*list)
-	{
-		begin = (*list)->next;
-		free((*list)->str);
-		free(*list);
-		*list = begin;
-	}
-	*list = NULL;
-	if (newlst->str[0])
-		*list = newlst;
+	big_red_button(list);
+	if (new->str[0])
+		*list = new;
 	else
-	{
-		free(newlst);
-		free(buf);
-	}
+		return (free(new), free(buf));
 }
 
 void	list_cleaning(t_list **list)

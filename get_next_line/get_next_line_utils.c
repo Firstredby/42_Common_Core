@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:21 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/10/18 16:33:16 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:11:22 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	str_cpy(t_list *list, char *line)
 
 void	erase(t_list **list, char *buf, t_list *new)
 {
-	if (!*list)
+	if (!list)
 		return ;
 	big_red_button(list);
 	if (new->str[0])
