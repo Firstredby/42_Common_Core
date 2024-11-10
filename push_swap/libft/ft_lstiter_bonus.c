@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:16:48 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:54:30 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:45:35 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 		return ;
 	while (lst)
 	{
-		f(lst->content);
+		f(lst->value);
 		lst = lst->next;
 	}
 }

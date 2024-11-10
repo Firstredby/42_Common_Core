@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 18:34:48 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:54:58 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:45:27 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 	while (*lst)
 	{
 		begin = (*lst)->next;
-		del((*lst)->content);
+		del((*lst)->value);
 		free(*lst);
 		*lst = begin;
 	}

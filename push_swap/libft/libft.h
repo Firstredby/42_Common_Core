@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 18:03:18 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/11/03 09:22:18 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/11/10 14:39:56 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
 # include <unistd.h>
 # include <stdarg.h>
 
-typedef struct s_list
+typedef struct s_list // modified for push_swap
 {
-	void			*content;
+	void			*value;
+	int				index;
 	struct s_list	*next;
+	struct s_list	*prev;
 }	t_list;
 
 int		ft_atoi(const char *nptr);
