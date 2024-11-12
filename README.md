@@ -7,3 +7,9 @@
 18.10 - Finished Get_Next_Line mandatory part, bonus part needs another structure realisation 
 
 19.10 - Finished bonus part of Get_Next_Line
+
+-------------------------------------------------------------------------------------------------------------------------
+                                                   12.11 - Finished Exam02
+-------------------------------------------------------------------------------------------------------------------------
+
+03.11 - Started push_swap
