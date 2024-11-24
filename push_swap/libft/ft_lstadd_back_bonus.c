@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:16:59 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/18 16:56:40 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/11/22 15:29:28 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,19 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	else
 	{
 		head = *lst;
-		while (head->next)
-			head = head->next;
+		if (head->next)
+		{
+			head = head->prev;
+			new->next = *lst;
+			(*lst)->prev = new;
+		}
+		else
+		{
+			head->prev = new;
+			new->next = head;
+		}
 		head->next = new;
+		new->prev = head;
+		
 	}
 }

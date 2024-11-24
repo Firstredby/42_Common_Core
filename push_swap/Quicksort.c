@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   SortAlg.c                                          :+:      :+:    :+:   */
+/*   Quicksort.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 10:06:19 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/11/10 14:40:14 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/11/19 20:22:11 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,20 @@ int *int_stack(t_list *stack)
 {
 	int i;
 	int *arr;
+	t_list *anchor;
 
 	arr = malloc(sizeof(int) * ft_lstsize(stack));
 	if (!arr)
 		exit(-1);
+	anchor = stack;
 	i = 0;
-	while (stack && stack->next)
+	if (stack->next == stack->prev)
+	{
+		arr[0] = ft_atoi(stack->value);
+		arr[1] = ft_atoi(stack->next->value);
+		return (arr);
+	}
+	while (stack->next != anchor)
 	{
 		arr[i++] = ft_atoi(stack->value);
 		stack = stack->next;
@@ -71,4 +79,33 @@ void    quicksort(int *arr, int start, int end)
         quicksort(arr, start, pivot_index - 1);
         quicksort(arr, pivot_index + 1, end);
     }
+}
+
+void indexation(t_list *stack, int *arr)
+{
+	int i;
+	t_list *anchor;
+
+	anchor = stack;
+	while (stack->next != anchor)
+	{
+		i = 0;
+		while (arr[i])
+		{
+			if (ft_atoi(stack->value) == arr[i])
+			{
+				stack->index = i;
+				break;
+			}
+			i++;
+		}
+		stack = stack->next;
+	}
+	i = 0;
+	while (arr[i])
+	{
+		if (ft_atoi(stack->value) == arr[i])
+			stack->index = i;
+		i++;
+	}
 }
