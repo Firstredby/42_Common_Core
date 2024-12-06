@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:56:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/11/24 02:36:48 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/06 23:29:07 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,73 +15,87 @@
 int stack_partition(t_list **stack_a, t_list **stack_b)
 {
 	int median;
+	int moves;
 
 	median = 0;
-	if ((ft_lstsize(*stack_a) % 2))
-		median = (ft_lstsize(*stack_a) / 2) + 1;
-	else
-		median = ft_lstsize(*stack_a) / 2;
-	while (ft_lstsize(*stack_a) > median)
+	moves = ft_lstsize(*stack_a);
+	median = (int)median_seek(*stack_a);
+	while (moves-- && ft_lstsize(*stack_a) > 3)
 	{
-		if ((*stack_a)->index <= median)
-			p(stack_a, stack_b);
+		if ((*stack_a)->index > median)
+			echo(stack_a, stack_b, "pb");
 		else
-			r(stack_a);
-		show_stacks(*stack_a, *stack_b);
+			echo(stack_a, stack_b, "ra");
 	}
-	ft_printf("--------------------\n");
 	return (median);
+}
+
+int median_seek(t_list *stack)
+{
+	t_list *tmp;
+	int median;
+	int numbers;
+
+	median = numbers = 0;
+	tmp = stack;
+	do
+	{
+		median += tmp->index;
+		numbers++;
+		tmp = tmp->next;	
+	} while (tmp != stack);
+	return ((median / numbers) + 1);
 }
 
 void stacksort(t_list **stack_a, t_list **stack_b)
 {
-	int i = 10;
-	int curr1;
-	int next1;
-	int prev1;
-	int median;
+	int moves;
+	int ref;
+	int min;
 
-	median = stack_partition(stack_a, stack_b);
-	if ((*stack_a)->index > (*stack_a)->next->index)
-			s(stack_a);
-	while (*stack_b && *stack_a && i--)
+	while(ft_lstsize(*stack_a) > 3)
+		stack_partition(stack_a, stack_b);
+	if (!stack_checker(*stack_a))
+		simple_sort(stack_a, stack_b);
+	while (*stack_b)
 	{
-		curr1 = (*stack_a)->index;
-		next1 = (*stack_a)->next->index;
-		prev1 = (ft_lstlast(*stack_a))->index;
-		//astacksort(stack_a, stack_b, median);
-		show_stacks(*stack_a, *stack_b);
-		ft_printf("curr1 = %d, next1 = %d, prev1 = %d\n", curr1, next1, prev1);
-		// if ((*stack_b)->next)
-		// 	//bstacksort(stack_a, stack_b, median);
-		// else
-		// 	pa(stack_a, stack_b);
+		ref = median_seek(*stack_b) + 1;
+		moves = ft_lstsize(*stack_b);
+		while(moves--)
+		{
+			min = (*stack_a)->prev->index + 1;
+			if ((*stack_b)->index == (*stack_b)->next->index + 1
+				&& (*stack_b)->next->index < ref && (*stack_b)->next->index == min)
+				echos(stack_a, stack_b, 4, "pa", "pa", "rr", "rr");
+			else if ((*stack_b)->index < ref && (*stack_b)->index == min)
+				echos(stack_a, stack_b, 2, "pa", "ra");
+			if (!*stack_b)
+				break ;
+			echo(stack_a, stack_b, "rb");
+		}
 	}
-	r(stack_a);
 }
 
-// void	astacksort(t_list **stack_a, t_list **stack_b, int median)
-// {
-// 	if ((*stack_a)->index > (*stack_a)->next->index)
-// 		s(stack_a);
-// 	else if ((*stack_a)->index > (ft_lstlast(*stack_a))->index)
-// 		rra(stack_a);
-// 	else
-// 		ra(stack_a);
-// }
-
-// void	bstacksort(t_list **stack_a, t_list **stack_b, int median)
-// {
-// 	static int i = 1;
-// 	if (((*stack_b)->index + i) == median)
-// 	{
-// 		pa(stack_a, stack_b);
-// 		i++;
-// 	}
-// 	else if ((*stack_b)->index < (ft_lstlast(*stack_b))->index)
-// 		rrb(stack_b);
-// 	else if ((*stack_b)->index < (*stack_b)->next->index)
-// 		s(stack_b);
-// 	else
-// 		rb(stack_b);
-// }
+void simple_sort(t_list **stack_a, t_list **stack_b)
+{
+	if ((*stack_a)->index == 1
+		&& (*stack_a)->next->index == 2)
+		echo(stack_a, stack_b, "rra");
+	else if ((*stack_a)->index == 1
+		&& (*stack_a)->next->index == 0)
+		echo(stack_a, stack_b, "sa");
+	else if ((*stack_a)->index == 2
+		&& (*stack_a)->next->index == 0)
+		echo(stack_a, stack_b, "ra");
+	else if ((*stack_a)->index == 2
+		&& (*stack_a)->next->index == 1)
+	{
+		echo(stack_a, stack_b, "ra");
+		echo(stack_a, stack_b, "ra");	
+	}	
+	else 
+	{
+		echo(stack_a, stack_b, "rra");
+		echo(stack_a, stack_b, "sa");
+	}
+}

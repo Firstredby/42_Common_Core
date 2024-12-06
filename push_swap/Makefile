@@ -14,7 +14,7 @@ all: $(NAME)
 
 $(NAME): $(OFILES)
 	make -C libft
-	$(CC) $(CFLAGS) $(OFILES) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OFILES) $(LIBFT) -lm -o $(NAME)
 	chmod +x $(NAME)
 
 clean:

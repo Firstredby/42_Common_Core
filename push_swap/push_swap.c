@@ -6,11 +6,26 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:49:30 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/11/24 03:38:59 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/06 23:29:28 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int stack_checker(t_list *stack)
+{
+	t_list *tmp;
+
+	tmp = stack;
+	do
+	{
+		if (tmp->index > tmp->next->index)
+			return (0);
+		else
+			tmp = tmp->next;
+	} while (tmp->next != stack);
+	return (1);
+}
 
 void parse_input(char **argv, t_list **stack_a)
 {
@@ -58,40 +73,14 @@ int	main(int argc, char **argv)
 		return (0);
 	value_checker(argv);
 	parse_input(argv, &stack_a);
-	// show_stack(stack_a, 'a');
 	arr = int_stack(stack_a);
 	quicksort(arr, 0, ft_lstsize(stack_a) - 1);
 	indexation(stack_a, arr);
+	stacksort(&stack_a, &stack_b);
 	show_stacks(stack_a, stack_b);
-	p(&stack_a, &stack_b);
-	ft_printf("first push\n");
-	show_stacks(stack_a, stack_b);
-	ft_printf("second push\n");
-	p(&stack_a, &stack_b);
-	show_stacks(stack_a, stack_b);
-	ft_printf("third push\n");
-	p(&stack_a, &stack_b);
-	show_stacks(stack_a, stack_b);
-	ft_printf("forth push\n");
-	p(&stack_a, &stack_b);
-	show_stacks(stack_a, stack_b);
-	ft_printf("fifth push\n");
-	p(&stack_a, &stack_b);
-	show_stacks(stack_a, stack_b);
-	ft_printf("sixth push\n");
-	p(&stack_a, &stack_b);
-	show_stacks(stack_a, stack_b);
-	ft_printf("seventh push\n");
-	p(&stack_a, &stack_b);
-	show_stacks(stack_a, stack_b);
-	ft_printf("last push\n");
-	p(&stack_a, &stack_b);
-	show_stacks(stack_a, stack_b);
-	ft_printf("push back\n");
-	p(&stack_b, &stack_a);
-	show_stacks(stack_a, stack_b);
-	//show_stack(stack_a, 'a');
-	// show_stacks(stack_a, stack_b);
-	free(arr);
+	if (stack_checker(stack_a))
+		return (free(arr), 0);
+	else
+		return (free(arr), -1);
 	return (0);
 }
