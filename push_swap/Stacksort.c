@@ -51,7 +51,6 @@ void stacksort(t_list **stack_a, t_list **stack_b)
 {
 	int moves;
 	int ref;
-	int min;
 
 	while(ft_lstsize(*stack_a) > 3)
 		stack_partition(stack_a, stack_b);
@@ -61,18 +60,58 @@ void stacksort(t_list **stack_a, t_list **stack_b)
 	{
 		ref = median_seek(*stack_b) + 1;
 		moves = ft_lstsize(*stack_b);
-		while(moves--)
-		{
-			min = (*stack_a)->prev->index + 1;
-			if ((*stack_b)->index == (*stack_b)->next->index + 1
-				&& (*stack_b)->next->index < ref && (*stack_b)->next->index == min)
-				echos(stack_a, stack_b, 4, "pa", "pa", "rr", "rr");
-			else if ((*stack_b)->index < ref && (*stack_b)->index == min)
-				echos(stack_a, stack_b, 2, "pa", "ra");
-			if (!*stack_b)
-				break ;
+		main_sort(stack_a, stack_b, ref, moves);
+	}
+}
+
+int best_move(t_list **stack_b, int min, int ref)
+{
+	t_list *top;
+	t_list *bot;
+	int costtop;
+	int costbot;
+
+	top = bot = *stack_b;
+	costtop = 0;
+	costbot = 0;
+	do
+	{
+		if (top->index == top->next->index + 1
+			&& top->next->index < ref && top->next->index == min)
+			break ;
+		else if (top->index < ref && top->index == min)
+			break ;
+		costtop++;
+		top = top->next;
+		if (bot->index == bot->next->index + 1
+			&& bot->next->index < ref && bot->next->index == min)
+			break ;
+		else if (bot->index < ref && bot->index == min)
+			break ;
+		costbot++;
+		bot = bot->prev;
+	} while (top != bot);
+	return (costtop - costbot);
+}
+
+void main_sort(t_list **stack_a, t_list **stack_b, int ref, int moves)
+{
+	int min;
+
+	while(moves--)
+	{
+		min = (*stack_a)->prev->index + 1;
+		if ((*stack_b)->index == (*stack_b)->next->index + 1
+			&& (*stack_b)->next->index < ref && (*stack_b)->next->index == min)
+			echos(stack_a, stack_b, 4, "pa", "pa", "rr", "rr");
+		else if ((*stack_b)->index < ref && (*stack_b)->index == min)
+			echos(stack_a, stack_b, 2, "pa", "ra");
+		if (!*stack_b)
+			break ;
+		if (best_move(stack_b, min, ref))
+			echo(stack_a, stack_b, "rrb");
+		else
 			echo(stack_a, stack_b, "rb");
-		}
 	}
 }
 
@@ -90,8 +129,8 @@ void simple_sort(t_list **stack_a, t_list **stack_b)
 	else if ((*stack_a)->index == 2
 		&& (*stack_a)->next->index == 1)
 	{
-		echo(stack_a, stack_b, "ra");
-		echo(stack_a, stack_b, "ra");	
+		echo(stack_a, stack_b, "sa");
+		echo(stack_a, stack_b, "rra");	
 	}	
 	else 
 	{

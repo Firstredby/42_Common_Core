@@ -30,6 +30,8 @@ void	stacksort(t_list **stack_a, t_list **stack_b);
 int		median_seek(t_list *stack);
 void	simple_sort(t_list **stack_a, t_list **stack_b);
 int		stack_checker(t_list *stack);
+void    main_sort(t_list **stack_a, t_list **stack_b, int ref, int moves);
+int     best_move(t_list **stack_b, int min, int ref);
 
 //main operations
 void	parse_input(char **argv, t_list **stack_a); //parsing input from argv

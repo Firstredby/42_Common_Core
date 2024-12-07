@@ -77,7 +77,7 @@ int	main(int argc, char **argv)
 	quicksort(arr, 0, ft_lstsize(stack_a) - 1);
 	indexation(stack_a, arr);
 	stacksort(&stack_a, &stack_b);
-	show_stacks(stack_a, stack_b);
+	//show_stacks(stack_a, stack_b);
 	if (stack_checker(stack_a))
 		return (free(arr), 0);
 	else
