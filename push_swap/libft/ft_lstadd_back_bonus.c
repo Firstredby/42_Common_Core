@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 15:16:59 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/11/22 15:29:28 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/08 21:20:24 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	t_list	*head;
 
 	if (!new || !lst)
-		return ;
+		return (ft_lstclear(*lst), exit(-1));
 	if (!*lst)
 		*lst = new;
 	else

@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:04:24 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/10 16:12:38 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/08 17:26:47 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	ft_atoi(const char *nptr)
 {
-	int	result;
-	int	i;
-	int	anchor;
-	int	minus;
+	long int	result;
+	int			i;
+	int			anchor;
+	int			minus;
 
 	result = 0;
 	i = 0;

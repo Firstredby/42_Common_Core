@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:49:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/06 23:17:25 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/08 19:25:00 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,15 @@ int		stack_partition(t_list **stack_a, t_list **stack_b);
 void	stacksort(t_list **stack_a, t_list **stack_b);
 int		median_seek(t_list *stack);
 void	simple_sort(t_list **stack_a, t_list **stack_b);
-int		stack_checker(t_list *stack);
-void    main_sort(t_list **stack_a, t_list **stack_b, int ref, int moves);
-int     best_move(t_list **stack_b, int min, int ref);
+int		best_move(t_list **stack_b, int max);
+int		max_index(t_list **stack_a);
+int		max_to_push(t_list **stack_a, t_list **stack_b, int max);
 
 //main operations
 void	parse_input(char **argv, t_list **stack_a); //parsing input from argv
-void	value_checker(char **argv); //checking and verifying input 
+void	value_checker(int argc, char **argv); //checking and verifying input
+int		repeat_num(int *values, int size, int num); //checking for repeating numbers
+int		stack_checker(t_list *stack);
 
 //sort moves
 void	p(t_list **stack_a, t_list **stack_b); //pushing values

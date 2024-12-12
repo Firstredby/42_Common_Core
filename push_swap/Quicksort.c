@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 10:06:19 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/11/19 20:22:11 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/08 21:05:50 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int *int_stack(t_list *stack)
 
 	arr = malloc(sizeof(int) * ft_lstsize(stack));
 	if (!arr)
-		exit(-1);
+		return (NULL);
 	anchor = stack;
 	i = 0;
 	if (stack->next == stack->prev)

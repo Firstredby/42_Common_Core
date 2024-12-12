@@ -6,50 +6,30 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:12:23 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/17 14:09:41 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:08:16 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*min_put(void)
+static char	*edge_values(int n)
 {
 	char	*str;
 
-	str = ft_calloc(12, sizeof(char));
-	if (!str)
-		return (NULL);
-	str[0] = '-';
-	str[1] = '2';
-	str[2] = '1';
-	str[3] = '4';
-	str[4] = '7';
-	str[5] = '4';
-	str[6] = '8';
-	str[7] = '3';
-	str[8] = '6';
-	str[9] = '4';
-	str[10] = '8';
-	return (str);
-}
-
-static char	*max_put(void)
-{
-	char	*str;
-
-	str = ft_calloc(11, sizeof(char));
-	if (!str)
-		return (NULL);
-	str[0] = '2';
-	str[1] = '1';
-	str[2] = '4';
-	str[3] = '7';
-	str[4] = '4';
-	str[5] = '8';
-	str[6] = '3';
-	str[7] = '6';
-	str[8] = '4';
-	str[9] = '7';
+	if (n == -2147483648)
+	{
+		str = ft_calloc(12, sizeof(char));
+		if (!str)
+			return (NULL);
+		str = "-2147483648\0";
+	}
+	else
+	{
+		str = ft_calloc(11, sizeof(char));
+		if (!str)
+			return (NULL);
+		str = "2147483647\0";
+	}
 	return (str);
 }
 
@@ -96,10 +76,8 @@ char	*ft_itoa(int n)
 		numstr[0] = '0';
 		return (numstr);
 	}
-	if (n == -2147483648)
-		return (min_put());
-	if (n == 2147483647)
-		return (max_put());
+	if (n == -2147483648 || n == 2147483647)
+		return (edge_values(n));
 	numstr = filler(copy_n);
 	if (n < 0 && numstr)
 		numstr[0] = '-';
