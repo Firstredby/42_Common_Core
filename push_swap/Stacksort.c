@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:56:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/15 11:09:12 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:33:10 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int	stack_partition(t_list **stack_a, t_list **stack_b)
 	while (moves-- && ft_lstsize(*stack_a) > 3)
 	{
 		if ((*stack_a)->index < median)
-		{
 			echo(stack_a, stack_b, "pb");
-		}
 		else
 			echo(stack_a, stack_b, "ra");
 	}

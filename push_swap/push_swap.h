@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:49:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/15 11:14:46 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/15 16:19:42 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	simple_sort(t_list **stack_a, t_list **stack_b);
 int		best_move(t_list **stack_b, int max);
 int		max_index(t_list **stack_a);
 int		max_to_push(t_list **stack_a, t_list **stack_b, int max);
+int		part_best_move(t_list **stack_b, int max);
 
 //main operations
 void	parse_input(char **argv, t_list **stack_a);
