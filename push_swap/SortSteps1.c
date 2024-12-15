@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 11:18:32 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/11/24 03:37:33 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/15 10:52:04 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	p(t_list **stack_a, t_list **stack_b)
 	t_list	*tmp;
 
 	if (*stack_a == (*stack_a)->next)
-		return p_continue(stack_a, stack_b);
+		return (p_continue(stack_a, stack_b));
 	if (!*stack_b)
 	{
 		*stack_b = *stack_a;

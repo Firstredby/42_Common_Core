@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/17 18:34:48 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/15 11:16:51 by ishchyro         ###   ########.fr       */
+/*   Created: 2024/09/02 12:13:48 by ishchyro          #+#    #+#             */
+/*   Updated: 2024/09/04 13:47:13 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list *lst)
+int	ft_isdigit(int c)
 {
-	t_list	*curr;
-	t_list	*next_node;
-
-	if (!lst || !lst->next || !lst->prev)
-		return ;
-	curr = lst;
-	curr->prev->next = NULL;
-	while (curr != NULL)
-	{
-		next_node = curr->next;
-		curr->value = NULL;
-		free(curr);
-		curr = next_node;
-	}
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }

@@ -4,8 +4,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRC = ft_atoi.c ft_bzero.c  ft_calloc.c ft_itoa.c \
       ft_putstr_fd.c ft_putchar_fd.c ft_split.c ft_strcmp.c \
 	  ft_lstnew_bonus.c ft_lstadd_back_bonus.c ft_lstsize_bonus.c \
-	  ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_strlen.c\
-	  ft_printf.c functionsone.c functionstwo.c
+	  ft_lstdelone_bonus.c ft_lstclear_bonus.c ft_strlen.c \
+	  ft_printf.c functionsone.c functionstwo.c ft_isdigit.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

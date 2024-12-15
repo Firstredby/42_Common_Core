@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:12:23 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/11 18:08:16 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/12 09:20:00 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static char	*edge_values(int n)
 		str = ft_calloc(12, sizeof(char));
 		if (!str)
 			return (NULL);
-		str = "-2147483648\0";
+		str = "-2147483648";
 	}
 	else
 	{
 		str = ft_calloc(11, sizeof(char));
 		if (!str)
 			return (NULL);
-		str = "2147483647\0";
+		str = "2147483647";
 	}
 	return (str);
 }

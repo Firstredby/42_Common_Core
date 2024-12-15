@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 11:25:38 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/08 20:25:27 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/15 10:53:27 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,15 @@ int	echo(t_list **stack_a, t_list **stack_b, char *input)
 
 void	echos(t_list **stack_a, t_list **stack_b, int commands, ...)
 {
-	int i;
-	va_list args;
+	int		i;
+	va_list	args;
+	char	*input;
 
 	va_start(args, commands);
 	i = 0;
-	while(i < commands)
+	while (i < commands)
 	{
-		char *input = va_arg(args, char *);
+		input = va_arg(args, char *);
 		echo(stack_a, stack_b, input);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 14:39:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/11/24 08:09:15 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/15 11:16:22 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_lstsize(t_list *lst)
 {
-	int	i;
+	int		i;
 	t_list	*end;
 
 	i = 1;

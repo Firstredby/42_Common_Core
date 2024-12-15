@@ -6,13 +6,13 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:26:21 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/08 20:31:31 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/15 11:16:08 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	if (!s1 || !s2)
 		return (0);

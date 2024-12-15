@@ -6,17 +6,17 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:56:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/08 18:40:01 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/15 11:09:12 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void stacksort(t_list **stack_a, t_list **stack_b)
+void	stacksort(t_list **stack_a, t_list **stack_b)
 {
-	int max;
+	int	max;
 
-	while(ft_lstsize(*stack_a) > 3)
+	while (ft_lstsize(*stack_a) > 3)
 		stack_partition(stack_a, stack_b);
 	max = max_index(stack_a) - 1;
 	if (!stack_checker(*stack_a))
@@ -25,10 +25,10 @@ void stacksort(t_list **stack_a, t_list **stack_b)
 		max = max_to_push(stack_a, stack_b, max);
 }
 
-int stack_partition(t_list **stack_a, t_list **stack_b)
+int	stack_partition(t_list **stack_a, t_list **stack_b)
 {
-	int median;
-	int moves;
+	int	median;
+	int	moves;
 
 	median = 0;
 	moves = ft_lstsize(*stack_a);
@@ -45,7 +45,7 @@ int stack_partition(t_list **stack_a, t_list **stack_b)
 	return (median);
 }
 
-int max_to_push(t_list **stack_a, t_list **stack_b, int max)
+int	max_to_push(t_list **stack_a, t_list **stack_b, int max)
 {
 	while (*stack_b)
 	{
@@ -68,7 +68,7 @@ int max_to_push(t_list **stack_a, t_list **stack_b, int max)
 	return (max);
 }
 
-void simple_sort(t_list **stack_a, t_list **stack_b)
+void	simple_sort(t_list **stack_a, t_list **stack_b)
 {
 	if ((*stack_a)->index > (*stack_a)->next->index
 		&& (*stack_a)->index == (*stack_a)->prev->index + 1)

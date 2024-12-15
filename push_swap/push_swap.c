@@ -6,67 +6,68 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:49:30 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/11 20:24:31 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/15 10:51:14 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int stack_checker(t_list *stack)
+int	stack_checker(t_list *stack)
 {
-	t_list *tmp;
+	t_list	*tmp;
 
 	tmp = stack;
-	do
+	while (tmp->next != stack)
 	{
 		if (tmp->index > tmp->next->index)
 			return (0);
 		else
 			tmp = tmp->next;
-	} while (tmp->next != stack);
+	}
 	return (1);
 }
 
-void parse_input(char **argv, t_list **stack_a)
+void	parse_input(char **argv, t_list **stack_a)
 {
-	int i;
+	int	i;
 
 	i = 1;
-	while(argv[i])
+	while (argv[i])
 		ft_lstadd_back(stack_a, ft_lstnew(argv[i++]));
 }
 
-void value_checker(int argc, char **argv)
+void	value_checker(int argc, char **argv)
 {
-
-	int i;
-	int num;
-	char *numstr;
-	int *values;
+	int		i;
+	int		num;
+	char	*numstr;
+	int		*values;
 
 	i = 1;
 	values = (int *)ft_calloc(argc, sizeof(int));
 	if (!values)
 		return (ft_putstr_fd("Error\n", 2), exit(1));
-	while(argv[i])
+	while (argv[i])
 	{
 		num = ft_atoi(argv[i]);
 		numstr = ft_itoa(num);
-		if(!ft_strcmp(numstr, argv[i])
+		if (!ft_strcmp(numstr, argv[i])
 			&& repeat_num(values, argc - 1, num))
 			values[i - 1] = num;
 		else
-			return (free(values), free(numstr), ft_putstr_fd("Error\n", 2), exit(1));
+			return (free(values), free(numstr),
+				ft_putstr_fd("Error\n", 2), exit(1));
 		i++;
 		free(numstr);
 		numstr = NULL;
 	}
+	free(numstr);
 	free(values);
 }
 
-int repeat_num(int *values, int size, int num)
+int	repeat_num(int *values, int size, int num)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < size)
@@ -79,10 +80,12 @@ int	main(int argc, char **argv)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
-	int *arr;
+	int		*arr;
 
 	stack_a = NULL;
 	stack_b = NULL;
+	if (argv[1] && !ft_isdigit(argv[1][0]))
+		return (ft_putstr_fd("Error\n", 2), -1);
 	if (argc <= 2)
 		return (0);
 	value_checker(argc, argv);
@@ -93,9 +96,5 @@ int	main(int argc, char **argv)
 	quicksort(arr, 0, ft_lstsize(stack_a) - 1);
 	indexation(stack_a, arr);
 	stacksort(&stack_a, &stack_b);
-	if (stack_checker(stack_a))
-		return (free(arr), ft_lstclear(stack_a), 0);
-	else
-		return (free(arr), ft_lstclear(stack_a), -1);
-	return (0);
+	return (free(arr), ft_lstclear(stack_a), 0);
 }
