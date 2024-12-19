@@ -49,13 +49,13 @@ void show_stacks(t_list *stack_a, t_list *stack_b)
 	steps_div();
 }
 
-void show_array(int *arr, int size)
+void show_array(int *arr)
 {
   	int i;
 
-	i = 1;
-	ft_printf("Array of int: \t%d\n", arr[0]);
-    while (i < size)
+	i = 0;
+	//ft_printf("Array of int: \t%d\n", arr[0]);
+    while (arr[i])
 		ft_printf("\t\t%d\n", arr[i++]);
 	steps_div();
 }

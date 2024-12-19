@@ -4,7 +4,7 @@ HEADER = push_swap.h
 NAME   = push_swap
 CFILES = push_swap.c DebugPanel.c Stacksort.c \
          SortSteps1.c SortSteps2.c Quicksort.c \
-		 Stacksort_utils.c
+		 Stacksort_utils.c input_validation.c
 OFILES = $(CFILES:.c=.o)
 LIBFT  = libft/libft.a
 

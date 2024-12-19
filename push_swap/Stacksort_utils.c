@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:56:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/15 17:26:18 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:26:56 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ int	median_seek(t_list *stack)
 		if (tmp == stack)
 			break ;
 	}
-	if (ft_lstsize(stack) > 250)
-		return ((median / numbers) - numbers / 2.68);
+	if (ft_lstsize(stack) > 200)
+		return ((median / numbers) - numbers / 2.71828);
 	if (ft_lstsize(stack) > 100)
-		return ((median / numbers) - numbers / 3.9);
+		return ((median / numbers) - numbers / 3.1415);
 	if (ft_lstsize(stack) > 30)
-		return ((median / numbers) - numbers / 7.5);
+		return ((median / numbers) - numbers / 4.6692);
 	if (ft_lstsize(stack) > 10)
-		return ((median / numbers) - numbers / 10.2);
+		return ((median / numbers) - numbers / 9.8);
 	return ((median / numbers));
 }
 
@@ -81,4 +81,19 @@ int	best_move(t_list **stack_b, int max)
 		bot = bot->prev;
 	}
 	return (costtop - costbot);
+}
+
+int	stack_checker(t_list *stack)
+{
+	t_list	*tmp;
+
+	tmp = stack;
+	while (tmp->next != stack)
+	{
+		if (tmp->index > tmp->next->index)
+			return (0);
+		else
+			tmp = tmp->next;
+	}
+	return (1);
 }

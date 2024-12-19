@@ -6,13 +6,13 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:04:24 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/08 17:26:47 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:00:49 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *nptr)
+long int	ft_atoi(const char *nptr)
 {
 	long int	result;
 	int			i;
@@ -34,8 +34,6 @@ int	ft_atoi(const char *nptr)
 			minus = -minus;
 	}
 	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
 		result = result * 10 + nptr[i++] - '0';
-	}
 	return (result * minus);
 }

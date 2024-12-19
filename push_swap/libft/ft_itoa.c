@@ -6,11 +6,12 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 15:12:23 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/12 09:20:00 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:53:12 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <string.h>
 
 static char	*edge_values(int n)
 {
@@ -18,17 +19,15 @@ static char	*edge_values(int n)
 
 	if (n == -2147483648)
 	{
-		str = ft_calloc(12, sizeof(char));
+		str = ft_strdup("-2147483648");
 		if (!str)
 			return (NULL);
-		str = "-2147483648";
 	}
 	else
 	{
-		str = ft_calloc(11, sizeof(char));
+		str = ft_strdup("2147483647");
 		if (!str)
 			return (NULL);
-		str = "2147483647";
 	}
 	return (str);
 }

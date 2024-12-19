@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 10:06:19 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/15 10:56:35 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:11:28 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,17 @@ int	*int_stack(t_list *stack)
 	int		*arr;
 	t_list	*anchor;
 
-	arr = malloc(sizeof(int) * ft_lstsize(stack));
+	arr = ft_calloc(sizeof(int), ft_lstsize(stack));
 	if (!arr)
 		return (NULL);
 	anchor = stack;
 	i = 0;
-	if (stack->next == stack->prev)
-	{
-		arr[0] = ft_atoi(stack->value);
-		arr[1] = ft_atoi(stack->next->value);
-		return (arr);
-	}
 	while (stack->next != anchor)
 	{
-		arr[i++] = ft_atoi(stack->value);
+		arr[i] = ft_atoi(stack->value);
+		if (!arr[i])
+			return (free(arr), NULL);
+		i++;
 		stack = stack->next;
 	}
 	arr[i] = ft_atoi(stack->value);
@@ -87,25 +84,14 @@ void	indexation(t_list *stack, int *arr)
 	t_list	*anchor;
 
 	anchor = stack;
-	while (stack->next != anchor)
+	i = 0;
+	while (i < ft_lstsize(stack))
 	{
-		i = 0;
-		while (arr[i])
+		if (ft_atoi(stack->value) == arr[i])
 		{
-			if (ft_atoi(stack->value) == arr[i])
-			{
-				stack->index = i;
-				break ;
-			}
+			stack->index = i;
 			i++;
 		}
 		stack = stack->next;
-	}
-	i = 0;
-	while (arr[i])
-	{
-		if (ft_atoi(stack->value) == arr[i])
-			stack->index = i;
-		i++;
 	}
 }
