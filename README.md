@@ -14,4 +14,4 @@
 
 03.11 - Started push_swap
 
-21.12 - Finished push_swap
+21.12 - Finished push_swap, rewrote some functions in libft, started minitalk
