@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 17:38:41 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/26 15:28:11 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/21 12:01:22 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int	string(char *str)
 	if (!str)
 		return (write(1, "(null)", 6));
 	while (str[i])
-	{
-		write(1, &str[i], 1);
-		i++;
-	}
+		write(1, &str[i++], 1);
 	return (i);
 }
 
