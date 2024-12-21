@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:07:44 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/09 18:02:42 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/21 05:55:14 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,5 @@ void	ft_putstr_fd(char *s, int fd)
 
 	i = 0;
 	while (s[i])
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
+		write(fd, &s[i++], 1);
 }

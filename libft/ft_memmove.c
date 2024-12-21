@@ -6,19 +6,11 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 13:24:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/18 19:20:03 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/21 05:48:53 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static void	copy(unsigned char *char_src,
-		unsigned char *char_dest, size_t n)
-{
-	while (--n)
-		char_dest[n] = char_src[n];
-	char_dest[n] = char_src[n];
-}
 
 void	*ft_memmove(void *dest, const	void *src, size_t n)
 {
@@ -34,16 +26,10 @@ void	*ft_memmove(void *dest, const	void *src, size_t n)
 	char_src = (unsigned char *) src;
 	char_dest = (unsigned char *) dest;
 	if (char_dest > char_src)
-	{
-		copy(char_src, char_dest, n);
-	}
+		while ((int)--n >= 0)
+			char_dest[n] = char_src[n];
 	else
-	{
-		while ((size_t)i < n)
-		{
-			char_dest[i] = char_src[i];
-			i++;
-		}
-	}
+		while (i++ < n)
+			char_dest[i - 1] = char_src[i - 1];
 	return ((void *)char_dest);
 }

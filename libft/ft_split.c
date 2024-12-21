@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:12:38 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/18 18:59:38 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/21 07:17:07 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ static int	counter(char const *s, char c)
 	{
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
 			count++;
-		if (s[i] == c)
+		if (s[i++] == c)
 			check++;
-		i++;
 	}
 	if (check == (int)ft_strlen(s))
 		return (0);
@@ -53,7 +52,7 @@ static void	eraser(char **list, int i)
 	free(list);
 }
 
-static char	**prikol(char const *s, char c, char **split_list)
+static char	**main_func(char const *s, char c, char **split_list)
 {
 	int		i;
 	int		j;
@@ -66,7 +65,7 @@ static char	**prikol(char const *s, char c, char **split_list)
 		j = 0;
 		while (*str == c)
 			str++;
-		split_list[i] = (char *)ft_calloc(sizeof(char), word(str, c));
+		split_list[i] = ft_calloc(sizeof(char), word(str, c));
 		if (!split_list[i])
 			return (eraser(split_list, i), NULL);
 		while (*str != c && *str != '\0')
@@ -83,8 +82,8 @@ char	**ft_split(char const *s, char c)
 {
 	char	**split_list;
 
-	split_list = (char **)ft_calloc(sizeof(char *), (counter(s, c) + 1));
+	split_list = ft_calloc(sizeof(char *), (counter(s, c) + 1));
 	if (!split_list || !s)
 		return (NULL);
-	return (prikol(s, c, split_list));
+	return (main_func(s, c, split_list));
 }

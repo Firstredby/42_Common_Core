@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 16:43:13 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/18 18:42:04 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/21 04:59:12 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	void	*arr;
 
 	if (!nmemb || !size)
-		return (NULL);
+	{
+		size = 1;
+		nmemb = 1;
+	}
 	if (4294967295 / nmemb < size)
 		return (NULL);
 	arr = malloc(size * nmemb);

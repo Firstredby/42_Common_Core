@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 12:59:12 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/10 15:37:22 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/21 06:25:40 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	j = 0;
 	b = (char *)big;
 	l = (char *)little;
-	if (l[j] == '\0')
+	if (!*l)
 		return (b);
 	while (b[i] && i < len)
 	{

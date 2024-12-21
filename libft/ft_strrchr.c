@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 14:13:37 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/18 17:04:29 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/21 06:28:41 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ char	*ft_strrchr(const	char *s, int c)
 	str = (char *)s;
 	while (str[i])
 	{
-		if (str[i] == (char)c)
+		if (str[i++] == (char)c)
 		{
 			check = 1;
-			cp = i;
+			cp = i - 1;
 		}
-		i++;
 	}
 	if ((char)c == '\0')
 		return (str + i);

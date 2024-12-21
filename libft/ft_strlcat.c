@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 12:55:56 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/09/04 13:54:50 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/21 06:13:17 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	else
 		res += i;
 	while (src[j] != '\0' && (i + 1) < size)
-	{
-		dest[i] = src[j];
-		i++;
-		j++;
-	}
+		dest[i++] = src[j++];
 	dest[i] = '\0';
 	return (res);
 }
