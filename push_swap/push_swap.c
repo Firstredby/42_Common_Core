@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:49:30 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/19 19:12:27 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/21 01:22:11 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ int	main(int argc, char **argv)
 	int		arglen;
 
 	arglen = 0;
-	if (argv[1] && !ft_isdigit(argv[1][0]))
+	if (argc == 1)
+		return (0);
+	if (argv[1] && !(ft_isdigit(argv[1][0])
+		|| (argv[1][0] == '-' && ft_isdigit(argv[1][1]))))
 		return (ft_putstr_fd("Error\n", 2), -1);
 	if (argc == 2)
 		arg_ = ft_split(argv[1], ' ');

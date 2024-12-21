@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 14:56:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/19 14:26:56 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/19 19:40:20 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int	median_seek(t_list *stack)
 		if (tmp == stack)
 			break ;
 	}
-	if (ft_lstsize(stack) > 200)
+	if (ft_lstsize(stack) > 250)
 		return ((median / numbers) - numbers / 2.71828);
 	if (ft_lstsize(stack) > 100)
 		return ((median / numbers) - numbers / 3.1415);
+	if (ft_lstsize(stack) > 50)
+		return ((median / numbers) - numbers / 4.359);
 	if (ft_lstsize(stack) > 30)
-		return ((median / numbers) - numbers / 4.6692);
-	if (ft_lstsize(stack) > 10)
 		return ((median / numbers) - numbers / 9.8);
 	return ((median / numbers));
 }

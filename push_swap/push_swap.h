@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include "./libft/libft.h"
-# include <math.h>
 
 //quicksort operations
 int		*int_stack(t_list *stack);
