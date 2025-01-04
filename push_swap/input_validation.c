@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:39:30 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/21 01:54:22 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/01/04 19:18:31 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	value_checker(int argc, char **argv)
 
 int	repeat_num(int *values, int size, long int num)
 {
-	int	i;
-	static int zero;
+	int			i;
+	static int	zero;
 
 	i = 0;
 	while (i < size)

@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 10:06:19 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/21 01:40:53 by ishchyro         ###   ########.fr       */
+/*   Updated: 2024/12/27 17:48:43 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	*int_stack(t_list *stack)
 {
 	int		i;
 	int		*arr;
+	int		zero;
 	t_list	*anchor;
 
 	arr = ft_calloc(sizeof(int), ft_lstsize(stack));
@@ -23,10 +24,13 @@ int	*int_stack(t_list *stack)
 		return (NULL);
 	anchor = stack;
 	i = 0;
+	zero = 0;
 	while (stack->next != anchor)
 	{
 		arr[i] = ft_atoi(stack->value);
 		if (!arr[i])
+			zero++;
+		if (zero > 1)
 			return (free(arr), NULL);
 		i++;
 		stack = stack->next;

@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:49:30 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/21 01:22:11 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/01/04 19:14:23 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ void	sortfunc(char **arg_, int arglen)
 	stack_b = NULL;
 	if (!value_checker(arglen, arg_) || !parse_input(arg_, &stack_a))
 		return (argclean(arg_));
-	if (!stack_checker(stack_a))
-		return (argclean(arg_), ft_lstclear(stack_a));
 	arr = int_stack(stack_a);
 	if (!arr)
 		return (argclean(arg_), ft_lstclear(stack_a));
 	quicksort(arr, 0, ft_lstsize(stack_a) - 1);
 	indexation(stack_a, arr);
+	if (stack_checker(stack_a))
+		return (argclean(arg_), ft_lstclear(stack_a), free(arr));
 	stacksort(&stack_a, &stack_b);
 	return (argclean(arg_), free(arr), ft_lstclear(stack_a));
 }
