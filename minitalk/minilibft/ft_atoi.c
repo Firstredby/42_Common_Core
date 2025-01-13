@@ -1,42 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/21 04:23:23 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/01/13 16:33:27 by ishchyro         ###   ########.fr       */
+/*   Created: 2024/09/02 13:04:24 by ishchyro          #+#    #+#             */
+/*   Updated: 2025/01/05 15:11:31 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minilibft.h"
 
-void	handler(int sig)
+int	ft_atoi(const char *nptr)
 {
-	static int				i = 0;
-	static unsigned char	bit = 0;
+	int	result;
+	int	i;
+	int	minus;
 
-	if (sig == SIGUSR1)
-		bit = (bit << 1) | 1;
-	else
-		bit = bit << 1;
-	i++;
-	if (i == 8)
-	{
-		ft_printf("%c", bit);
-		i = 0;
-		bit = 0;
-	}
-}
-
-int	main(void)
-{
-	ft_printf("Server PID: %d\n", getpid());
-	while (1)
-	{
-		signal(SIGUSR1, handler);
-		signal(SIGUSR2, handler);
-	}
-	return (0);
+	result = 0;
+	i = 0;
+	minus = 1;
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || nptr[i] == ' ')
+		i++;
+	if (nptr[i] == '+' || nptr[i] == '-')
+		if (nptr[i++] == '-')
+			minus = -minus;
+	while (nptr[i] >= '0' && nptr[i] <= '9')
+		result = result * 10 + nptr[i++] - '0';
+	return (result * minus);
 }
