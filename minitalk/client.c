@@ -28,7 +28,7 @@ void	msg(int pid, char *str)
 			else
 				kill(pid, SIGUSR2);
 			i++;
-			usleep(70);
+			usleep(80);
 		}
 		str++;
 		i = 0;

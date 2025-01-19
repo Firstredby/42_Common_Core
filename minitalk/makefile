@@ -16,7 +16,6 @@ $(SERVER) $(CLIENT): $(OSERVER) $(OCLIENT)
 	$(CC) $(CFLAGS) $(OSERVER) $(MINILIBFT) -o $(SERVER)
 	$(CC) $(CFLAGS) $(OCLIENT) $(MINILIBFT) -o $(CLIENT)
 
-
 clean:
 	rm -rf $(OCLIENT) $(OSERVER)
 	make clean -C ./minilibft/
