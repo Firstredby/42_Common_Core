@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 04:23:21 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/01/13 16:34:42 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/01/23 16:07:10 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	msg(int pid, char *str)
 			else
 				kill(pid, SIGUSR2);
 			i++;
-			usleep(80);
+			usleep(100);
 		}
 		str++;
 		i = 0;
@@ -42,6 +42,12 @@ int	main(int ac, char **av)
 		ft_printf("Wrong input!\n");
 		ft_printf("Please note that first paramether should ");
 		ft_printf("be server id, then a message!");
+		exit(-1);
+	}
+	if (av[1][0] == '0' || av[1][0] == '-' || av[1][0] == '+'
+		|| ft_atoi(av[1]) > 419304)
+	{
+		ft_printf("Invalid PID!");
 		exit(-1);
 	}
 	msg(ft_atoi(av[1]), av[2]);
