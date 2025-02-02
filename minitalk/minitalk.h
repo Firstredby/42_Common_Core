@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 12:23:20 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/01/13 16:35:45 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/02/02 14:27:18 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "minilibft/minilibft.h"
-
-void	handler(int sig);
-void	msg(int pid, char *str);
+# include "unistd.h"
 
 #endif
