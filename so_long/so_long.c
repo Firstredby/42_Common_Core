@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 15:09:13 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/02/20 19:00:17 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/02/21 20:47:15 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	checknl(char *map)
 	i = 0;
 	while (map[i])
 	{
-		if (map[i] == '\n' && map[i + 1] == '\n')
+		if ((map[i] == '\n' && map[i + 1] == '\n'))
+			return (1);
+		if (!(map[i] == 'P' || map[i] == 'E' || map[i] == 'C'
+				|| map[i] == '0' || map[i] == '1' || map[i] == '\n'))
 			return (1);
 		i++;
 	}
@@ -36,21 +39,49 @@ void	clear_all(t_data *data)
 
 void	free_map(char **map)
 {
-    char** ptr;
+	char	**ptr;
 
 	ptr = map;
-    while (*ptr) {
-        free(*ptr);
-        ptr++;
-    }
-    free(map);
+	while (*ptr)
+	{
+		free(*ptr);
+		ptr++;
+	}
+	free(map);
 }
 
-int main(int argc, char **argv)
+void	seekpos(struct s_datamap *map)
 {
-	char			*raw_map;
-	struct datamap	s_map;
-	t_data			data;
+	int	i;
+	int	j;
+
+	i = 1;
+	while (map->map[i])
+	{
+		j = 1;
+		while (map->map[i][j])
+		{
+			if (map->map[i][j] == 'E')
+			{
+				map->exitposx = i;
+				map->exitposy = j;
+			}
+			if (map->map[i][j] == 'P')
+			{
+				map->playerposx = i;
+				map->playerposy = j;
+			}
+			j++;
+		}
+		i++;
+	}
+}
+
+int	main(int argc, char **argv)
+{
+	char				*raw_map;
+	struct s_datamap	s_map;
+	t_data				data;
 
 	if (argc != 2)
 		return (ft_putstr_fd("wrong parameters!\n", 2), 0);
@@ -59,14 +90,15 @@ int main(int argc, char **argv)
 		return (ft_putstr_fd("Error\n", 2), 0);
 	raw_map = get_next_line(data.fd);
 	close(data.fd);
-	if (!raw_map || checknl(raw_map))
+	if (!raw_map)
 		return (free(raw_map), 0);
 	s_map.map = ft_split(raw_map, '\n');
 	if (!s_map.map)
 		return (free(raw_map), 0);
-	free(raw_map);
-	if (!map_validator(&s_map))
+	seekpos(&s_map);
+	if (!map_validator(&s_map) || checknl(raw_map))
 		return (free_map(s_map.map), write(1, "KO", 2), -1);
+	free(raw_map);
 	create_map(&s_map, &data);
 	return (free_map(s_map.map), 0);
 }

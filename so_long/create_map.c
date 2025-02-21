@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:43:04 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/02/20 19:00:55 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/02/21 20:50:12 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	put_image(t_data *data, int i, int j, int sprite)
 {
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->img[sprite].img, j * 25, i * 25);
+		data->img[sprite].img, j * 25, i * 25);
 }
 
 void	fillmap(t_data *data)
@@ -69,14 +69,14 @@ void	sprite_load(t_data *data)
 		clear_all(data);
 }
 
-int	create_map(struct datamap *map, t_data *data)
+int	create_map(struct s_datamap *map, t_data *data)
 {
 	t_image	img[5];
-	int	width;
-	int	height;
+	int		width;
+	int		height;
 
-	width = map->mapW * 25;
-	height = map->mapH * 25;
+	width = map->mapw * 25;
+	height = map->maph * 25;
 	data->map = map;
 	data->img = img;
 	data->mlx_ptr = mlx_init();

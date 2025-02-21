@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:21 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/02/11 15:29:26 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/02/21 20:33:25 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,7 @@ void	str_cpy(t_list *list, char *line)
 	{
 		i = 0;
 		while (list->str[i])
-		{
-			// if (list->str[i] == '\n')
-			// {
-			// 	line[j] = '\n';
-			// 	line[j + 1] = '\0';
-			// 	return ;
-			// }
 			line[j++] = list->str[i++];
-		}
 		list = list->next;
 	}
 	line[j] = '\0';
