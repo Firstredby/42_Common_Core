@@ -1,2 +1,1 @@
-Implement:	map extention validation
-			fix all leaks
+Implement:	obj files

@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:11:05 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/02/21 20:50:43 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:51:32 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,15 @@ int	map_passability(struct s_datamap map)
 	map_size.y = map.mapw;
 	begin.x = map.playerposx;
 	begin.y = map.playerposy;
-	map_copy = malloc(sizeof(char *) * i + 1);
-	map_copy[i + 1] = NULL;
+	map_copy = ft_calloc(sizeof(char *), i + 1);
+	if (!map_copy)
+		return (0);
 	while (i-- && map.map[i])
+	{
 		map_copy[i] = ft_strdup(map.map[i]);
+		if (!map_copy[i])
+			return (free_map(map_copy), 0);
+	}
 	i = flood_fill(map_size, begin, map, map_copy);
 	return (free_map(map_copy), i);
 }
@@ -60,19 +65,24 @@ int	border_check(struct s_datamap *map)
 
 	i = 0;
 	j = 0;
-	while (map->map[i][j] == '1')
+	while (map->map[i] && map->map[i][j] == '1')
 		j++;
 	while (map->map[i] && map->map[i][j - 1] == '1')
-		i++;
-	if ((j < 3 || i < 3)
-		|| (i == 3 && j == 3)
-		|| (j > 80 || i > 45))
+	{
+		if (map->map[i++][j])
+			return (0);
+	}
+	if ((j < 3 || i < 3) || (i == 3 && j == 3) || (j > 80 || i > 45))
 		return (0);
 	map->maph = i;
 	map->mapw = j;
-	while (j >= 0 && map->map[i - 1][j - 1] == '1')
+	while (j > 0 && map->map[i - 1] && map->map[i - 1][j - 1] == '1')
+	{
+		if (map->map[i] && map->map[i][j - 1])
+			return (0);
 		j--;
-	while (i > 0 && map->map[i - 1][j] == '1')
+	}
+	while (i > 0 && map->map[i - 1] && map->map[i - 1][j] == '1')
 		i--;
 	return (j == 0 && i == 0);
 }

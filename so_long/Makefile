@@ -1,13 +1,13 @@
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror -g3
+CFLAGS	= -Wall -Wextra -Werror
 MLX		= -lmlx -lX11 -lXext -lm
 HEADER	= so_long.h
 NAME	= so_long
+SRC		= gnl/get_next_line.c gnl/get_next_line_utils.c \
+		  so_long.c create_map.c map_validator.c \
+		  control.c hook_init.c rules.c
+OBJ		= $(SRC:.c=.o)
 LIBFT	= libft/libft.a
-SRC		= so_long.c create_map.c map_validator.c \
-		  control.c hook_init.c rules.c \
-		  gnl/get_next_line.c gnl/get_next_line_utils.c
-OBJ		= $(SRC:%.c = %.o)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -16,11 +16,11 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	make -C libft
-	$(CC) $(CFLAGS) $(MLX) $(OBJ) $(LIBFT) -lm -o $(NAME)
+	$(CC) $(CFLAGS) $(MLX) $(OBJ) $(LIBFT) -o $(NAME)
 
 clean:
 	make clean -C libft
-	rm -f $(OFILES)
+	rm -f $(OBJ)
 
 fclean: clean
 	make fclean -C libft

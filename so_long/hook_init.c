@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 15:37:18 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/02/21 20:34:20 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/02/25 16:56:48 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,7 @@
 
 int	destroy(t_data *data)
 {
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	mlx_destroy_display(data->mlx_ptr);
-	free(data->mlx_ptr);
-	free_map(data->map->map);
-	exit(0);
-	return (0);
+	return (clear_all(data), 1);
 }
 
 int	keypress(int keysym, t_data *data)

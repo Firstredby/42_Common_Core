@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:43:04 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/02/21 20:50:12 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:53:13 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,17 @@ void	sprite_load(t_data *data)
 {
 	data->img[0].img = mlx_xpm_file_to_image(data->mlx_ptr,
 			"./sprites/1.xpm", &data->img->img_w, &data->img->img_h);
-	if (!data->img[0].img)
-		clear_all(data);
 	data->img[1].img = mlx_xpm_file_to_image(data->mlx_ptr,
 			"./sprites/2.xpm", &data->img->img_w, &data->img->img_h);
-	if (!data->img[1].img)
-		clear_all(data);
 	data->img[2].img = mlx_xpm_file_to_image(data->mlx_ptr,
 			"./sprites/3.xpm", &data->img->img_w, &data->img->img_h);
-	if (!data->img[2].img)
-		clear_all(data);
 	data->img[3].img = mlx_xpm_file_to_image(data->mlx_ptr,
 			"./sprites/4.xpm", &data->img->img_w, &data->img->img_h);
-	if (!data->img[3].img)
-		clear_all(data);
 	data->img[4].img = mlx_xpm_file_to_image(data->mlx_ptr,
 			"./sprites/5.xpm", &data->img->img_w, &data->img->img_h);
-	if (!data->img[4].img)
-		clear_all(data);
+	if (!data->img[0].img || !data->img[1].img || !data->img[2].img
+		|| !data->img[3].img || !data->img[4].img)
+		return (ft_putstr_fd("Sprite loading error.", 2), clear_all(data));
 }
 
 int	create_map(struct s_datamap *map, t_data *data)
@@ -79,18 +72,17 @@ int	create_map(struct s_datamap *map, t_data *data)
 	height = map->maph * 25;
 	data->map = map;
 	data->img = img;
+	data->win_ptr = NULL;
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
-		return (0);
-	if (width < 256 && height < 144)
-		data->win_ptr = mlx_new_window(data->mlx_ptr, 256, 144, "so_long");
-	else
-		data->win_ptr = mlx_new_window(data->mlx_ptr, width, height, "so_long");
-	if (!data->win_ptr)
-		return (0);
+		return (clear_all(data), 0);
 	sprite_load(data);
+	data->win_ptr = mlx_new_window(data->mlx_ptr, width, height, "so_long");
+	if (!data->win_ptr)
+		return (clear_all(data), 0);
 	fillmap(data);
 	hook_init(*data);
-	mlx_loop(data->mlx_ptr);
-	return (1);
+	if (mlx_loop(data->mlx_ptr))
+		return (clear_all(data), 0);
+	return (clear_all(data), 1);
 }
