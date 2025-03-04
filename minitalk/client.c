@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 04:23:21 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/02/26 15:47:56 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/03/04 13:36:36 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	main(int ac, char **av)
 		exit(1);
 	}
 	if (ft_atoi(av[1]) <= 0 || av[1][0] == '+'
-		|| ft_atoi(av[1]) > 419304)
+		|| ft_atoi(av[1]) > 4194304)
 		return (ft_printf("Invalid PID!"));
 	signal(SIGUSR1, &respond);
 	signal(SIGUSR2, &respond);
