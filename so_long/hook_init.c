@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 15:37:18 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/02/25 16:56:48 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/03/04 14:12:48 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	destroy(t_data *data)
 {
-	return (clear_all(data), 1);
+	return (clear_all(data, 0), 1);
 }
 
 int	keypress(int keysym, t_data *data)

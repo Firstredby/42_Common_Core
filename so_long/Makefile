@@ -1,5 +1,5 @@
 CC		= cc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 MLX		= -lmlx -lX11 -lXext -lm
 HEADER	= so_long.h
 NAME	= so_long

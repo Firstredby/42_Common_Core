@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:11:05 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/02/25 16:51:32 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:15:45 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,26 +65,24 @@ int	border_check(struct s_datamap *map)
 
 	i = 0;
 	j = 0;
+	if (!map || !map->map || !*map->map)
+		return (0);
 	while (map->map[i] && map->map[i][j] == '1')
 		j++;
-	while (map->map[i] && map->map[i][j - 1] == '1')
-	{
-		if (map->map[i++][j])
+	while (map->map[i])
+		if ((int)ft_strlen(map->map[i++]) != j)
 			return (0);
-	}
-	if ((j < 3 || i < 3) || (i == 3 && j == 3) || (j > 80 || i > 45))
+	if ((j == 3 && i == 3) || (j < 3 || i < 3) || (j > 77 || i > 45))
 		return (0);
 	map->maph = i;
 	map->mapw = j;
-	while (j > 0 && map->map[i - 1] && map->map[i - 1][j - 1] == '1')
-	{
-		if (map->map[i] && map->map[i][j - 1])
-			return (0);
-		j--;
-	}
-	while (i > 0 && map->map[i - 1] && map->map[i - 1][j] == '1')
+	while (i > 0 && map->map[i - 1][j - 1] == '1')
 		i--;
-	return (j == 0 && i == 0);
+	if (i != 0)
+		return (0);
+	while (i < map->maph && map->map[i][0] == '1')
+		i++;
+	return (1);
 }
 
 int	content_check(struct s_datamap *map)

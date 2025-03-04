@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 15:09:13 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/02/25 16:58:00 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/03/04 14:11:47 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,19 @@ int	checknl(char *map)
 	int	i;
 
 	i = 0;
-	if (map[i] == '\n')
-		return (1);
 	while (map[i])
 	{
-		if ((map[i] == '\n' && map[i + 1] == '\n'))
+		if ((map[i] == '\n' && map[i + 1] == '\n') && !map[i + 2])
 			return (1);
 		if (!(map[i] == 'P' || map[i] == 'E' || map[i] == 'C'
 				|| map[i] == '0' || map[i] == '1' || map[i] == '\n'))
 			return (1);
 		i++;
 	}
-	if (map[i - 1] == '\n')
-		return (1);
 	return (0);
 }
 
-void	clear_all(t_data *data)
+void	clear_all(t_data *data, int code)
 {
 	int	i;
 
@@ -59,7 +55,7 @@ void	clear_all(t_data *data)
 		mlx_destroy_display(data->mlx_ptr);
 		free(data->mlx_ptr);
 	}
-	exit(-1);
+	exit(code);
 }
 
 void	free_map(char **map)
@@ -69,10 +65,15 @@ void	free_map(char **map)
 	ptr = map;
 	while (*ptr)
 	{
-		free(*ptr);
+		if (*ptr != NULL)
+		{
+			free(*ptr);
+			*ptr = NULL;
+		}
 		ptr++;
 	}
 	free(map);
+	map = NULL;
 }
 
 void	seekpos(struct s_datamap *map)
@@ -109,24 +110,24 @@ int	main(int argc, char **argv)
 	t_data				data;
 
 	if (argc != 2)
-		return (ft_putstr_fd("wrong parameters!\n", 2), 0);
+		return (ft_putstr_fd("wrong parameters!\n", 2), 1);
 	if (ft_strlen(ft_strnstr(argv[1], ".ber", ft_strlen(argv[1]))) > 4
 		|| !ft_strnstr(argv[1], ".ber", ft_strlen(argv[1]))
 		|| ft_strlen(argv[1]) < 5)
-		return (ft_putstr_fd("Wrong map!\n", 2), 0);
+		return (ft_putstr_fd("Wrong map!\n", 2), 1);
 	data.fd = open(argv[1], O_RDONLY);
 	if (data.fd < 0)
-		return (ft_putstr_fd("Error\n", 2), 0);
+		return (ft_putstr_fd("Error\n", 2), 1);
 	raw_map = get_next_line(data.fd);
 	if (!raw_map)
-		return (ft_putstr_fd("Malloc error T_T\n", 2), free(raw_map), 0);
+		return (ft_putstr_fd("Malloc error T_T\n", 2), free(raw_map), 1);
 	map.map = ft_split(raw_map, '\n');
 	if (!map.map)
-		return (close(data.fd), free(raw_map), 0);
+		return (close(data.fd), free(raw_map), 1);
 	seekpos(&map);
 	if (checknl(raw_map) || !map_validator(&map))
 		return (free(raw_map), free_map(map.map),
-		ft_putstr_fd("Incorrect map!\n", 2), -1);
+			ft_putstr_fd("Incorrect map!\n", 2), 1);
 	free(raw_map);
 	return (create_map(&map, &data), 0);
 }
