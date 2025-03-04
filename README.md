@@ -15,3 +15,6 @@
 03.11 - Started push_swap
 
 21.12 - Finished push_swap, rewrote some functions in libft, started minitalk
+
+4.04  - I just remembered that i have README file. Finished minitalk. So_long still in workings
+
