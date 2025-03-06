@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 15:09:13 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/03/04 14:11:47 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/03/06 14:07:30 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@ int	checknl(char *map)
 	int	i;
 
 	i = 0;
+	if (!map || !*map)
+		return (1);
+	if (map[0] == '\n' || map[ft_strlen(map) - 1] == '\n')
+		return (1);
 	while (map[i])
 	{
-		if ((map[i] == '\n' && map[i + 1] == '\n') && !map[i + 2])
+		if ((map[i] == '\n' && map[i + 1] == '\n'))
 			return (1);
 		if (!(map[i] == 'P' || map[i] == 'E' || map[i] == 'C'
 				|| map[i] == '0' || map[i] == '1' || map[i] == '\n'))
@@ -112,22 +116,21 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (ft_putstr_fd("wrong parameters!\n", 2), 1);
 	if (ft_strlen(ft_strnstr(argv[1], ".ber", ft_strlen(argv[1]))) > 4
-		|| !ft_strnstr(argv[1], ".ber", ft_strlen(argv[1]))
-		|| ft_strlen(argv[1]) < 5)
+		|| !ft_strnstr(argv[1], ".ber", ft_strlen(argv[1])))
 		return (ft_putstr_fd("Wrong map!\n", 2), 1);
 	data.fd = open(argv[1], O_RDONLY);
 	if (data.fd < 0)
 		return (ft_putstr_fd("Error\n", 2), 1);
 	raw_map = get_next_line(data.fd);
 	if (!raw_map)
-		return (ft_putstr_fd("Malloc error T_T\n", 2), free(raw_map), 1);
+		return (close(data.fd), ft_putstr_fd("Malloc error T_T\n", 2),
+			free(raw_map), 1);
 	map.map = ft_split(raw_map, '\n');
 	if (!map.map)
 		return (close(data.fd), free(raw_map), 1);
 	seekpos(&map);
 	if (checknl(raw_map) || !map_validator(&map))
-		return (free(raw_map), free_map(map.map),
+		return (close(data.fd), free(raw_map), free_map(map.map),
 			ft_putstr_fd("Incorrect map!\n", 2), 1);
-	free(raw_map);
-	return (create_map(&map, &data), 0);
+	return (free(raw_map), create_map(&map, &data), 0);
 }

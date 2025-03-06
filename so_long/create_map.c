@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 18:43:04 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/03/04 14:12:25 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/03/06 14:08:29 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	sprite_load(t_data *data)
 			"./textures/5.xpm", &data->img->img_w, &data->img->img_h);
 	if (!data->img[0].img || !data->img[1].img || !data->img[2].img
 		|| !data->img[3].img || !data->img[4].img)
-		return (ft_putstr_fd("Sprite loading error.", 2), clear_all(data, 1));
+		return (ft_putstr_fd("Sprite loading error.\n", 2), clear_all(data, 1));
 }
 
 int	create_map(struct s_datamap *map, t_data *data)
