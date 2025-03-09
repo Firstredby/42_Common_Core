@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 15:09:13 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/03/06 14:07:30 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/03/09 22:25:57 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	clear_all(t_data *data, int code)
 	}
 	if (data->mlx_ptr)
 	{
-		mlx_destroy_display(data->mlx_ptr);
-		free(data->mlx_ptr);
+		(mlx_destroy_display(data->mlx_ptr), free(data->mlx_ptr));
+		data->mlx_ptr = NULL;
 	}
 	exit(code);
 }
@@ -123,8 +123,7 @@ int	main(int argc, char **argv)
 		return (ft_putstr_fd("Error\n", 2), 1);
 	raw_map = get_next_line(data.fd);
 	if (!raw_map)
-		return (close(data.fd), ft_putstr_fd("Malloc error T_T\n", 2),
-			free(raw_map), 1);
+		return (close(data.fd), ft_putstr_fd("Malloc error T_T\n", 2), 1);
 	map.map = ft_split(raw_map, '\n');
 	if (!map.map)
 		return (close(data.fd), free(raw_map), 1);
