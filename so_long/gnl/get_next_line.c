@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 17:49:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/02/11 15:28:36 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/03/20 08:48:25 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,26 +94,6 @@ char	*get_next_line(int fd)
 	if (!list)
 		return (NULL);
 	line = get_line1(list);
-	if (line)
-		list_cleaning(&list);
-	else
-		big_red_button(&list);
+	big_red_button(&list);
 	return (line);
 }
-
-// #include <stdio.h>
-// #include <fcntl.h>
-// #include <sys/stat.h>
-
-// int main()
-// {
-// 	char *line;
-// 	int fd = open("multiple_nl.txt", O_RDONLY);
-// 	while ((line = get_next_line(fd)))
-// 	{
-// 		printf("%s\n", line);
-// 		free(line);
-// 	}
-// 	close(fd);
-// 	return (0);
-// }
