@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/21 20:39:58 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/03/04 14:11:23 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/03/20 08:50:21 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	moveright(t_data *data);
 int		correct_move(int x, int y, char **map);
 void	tile_check(int x, int y, t_data *data);
 void	finish_game(t_data *data);
-void	free_map(char **map);
+void	free_map(char ***map);
 void	clear_all(t_data *data, int code);
 
 #endif

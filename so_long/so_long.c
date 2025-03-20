@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/02 15:09:13 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/03/09 22:25:57 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/03/20 08:47:36 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int	checknl(char *map)
 	i = 0;
 	if (!map || !*map)
 		return (1);
-	if (map[0] == '\n' || map[ft_strlen(map) - 1] == '\n')
+	if (map[0] == '\n' || (map[ft_strlen(map) - 1] == '\n'
+			&& map[ft_strlen(map) - 2] == '\n'))
 		return (1);
 	while (map[i])
 	{
@@ -39,7 +40,7 @@ void	clear_all(t_data *data, int code)
 
 	i = 0;
 	close(data->fd);
-	free_map(data->map->map);
+	free_map(&data->map->map);
 	while (i < 5)
 	{
 		if (data->img[i].img && data->mlx_ptr)
@@ -62,22 +63,22 @@ void	clear_all(t_data *data, int code)
 	exit(code);
 }
 
-void	free_map(char **map)
+void	free_map(char ***map)
 {
 	char	**ptr;
 
-	ptr = map;
+	ptr = *map;
 	while (*ptr)
 	{
-		if (*ptr != NULL)
+		if (*ptr)
 		{
 			free(*ptr);
 			*ptr = NULL;
 		}
 		ptr++;
 	}
-	free(map);
-	map = NULL;
+	free(*map);
+	*map = NULL;
 }
 
 void	seekpos(struct s_datamap *map)
@@ -125,11 +126,11 @@ int	main(int argc, char **argv)
 	if (!raw_map)
 		return (close(data.fd), ft_putstr_fd("Malloc error T_T\n", 2), 1);
 	map.map = ft_split(raw_map, '\n');
-	if (!map.map)
+	if (map.map == NULL)
 		return (close(data.fd), free(raw_map), 1);
 	seekpos(&map);
 	if (checknl(raw_map) || !map_validator(&map))
-		return (close(data.fd), free(raw_map), free_map(map.map),
+		return (close(data.fd), free(raw_map), free_map(&map.map),
 			ft_putstr_fd("Incorrect map!\n", 2), 1);
 	return (free(raw_map), create_map(&map, &data), 0);
 }
