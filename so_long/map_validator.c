@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:11:05 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/03/09 22:24:15 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/03/20 08:47:55 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,16 @@ int	map_passability(struct s_datamap map)
 	map_copy = ft_calloc(sizeof(char *), i + 1);
 	if (!map_copy)
 		return (0);
-	while (i-- && map.map[i])
+	i = 0;
+	while (map.map[i])
 	{
 		map_copy[i] = ft_strdup(map.map[i]);
 		if (!map_copy[i])
-			return (free_map(map_copy), 0);
+			return (free_map(&map_copy), 0);
+		i++;
 	}
 	i = flood_fill(map_size, begin, map, map_copy);
-	return (free_map(map_copy), i);
+	return (free_map(&map_copy), i);
 }
 
 int	border_check(struct s_datamap *map)
