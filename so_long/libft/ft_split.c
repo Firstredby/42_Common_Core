@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/05 14:12:38 by ishchyro          #+#    #+#             */
-/*   Updated: 2024/12/21 07:17:07 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/03/17 08:26:48 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,15 @@ static int	counter(char const *s, char c)
 
 static void	eraser(char **list, int i)
 {
-	while (--i >= 0)
-		free(list[i]);
+	while (i >= 0)
+	{
+		if (*list + i)
+		{
+			free(list[i]);
+			list[i] = NULL;
+		}
+		i--;
+	}
 	free(list);
 }
 
