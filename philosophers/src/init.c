@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 02:56:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/04 21:21:44 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/11 03:37:38 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,18 @@ int	data_init(t_data *data)
 	pthread_mutex_init(&data->status, NULL);
 	pthread_mutex_init(&data->meal_check, NULL);
 	return (0);
+}
+
+void	philo_create(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->nop)
+	{
+		if (pthread_create(&data->philo[i].thread, NULL,
+				&philoop, &data->philo[i]))
+			(error_cases(MALLOC), philo_free(data->philo, i));
+		i++;
+	}
 }
