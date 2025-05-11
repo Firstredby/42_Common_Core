@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:23:15 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/11 03:33:21 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/11 03:57:55 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	main(int ac, char **av)
 
 	if (ac < 5 || ac > 6)
 		return (error_cases(WRONG_INPUT));
+	if (!is_negative(av))
+		return (error_cases(NN));
 	if (!arg_check(av, ac))
 		return (error_cases(NAN));
 	data.nop = ft_atoi(av[1]);
