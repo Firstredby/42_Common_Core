@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:18:06 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/04 22:35:10 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/11 03:37:42 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_data	t_data;
 typedef struct s_philo
 {
 	int					index;
-	int					eaten;
+	int					eaten;//how much times
 	pthread_t			thread;
 	size_t				lte; //last time eaten
 	pthread_mutex_t		fork;
@@ -58,10 +58,12 @@ typedef struct s_data
 }	t_data;
 
 //initialisation
-int	philo_init(t_data *data);
-int	data_init(t_data *data);
+int		philo_init(t_data *data);
+int		data_init(t_data *data);
+void	philo_create(t_data *data);
 //main processes
 void	*philoop(void *data);
+void	philo_action(t_philo *philo, int action);
 bool	is_dead(t_philo *philo);
 //utils
 size_t	curr_time(void);
@@ -70,7 +72,6 @@ bool	is_num(char *str);
 void	philo_free(t_philo *philo, size_t philos);
 bool	arg_check(char **params, int rounds);
 void	ft_usleep(t_philo *philo, size_t time);
-//error cases
-int	error_cases(int case_id);
+int		error_cases(int case_id);
 
 #endif
