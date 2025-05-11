@@ -2,7 +2,7 @@ NAME    = philo
 CC      = cc
 CFLAGS  = -Wall -Wextra -Werror -g3
 PTHREAD = -lpthread
-SRC     = src/philo.c src/philo_utils.c src/error_cases.c \
+SRC     = src/philo.c src/philo_utils.c src/philo_utils2.c \
 		  src/main_process.c src/init.c
 OBJ_DIR = obj
 OBJ     = $(SRC:src/%.c=$(OBJ_DIR)/%.o)

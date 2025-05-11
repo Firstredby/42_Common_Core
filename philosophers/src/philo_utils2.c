@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_cases.c                                      :+:      :+:    :+:   */
+/*   philo_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:55:37 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/04 20:23:05 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/11 03:28:58 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,25 @@ int	error_cases(int case_id)
 	else if (case_id == ZERO)
 		return (printf("Divide yourself by 0\n"), 22);
 	return (0);
+}
+
+void	ft_usleep(t_philo *philo, size_t time)
+{
+	size_t	start;
+	size_t	end;
+	int		i;
+
+	i = 0;
+	start = curr_time();
+	end = time;
+	while ((curr_time() - start) < end)
+	{
+		while (i < philo->data->nop)
+		{
+			if (is_dead(&philo->data->philo[i++]))
+				end = 0;
+		}
+		usleep(end / 1000);
+		i = 0;
+	}
 }
