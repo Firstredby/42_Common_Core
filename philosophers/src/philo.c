@@ -6,32 +6,27 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:23:15 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/06 17:51:50 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/11 03:33:21 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_usleep(t_philo *philo, size_t time)
+bool	is_dead(t_philo *philo)
 {
-	size_t	start;
-	size_t	end;
-	int		i;
+	size_t	time;
 
-	i = 0;
-	start = curr_time();
-	end = time;
-	while ((curr_time() - start) < end)
+	pthread_mutex_lock(&philo->data->status);
+	time = curr_time() - philo->lte;
+	if (philo->data->dead)
+		return (pthread_mutex_unlock(&philo->data->status), true);
+	else if (philo->lte && time > philo->data->ttd)
 	{
-		while (i < philo->data->nop)
-		{
-			if (is_dead(&philo->data->philo[i]))
-				end = 0;
-			i++;
-		}
-		usleep(end / 100);
-		i = 0;
+		philo->data->dead = 1;
+		return (pthread_mutex_unlock(&philo->data->status),
+				philo_action(philo, 5), true);
 	}
+	return (pthread_mutex_unlock(&philo->data->status), false);
 }
 
 bool	all_philos_eat(t_data *data)
@@ -57,16 +52,7 @@ void	philo_start(t_data *data)
 	data_init(data);
 	if (philo_init(data))
 		return ;
-	while (i < data->nop)
-	{
-		if (pthread_create(&data->philo[i].thread, NULL,
-				&philoop, &data->philo[i]))
-		{
-			error_cases(MALLOC);
-			philo_free(data->philo, i);
-		}
-		i++;
-	}
+	philo_create(data);
 	while (1)
 	{
 		usleep(500);
@@ -78,12 +64,11 @@ void	philo_start(t_data *data)
 		pthread_mutex_unlock(&data->status);
 	}
 	pthread_mutex_unlock(&data->status);
-	i = 0;
 	while (i < data->nop)
 		pthread_join(data->philo[i++].thread, NULL);
 }
 
-void	solo(void)
+void	solo(void) //need to rework
 {
 	printf("0 1 has taken a fork\n0 1 died\n");
 }
