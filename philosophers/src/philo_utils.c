@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 12:44:03 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/04 21:14:02 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/11 03:56:33 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,25 @@ bool	is_num(char *str)
 	int	i;
 
 	i = 0;
-	if (str[i] == '-')
-		error_cases(NN);
+	if (str[i] == '+' && *(str + 1))
+		i++;
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
 			return (false);
 		i++;
 	}
+	return (true);
+}
+
+bool	is_negative(char **params)
+{
+	int	i;
+
+	i = 0;
+	while (params[i])
+		if (params[i++][0] == '-')
+			return (false);	
 	return (true);
 }
 

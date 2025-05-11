@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:18:06 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/11 03:37:42 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/11 03:56:18 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ bool	is_dead(t_philo *philo);
 size_t	curr_time(void);
 int		ft_atoi(char *str);
 bool	is_num(char *str);
+bool	is_negative(char **params);
 void	philo_free(t_philo *philo, size_t philos);
 bool	arg_check(char **params, int rounds);
 void	ft_usleep(t_philo *philo, size_t time);
