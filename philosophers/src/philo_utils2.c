@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:55:37 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/11 03:28:58 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:22:08 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	error_cases(int case_id)
 				" [num_of_times_each_philos_must_eat]\n"
 				"This one should work, trust me\n"), 22);
 	else if (case_id == NAN)
-		return (printf("Ah, yes, just toss in some random characters and hope for the"
-				" best. Spoiler alert: it didn’t work. Try something that "
-				"actually makes sense\n"), 74);
+		return (printf("Ah, yes, just toss in some random characters and hope "
+				"for the best. Spoiler alert: it didn’t work. Try something "
+				"that actually makes sense\n"), 74);
 	else if (case_id == MALLOC)
 		return (printf("Your RAM is ass. Aborted\n"), 12);
 	else if (case_id == TIME)
@@ -53,4 +53,42 @@ void	ft_usleep(t_philo *philo, size_t time)
 		usleep(end / 1000);
 		i = 0;
 	}
+}
+
+void	philo_free(t_philo *philo, size_t philos)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (!philo)
+		return ;
+	while (i < philos)
+		pthread_mutex_destroy(&philo[i++].fork);
+	free(philo);
+}
+
+void	mutex_free(t_data *data)
+{
+	pthread_mutex_destroy(&data->action);
+	pthread_mutex_destroy(&data->print);
+	pthread_mutex_destroy(&data->status);
+	pthread_mutex_destroy(&data->meal_check);
+}
+
+int	all_ready(t_philo *philo)
+{
+	while (1)
+	{
+		pthread_mutex_lock(&philo->data->status);
+		if (philo->data->all_ready == 1)
+		{
+			pthread_mutex_unlock(&philo->data->status);
+			break ;
+		}
+		if (philo->data->all_ready == -1)
+			return (pthread_mutex_unlock(&philo->data->status), 1);
+		pthread_mutex_unlock(&philo->data->status);
+		usleep(1000);
+	}
+	return (0);
 }

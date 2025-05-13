@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:23:15 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/11 03:57:55 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:21:40 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	is_dead(t_philo *philo)
 	{
 		philo->data->dead = 1;
 		return (pthread_mutex_unlock(&philo->data->status),
-				philo_action(philo, 5), true);
+			philo_action(philo, 5), true);
 	}
 	return (pthread_mutex_unlock(&philo->data->status), false);
 }
@@ -49,10 +49,13 @@ void	philo_start(t_data *data)
 	int	i;
 
 	i = 0;
-	data_init(data);
-	if (philo_init(data))
+	if (data_init(data) || philo_init(data) || philo_create(data))
 		return ;
-	philo_create(data);
+	if (data->nop == 1)
+	{
+		(usleep(data->ttd * 1000), philo_action(&data->philo[0], 5));
+		return (philo_free(data->philo, data->nop), mutex_free(data));
+	}
 	while (1)
 	{
 		usleep(500);
@@ -66,11 +69,8 @@ void	philo_start(t_data *data)
 	pthread_mutex_unlock(&data->status);
 	while (i < data->nop)
 		pthread_join(data->philo[i++].thread, NULL);
-}
-
-void	solo(void) //need to rework
-{
-	printf("0 1 has taken a fork\n0 1 died\n");
+	philo_free(data->philo, data->nop);
+	mutex_free(data);
 }
 
 int	main(int ac, char **av)
@@ -84,8 +84,6 @@ int	main(int ac, char **av)
 	if (!arg_check(av, ac))
 		return (error_cases(NAN));
 	data.nop = ft_atoi(av[1]);
-	if (data.nop == 1)
-		return (solo(), 0);
 	data.ttd = ft_atoi(av[2]);
 	data.tte = ft_atoi(av[3]);
 	data.tts = ft_atoi(av[4]);
@@ -97,6 +95,5 @@ int	main(int ac, char **av)
 		|| data.tts == 0 || data.nte == 0)
 		return (error_cases(ZERO));
 	philo_start(&data);
-	philo_free(data.philo, data.nop);
 	return (0);
 }

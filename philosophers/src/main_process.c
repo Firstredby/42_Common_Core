@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:32:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/11 03:28:43 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:25:41 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,9 @@ void	philo_action(t_philo *philo, int action)
 	pthread_mutex_unlock(&philo->data->print);
 }
 
-
-
-void	philo_eat(t_philo *philo)
+void	take_fork(t_philo *philo)
 {
-	int np;
+	int	np;
 
 	np = (philo->index + 1) % philo->data->nop;
 	if (!(philo->index % 2))
@@ -55,14 +53,51 @@ void	philo_eat(t_philo *philo)
 			return ((void)pthread_mutex_unlock(&philo->fork));
 		pthread_mutex_lock(&philo->data->philo[np].fork);
 	}
+}
+
+void	philo_eat(t_philo *philo)
+{
+	int	np;
+
+	np = (philo->index + 1) % philo->data->nop;
+	take_fork(philo);
 	pthread_mutex_lock(&philo->data->status);
 	philo->lte = curr_time();
-	philo->eaten++;
 	pthread_mutex_unlock(&philo->data->status);
 	philo_action(philo, 2);
 	ft_usleep(philo, philo->data->tte);
+	pthread_mutex_lock(&philo->data->status);
+	philo->eaten++;
+	pthread_mutex_unlock(&philo->data->status);
 	pthread_mutex_unlock(&philo->data->philo[np].fork);
 	pthread_mutex_unlock(&philo->fork);
+}
+
+void	philo_think(t_philo *philo, int routine)
+{
+	if (routine == 1)
+	{
+		if ((philo->data->nop % 2) && philo->data->tte > philo->data->tts
+			&& philo->data->nop - 1 == philo->index)
+			(philo_action(philo, 4),
+				ft_usleep(philo, philo->data->tte + philo->data->tts));
+		else if ((philo->data->nop % 2) && philo->data->tte > philo->data->tts)
+			(philo_action(philo, 4),
+				ft_usleep(philo, philo->data->tte - philo->data->tts));
+		else if ((philo->data->nop % 2) && philo->data->tte < philo->data->tts)
+			(philo_action(philo, 4),
+				ft_usleep(philo, philo->data->ttd
+					- philo->data->tts - philo->data->tte - 1));
+		else
+			(philo_action(philo, 4), ft_usleep(philo, philo->data->tte));
+	}
+	else if (philo->eaten == 0 && philo->data->nop > 1)
+	{
+		if ((philo->index % 2))
+			(philo_action(philo, 4), ft_usleep(philo, philo->data->tte));
+		else if ((philo->data->nop % 2) && philo->data->nop - 1 == philo->index)
+			(philo_action(philo, 4), ft_usleep(philo, philo->data->tte * 2));
+	}
 }
 
 void	*philoop(void *d)
@@ -70,29 +105,22 @@ void	*philoop(void *d)
 	t_philo	*philo;
 
 	philo = (t_philo *)d;
-	if (philo->index % 2)
+	if (all_ready(philo))
+		return (NULL);
+	if ((philo->index % 2))
 		usleep(200);
 	while (!is_dead(philo))
 	{
-		if (philo->eaten == 0)
-		{
-			if (!(philo->index % 2))
-				(philo_action(philo, 4), ft_usleep(philo, philo->data->tte));
-			// else if ((philo->data->nop % 2) && philo->index == philo->data->nop - 1)
-			// 	(philo_action(philo, 4), ft_usleep(philo, philo->data->tte * 2));
-		}
+		philo_think(philo, 0);
 		if (philo->eaten != philo->data->nte)
 			philo_eat(philo);
 		else
-			(philo_action(philo, 4), ft_usleep(philo, philo->data->tte));
-		(philo_action(philo, 3), ft_usleep(philo, philo->data->tts));
-		if (is_dead(philo))
+			ft_usleep(philo, philo->data->tte * 10);
+		philo_action(philo, 3);
+		ft_usleep(philo, philo->data->tts);
+		if (all_philos_eat(philo->data))
 			break ;
-		if ((philo->data->nop % 2) && philo->data->tte > philo->data->tts
-			&& philo->data->nop - 1 == philo->index)
-			(philo_action(philo, 4), ft_usleep(philo, philo->data->tte + philo->data->tts));
-		else if ((philo->data->nop % 2) && philo->data->tte > philo->data->tts)
-				(philo_action(philo, 4), ft_usleep(philo, philo->data->tte - philo->data->tts));
+		philo_think(philo, 1);
 	}
 	return (NULL);
 }

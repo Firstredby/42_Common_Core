@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 12:44:03 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/11 03:56:33 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:19:08 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ bool	is_negative(char **params)
 	i = 0;
 	while (params[i])
 		if (params[i++][0] == '-')
-			return (false);	
+			return (false);
 	return (true);
 }
 
@@ -82,16 +82,4 @@ bool	arg_check(char **params, int rounds)
 		if (!is_num(params[i++]))
 			return (false);
 	return (true);
-}
-
-void	philo_free(t_philo *philo, size_t philos)
-{
-	unsigned int	i;
-
-	i = 0;
-	if (!philo)
-		return ;
-	while (i < philos)
-		pthread_mutex_destroy(&philo[i++].fork);
-	free(philo);
 }

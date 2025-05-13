@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:18:06 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/11 03:56:18 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:22:22 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_data
 	int				nop; //number of philos
 	int				dead;
 	int				nte; //ntimes each eaten
+	int				all_ready;
 	size_t			tts; //time to sleep
 	size_t			tte; //time to eat
 	size_t			ttd; //time to die
@@ -60,9 +61,10 @@ typedef struct s_data
 //initialisation
 int		philo_init(t_data *data);
 int		data_init(t_data *data);
-void	philo_create(t_data *data);
+int		philo_create(t_data *data);
 //main processes
 void	*philoop(void *data);
+bool	all_philos_eat(t_data *data);
 void	philo_action(t_philo *philo, int action);
 bool	is_dead(t_philo *philo);
 //utils
@@ -71,8 +73,10 @@ int		ft_atoi(char *str);
 bool	is_num(char *str);
 bool	is_negative(char **params);
 void	philo_free(t_philo *philo, size_t philos);
+void	mutex_free(t_data *data);
 bool	arg_check(char **params, int rounds);
 void	ft_usleep(t_philo *philo, size_t time);
+int		all_ready(t_philo *philo);
 int		error_cases(int case_id);
 
 #endif

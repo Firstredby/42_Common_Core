@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 02:56:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/11 03:37:38 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:18:05 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ int	philo_init(t_data *data)
 		philo[rounds].data = data;
 		philo[rounds].eaten = 0;
 		if (pthread_mutex_init(&philo[rounds].fork, NULL))
-			return (philo_free(philo, rounds), error_cases(MALLOC));
+			return (philo_free(data->philo, rounds),
+				mutex_free(data),
+				error_cases(MALLOC));
 		rounds++;
 	}
 	return (0);
@@ -40,14 +42,22 @@ int	data_init(t_data *data)
 {
 	data->begin = curr_time();
 	data->dead = 0;
-	pthread_mutex_init(&data->action, NULL);
-	pthread_mutex_init(&data->print, NULL);
-	pthread_mutex_init(&data->status, NULL);
-	pthread_mutex_init(&data->meal_check, NULL);
+	data->all_ready = 0;
+	if (pthread_mutex_init(&data->action, NULL))
+		return (1);
+	if (pthread_mutex_init(&data->print, NULL))
+		return (pthread_mutex_destroy(&data->action), 1);
+	if (pthread_mutex_init(&data->status, NULL))
+		return (pthread_mutex_destroy(&data->action),
+			pthread_mutex_destroy(&data->print), 1);
+	if (pthread_mutex_init(&data->meal_check, NULL))
+		return (pthread_mutex_destroy(&data->action),
+			pthread_mutex_destroy(&data->print),
+			pthread_mutex_destroy(&data->status), 1);
 	return (0);
 }
 
-void	philo_create(t_data *data)
+int	philo_create(t_data *data)
 {
 	int	i;
 
@@ -56,7 +66,21 @@ void	philo_create(t_data *data)
 	{
 		if (pthread_create(&data->philo[i].thread, NULL,
 				&philoop, &data->philo[i]))
-			(error_cases(MALLOC), philo_free(data->philo, i));
+		{
+			pthread_mutex_lock(&data->status);
+			data->all_ready = -1;
+			pthread_mutex_unlock(&data->status);
+			usleep(1000);
+			while (--i >= 0)
+				pthread_join(data->philo[i].thread, NULL);
+			philo_free(data->philo, data->nop);
+			mutex_free(data);
+			return (error_cases(MALLOC));
+		}
 		i++;
 	}
+	pthread_mutex_lock(&data->status);
+	data->all_ready = 1;
+	pthread_mutex_unlock(&data->status);
+	return (0);
 }
