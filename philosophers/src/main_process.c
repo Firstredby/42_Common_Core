@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:32:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/13 19:25:41 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/13 20:13:43 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,14 @@ void	*philoop(void *d)
 			philo_eat(philo);
 		else
 			ft_usleep(philo, philo->data->tte * 10);
-		philo_action(philo, 3);
-		ft_usleep(philo, philo->data->tts);
+		(philo_action(philo, 3), ft_usleep(philo, philo->data->tts));
+		pthread_mutex_lock(&philo->data->status);
 		if (all_philos_eat(philo->data))
+		{
+			pthread_mutex_unlock(&philo->data->status);
 			break ;
+		}
+		pthread_mutex_unlock(&philo->data->status);
 		philo_think(philo, 1);
 	}
 	return (NULL);
