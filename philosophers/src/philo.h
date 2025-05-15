@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:18:06 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/13 19:22:22 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/13 21:22:38 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int		ft_atoi(char *str);
 bool	is_num(char *str);
 bool	is_negative(char **params);
 void	philo_free(t_philo *philo, size_t philos);
+void	fail_free(t_philo *philo, size_t philos, size_t mutexes);
 void	mutex_free(t_data *data);
 bool	arg_check(char **params, int rounds);
 void	ft_usleep(t_philo *philo, size_t time);

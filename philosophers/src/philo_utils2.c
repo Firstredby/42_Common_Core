@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:55:37 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/13 19:22:08 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/13 21:26:10 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,28 @@ void	philo_free(t_philo *philo, size_t philos)
 	if (!philo)
 		return ;
 	while (i < philos)
+	{
+		pthread_join(philo[i].thread, NULL);
 		pthread_mutex_destroy(&philo[i++].fork);
+	}
+	free(philo);
+}
+
+void	fail_free(t_philo *philo, size_t philos, size_t mutexes)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (!philo)
+		return ;
+	while (i < philos || i < mutexes)
+	{
+		if (i < philos && philo[i].thread)
+			pthread_join(philo[i].thread, NULL);
+		if (i < mutexes)
+			pthread_mutex_destroy(&philo[i].fork);
+		i++;
+	}
 	free(philo);
 }
 
@@ -73,22 +94,4 @@ void	mutex_free(t_data *data)
 	pthread_mutex_destroy(&data->print);
 	pthread_mutex_destroy(&data->status);
 	pthread_mutex_destroy(&data->meal_check);
-}
-
-int	all_ready(t_philo *philo)
-{
-	while (1)
-	{
-		pthread_mutex_lock(&philo->data->status);
-		if (philo->data->all_ready == 1)
-		{
-			pthread_mutex_unlock(&philo->data->status);
-			break ;
-		}
-		if (philo->data->all_ready == -1)
-			return (pthread_mutex_unlock(&philo->data->status), 1);
-		pthread_mutex_unlock(&philo->data->status);
-		usleep(1000);
-	}
-	return (0);
 }

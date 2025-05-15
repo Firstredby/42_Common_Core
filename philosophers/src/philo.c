@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:23:15 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/13 19:21:40 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:37:13 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ bool	all_philos_eat(t_data *data)
 	return (i);
 }
 
+int	all_ready(t_philo *philo)
+{
+	while (1)
+	{
+		pthread_mutex_lock(&philo->data->status);
+		if (philo->data->all_ready == 1)
+		{
+			pthread_mutex_unlock(&philo->data->status);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->data->status);
+		usleep(500);
+	}
+	return (0);
+}
+
 void	philo_start(t_data *data)
 {
 	int	i;
@@ -53,7 +69,9 @@ void	philo_start(t_data *data)
 		return ;
 	if (data->nop == 1)
 	{
-		(usleep(data->ttd * 1000), philo_action(&data->philo[0], 5));
+		philo_action(&data->philo[0], 1);
+		usleep(data->ttd * 1000 + 100);
+		philo_action(&data->philo[0], 5);
 		return (philo_free(data->philo, data->nop), mutex_free(data));
 	}
 	while (1)
@@ -67,8 +85,6 @@ void	philo_start(t_data *data)
 		pthread_mutex_unlock(&data->status);
 	}
 	pthread_mutex_unlock(&data->status);
-	while (i < data->nop)
-		pthread_join(data->philo[i++].thread, NULL);
 	philo_free(data->philo, data->nop);
 	mutex_free(data);
 }
