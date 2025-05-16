@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 02:56:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/15 17:37:23 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:27:21 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	philo_create(t_data *data)
 			pthread_mutex_lock(&data->status);
 			data->all_ready = -1;
 			pthread_mutex_unlock(&data->status);
-			usleep(1000);
+			usleep(4000);
 			fail_free(data->philo, i, data->nop);
 			mutex_free(data);
 			return (error_cases(MALLOC));

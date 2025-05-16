@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:23:15 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/15 17:37:13 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:22:50 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ bool	all_philos_eat(t_data *data)
 
 int	all_ready(t_philo *philo)
 {
+	if (philo->data->nop == 1)
+		return (1);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->data->status);

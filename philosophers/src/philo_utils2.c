@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:55:37 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/13 21:26:10 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/16 17:33:37 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ void	philo_free(t_philo *philo, size_t philos)
 	if (!philo)
 		return ;
 	while (i < philos)
-	{
-		pthread_join(philo[i].thread, NULL);
+		pthread_join(philo[i++].thread, NULL);
+	i = 0;
+	usleep(10000);
+	while (i < philos)
 		pthread_mutex_destroy(&philo[i++].fork);
-	}
 	free(philo);
 }
 
