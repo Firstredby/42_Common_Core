@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:32:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/16 17:32:03 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:51:49 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	philo_think(t_philo *philo, int routine)
 {
 	if (routine == 1)
 	{
+		if (!(philo->data->nop % 2))
+			return ;
 		if ((philo->data->nop % 2) && philo->data->tte > philo->data->tts
 			&& philo->data->nop - 1 == philo->index)
 			(philo_action(philo, 4),
