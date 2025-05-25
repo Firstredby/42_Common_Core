@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:55:37 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/16 17:33:37 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:52:32 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void	fail_free(t_philo *philo, size_t philos, size_t mutexes)
 
 void	mutex_free(t_data *data)
 {
-	pthread_mutex_destroy(&data->action);
 	pthread_mutex_destroy(&data->print);
 	pthread_mutex_destroy(&data->status);
 	pthread_mutex_destroy(&data->meal_check);

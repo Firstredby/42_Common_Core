@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:18:06 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/13 21:22:38 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/05/25 19:52:37 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_data
 	size_t			ttd; //time to die
 	size_t			begin;
 	pthread_mutex_t	status;
-	pthread_mutex_t	action;
 	pthread_mutex_t	meal_check;
 	pthread_mutex_t	print;
 	t_philo			*philo;
