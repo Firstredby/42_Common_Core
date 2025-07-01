@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:32:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/25 19:51:49 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/01 19:51:51 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,10 @@ void	philo_eat(t_philo *philo)
 	take_fork(philo);
 	if (is_dead(philo))
 		return ;
+	philo_action(philo, 2);
+	usleep(philo->data->tte * 1000);
 	pthread_mutex_lock(&philo->data->status);
 	philo->lte = curr_time();
-	pthread_mutex_unlock(&philo->data->status);
-	philo_action(philo, 2);
-	ft_usleep(philo, philo->data->tte);
-	pthread_mutex_lock(&philo->data->status);
 	philo->eaten++;
 	pthread_mutex_unlock(&philo->data->status);
 	pthread_mutex_unlock(&philo->data->philo[np].fork);
