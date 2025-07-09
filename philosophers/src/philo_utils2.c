@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:55:37 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/25 19:52:32 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:39:23 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	error_cases(int case_id)
 				"for the best. Spoiler alert: it didn’t work. Try something "
 				"that actually makes sense\n"), 74);
 	else if (case_id == MALLOC)
-		return (printf("Your RAM is ass. Aborted\n"), 12);
+		return (printf("Oops! Seems like your potato can not handle such a "
+				"simple case like this one\n"), 12);
 	else if (case_id == TIME)
 		return (printf("WTF!? What time do you live in actually?\n"), 5);
 	else if (case_id == NN)
@@ -38,20 +39,14 @@ void	ft_usleep(t_philo *philo, size_t time)
 {
 	size_t	start;
 	size_t	end;
-	int		i;
 
-	i = 0;
 	start = curr_time();
 	end = time;
 	while ((curr_time() - start) < end)
 	{
-		while (i < philo->data->nop)
-		{
-			if (is_dead(&philo->data->philo[i++]))
-				end = 0;
-		}
+		if (is_dead(philo))
+			break ;
 		usleep(end / 1000);
-		i = 0;
 	}
 }
 
@@ -62,10 +57,11 @@ void	philo_free(t_philo *philo, size_t philos)
 	i = 0;
 	if (!philo)
 		return ;
+	while ((int)philo->data->finish < philo->data->nop)
+		usleep(500);
 	while (i < philos)
 		pthread_join(philo[i++].thread, NULL);
 	i = 0;
-	usleep(10000);
 	while (i < philos)
 		pthread_mutex_destroy(&philo[i++].fork);
 	free(philo);

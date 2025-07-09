@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 02:56:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/25 19:52:19 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:24:17 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	data_init(t_data *data)
 	data->begin = curr_time();
 	data->dead = 0;
 	data->all_ready = 0;
+	data->finish = 0;
 	if (pthread_mutex_init(&data->print, NULL))
 		return (error_cases(MALLOC));
 	if (pthread_mutex_init(&data->status, NULL))

@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:23:15 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/16 17:22:50 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:28:21 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void	philo_start(t_data *data)
 	}
 	while (1)
 	{
-		usleep(500);
 		pthread_mutex_lock(&data->status);
 		if (data->dead)
 			break ;
 		else if (all_philos_eat(data))
 			data->dead = 1;
 		pthread_mutex_unlock(&data->status);
+		usleep(1000);
 	}
 	pthread_mutex_unlock(&data->status);
 	philo_free(data->philo, data->nop);
@@ -97,16 +97,14 @@ int	main(int ac, char **av)
 
 	if (ac < 5 || ac > 6)
 		return (error_cases(WRONG_INPUT));
-	if (!is_negative(av))
-		return (error_cases(NN));
-	if (!arg_check(av, ac))
+	if (!value_validation(av))
 		return (error_cases(NAN));
-	data.nop = ft_atoi(av[1]);
-	data.ttd = ft_atoi(av[2]);
-	data.tte = ft_atoi(av[3]);
-	data.tts = ft_atoi(av[4]);
+	data.nop = ft_philo_atol(av[1]);
+	data.ttd = ft_philo_atol(av[2]);
+	data.tte = ft_philo_atol(av[3]);
+	data.tts = ft_philo_atol(av[4]);
 	if (av[5])
-		data.nte = ft_atoi(av[5]);
+		data.nte = ft_philo_atol(av[5]);
 	else
 		data.nte = -1;
 	if (data.nop == 0 || data.ttd == 0 || data.tte == 0

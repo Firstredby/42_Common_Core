@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:18:06 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/05/25 19:52:37 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:24:04 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_data
 	size_t			tte; //time to eat
 	size_t			ttd; //time to die
 	size_t			begin;
+	size_t			finish;
 	pthread_mutex_t	status;
 	pthread_mutex_t	meal_check;
 	pthread_mutex_t	print;
@@ -68,13 +69,12 @@ void	philo_action(t_philo *philo, int action);
 bool	is_dead(t_philo *philo);
 //utils
 size_t	curr_time(void);
-int		ft_atoi(char *str);
 bool	is_num(char *str);
-bool	is_negative(char **params);
 void	philo_free(t_philo *philo, size_t philos);
+long	ft_philo_atol(char *str);
 void	fail_free(t_philo *philo, size_t philos, size_t mutexes);
 void	mutex_free(t_data *data);
-bool	arg_check(char **params, int rounds);
+bool	value_validation(char **params);
 void	ft_usleep(t_philo *philo, size_t time);
 int		all_ready(t_philo *philo);
 int		error_cases(int case_id);
