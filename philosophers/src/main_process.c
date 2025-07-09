@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:32:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/07/09 15:03:21 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:09:57 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	philo_think(t_philo *philo, int routine)
 				- philo->data->tts >= 10)
 				(philo_action(philo, 4),
 					ft_usleep(philo, philo->data->ttd - philo->data->tte
-							- philo->data->tts - 10));
+						- philo->data->tts - 10));
 			else
 				return ;
 		}
