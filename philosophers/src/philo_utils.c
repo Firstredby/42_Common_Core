@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 12:44:03 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/07/06 14:47:17 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:47:56 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,24 @@ bool	value_validation(char **params)
 			return (false);
 	}
 	return (true);
+}
+
+void	philo_action(t_philo *philo, int action)
+{
+	size_t		action_time;
+	static int	flag = 1;
+
+	pthread_mutex_lock(&philo->data->print);
+	action_time = curr_time() - philo->data->begin;
+	if (action == 1 && flag)
+		printf("%zu %i has taken a fork\n", action_time, philo->index + 1);
+	else if (action == 2 && flag)
+		printf("%zu %i is eating\n", action_time, philo->index + 1);
+	else if (action == 3 && flag)
+		printf("%zu %i is sleeping\n", action_time, philo->index + 1);
+	else if (action == 4 && flag)
+		printf("%zu %i is thinking\n", action_time, philo->index + 1);
+	else if (action == 5 && flag)
+		(printf("%zu %i died\n", action_time, philo->index + 1), flag = 0);
+	pthread_mutex_unlock(&philo->data->print);
 }

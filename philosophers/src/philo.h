@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:18:06 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/07/09 14:24:04 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:49:40 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ int		philo_init(t_data *data);
 int		data_init(t_data *data);
 int		philo_create(t_data *data);
 //main processes
-void	*philoop(void *data);
+void	*routine(void *data);
 bool	all_philos_eat(t_data *data);
 void	philo_action(t_philo *philo, int action);
 bool	is_dead(t_philo *philo);
+void	philo_action(t_philo *philo, int action);
 //utils
 size_t	curr_time(void);
 bool	is_num(char *str);

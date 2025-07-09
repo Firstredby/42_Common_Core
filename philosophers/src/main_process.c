@@ -6,31 +6,11 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:32:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/07/09 14:39:08 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:03:21 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	philo_action(t_philo *philo, int action)
-{
-	size_t		action_time;
-	static int	flag = 1;
-
-	pthread_mutex_lock(&philo->data->print);
-	action_time = curr_time() - philo->data->begin;
-	if (action == 1 && flag)
-		printf("%zu %i has taken a fork\n", action_time, philo->index + 1);
-	else if (action == 2 && flag)
-		printf("%zu %i is eating\n", action_time, philo->index + 1);
-	else if (action == 3 && flag)
-		printf("%zu %i is sleeping\n", action_time, philo->index + 1);
-	else if (action == 4 && flag)
-		printf("%zu %i is thinking\n", action_time, philo->index + 1);
-	else if (action == 5 && flag)
-		(printf("%zu %i died\n", action_time, philo->index + 1), flag = 0);
-	pthread_mutex_unlock(&philo->data->print);
-}
 
 int	take_fork(t_philo *philo)
 {
@@ -82,18 +62,17 @@ void	philo_think(t_philo *philo, int routine)
 		if (!(philo->data->nop % 2))
 		{
 			if (philo->data->ttd - philo->data->tte
-			- philo->data->tts > 10)
-		(philo_action(philo, 4),
-			ft_usleep(philo, philo->data->ttd - philo->data->tte
-					- philo->data->tts - 10));
-		else
-			return ;
+				- philo->data->tts >= 10)
+				(philo_action(philo, 4),
+					ft_usleep(philo, philo->data->ttd - philo->data->tte
+							- philo->data->tts - 10));
+			else
+				return ;
 		}
 		else if ((philo->data->nop % 2) && philo->data->tte > philo->data->tts)
-			(philo_action(philo, 4),
-				ft_usleep(philo, philo->data->tte - philo->data->tts));
-		else if ((philo->data->nop % 2) && philo->data->tte < philo->data->tts)
-			(philo_action(philo, 4), ft_usleep(philo, philo->data->tts - philo->data->tte));
+			(philo_action(philo, 4), ft_usleep(philo, philo->data->tte));
+		else if ((philo->data->nop % 2) && philo->data->tte <= philo->data->tts)
+			(philo_action(philo, 4), ft_usleep(philo, philo->data->tts));
 	}
 	else if (philo->eaten == 0 && philo->data->nop > 1)
 	{
@@ -104,15 +83,8 @@ void	philo_think(t_philo *philo, int routine)
 	}
 }
 
-void	*philoop(void *d)
+void	philoop(t_philo *philo)
 {
-	t_philo	*philo;
-
-	philo = (t_philo *)d;
-	if (all_ready(philo))
-		return (NULL);
-	if ((philo->index % 2))
-		usleep(200);
 	while (!is_dead(philo))
 	{
 		philo_think(philo, 0);
@@ -130,8 +102,23 @@ void	*philoop(void *d)
 		pthread_mutex_unlock(&philo->data->status);
 		philo_think(philo, 1);
 	}
-	pthread_mutex_lock(&philo->data->status);
-	philo->data->finish++;
-	pthread_mutex_unlock(&philo->data->status);
+}
+
+void	*routine(void *d)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)d;
+	if (all_ready(philo))
+		return (philo->data->finish++, NULL);
+	else
+	{
+		if ((philo->index % 2))
+			usleep(200);
+		philoop(philo);
+		pthread_mutex_lock(&philo->data->status);
+		philo->data->finish++;
+		pthread_mutex_unlock(&philo->data->status);
+	}
 	return (NULL);
 }

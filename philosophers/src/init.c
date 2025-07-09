@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 02:56:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/07/09 14:24:17 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/09 14:49:33 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	philo_create(t_data *data)
 	{
 		data->philo[i].thread = 0;
 		if (pthread_create(&data->philo[i].thread, NULL,
-				&philoop, &data->philo[i]))
+				&routine, &data->philo[i]))
 		{
 			pthread_mutex_lock(&data->status);
 			data->all_ready = -1;
