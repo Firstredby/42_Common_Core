@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:32:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/07/23 18:38:50 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/29 20:22:10 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,11 @@ void	*routine(void *d)
 
 	philo = (t_philo *)d;
 	if (all_ready(philo))
-		return (philo->data->finish++, NULL);
+	{
+		pthread_mutex_lock(&philo->data->inout);
+		philo->data->finish++;
+		pthread_mutex_unlock(&philo->data->inout);
+	}
 	else
 	{
 		if ((philo->index % 2))
