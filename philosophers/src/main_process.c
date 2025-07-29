@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/19 17:32:25 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/07/09 15:09:57 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:38:50 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,13 @@ void	philo_eat(t_philo *philo)
 
 void	philo_think(t_philo *philo, int routine)
 {
+	int	thinking_time;
+
+	thinking_time = philo->data->ttd - philo->data->tte - philo->data->tts - 1;
+	if (thinking_time <= 0)
+		thinking_time = 0;
 	if (routine == 1)
-	{
-		if (!(philo->data->nop % 2))
-		{
-			if (philo->data->ttd - philo->data->tte
-				- philo->data->tts >= 10)
-				(philo_action(philo, 4),
-					ft_usleep(philo, philo->data->ttd - philo->data->tte
-						- philo->data->tts - 10));
-			else
-				return ;
-		}
-		else if ((philo->data->nop % 2) && philo->data->tte > philo->data->tts)
-			(philo_action(philo, 4), ft_usleep(philo, philo->data->tte));
-		else if ((philo->data->nop % 2) && philo->data->tte <= philo->data->tts)
-			(philo_action(philo, 4), ft_usleep(philo, philo->data->tts));
-	}
+		(philo_action(philo, 4), ft_usleep(philo, thinking_time));
 	else if (philo->eaten == 0 && philo->data->nop > 1)
 	{
 		if ((philo->index % 2))
@@ -116,9 +106,9 @@ void	*routine(void *d)
 		if ((philo->index % 2))
 			usleep(200);
 		philoop(philo);
-		pthread_mutex_lock(&philo->data->status);
+		pthread_mutex_lock(&philo->data->inout);
 		philo->data->finish++;
-		pthread_mutex_unlock(&philo->data->status);
+		pthread_mutex_unlock(&philo->data->inout);
 	}
 	return (NULL);
 }
