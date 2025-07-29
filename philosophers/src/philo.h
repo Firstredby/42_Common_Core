@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:18:06 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/07/09 14:49:40 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:22:38 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_data
 	size_t			begin;
 	size_t			finish;
 	pthread_mutex_t	status;
+	pthread_mutex_t	inout;
 	pthread_mutex_t	meal_check;
 	pthread_mutex_t	print;
 	t_philo			*philo;

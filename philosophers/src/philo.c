@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:23:15 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/07/09 14:28:21 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/23 18:49:01 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ bool	is_dead(t_philo *philo)
 	size_t	time;
 
 	pthread_mutex_lock(&philo->data->status);
-	time = curr_time() - philo->lte;
 	if (philo->data->dead)
 		return (pthread_mutex_unlock(&philo->data->status), true);
-	else if (philo->lte && time > philo->data->ttd)
+	time = curr_time() - philo->lte;
+	if (philo->lte && time > philo->data->ttd)
 	{
 		philo->data->dead = 1;
 		return (pthread_mutex_unlock(&philo->data->status),
@@ -50,13 +50,15 @@ int	all_ready(t_philo *philo)
 		return (1);
 	while (1)
 	{
-		pthread_mutex_lock(&philo->data->status);
+		pthread_mutex_lock(&philo->data->inout);
 		if (philo->data->all_ready == 1)
 		{
-			pthread_mutex_unlock(&philo->data->status);
+			pthread_mutex_unlock(&philo->data->inout);
 			break ;
 		}
-		pthread_mutex_unlock(&philo->data->status);
+		if (philo->data->all_ready == -1)
+			return (pthread_mutex_unlock(&philo->data->inout), 1);
+		pthread_mutex_unlock(&philo->data->inout);
 		usleep(500);
 	}
 	return (0);

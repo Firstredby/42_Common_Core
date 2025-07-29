@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/03 02:56:43 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/07/09 14:49:33 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/29 19:01:14 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ int	data_init(t_data *data)
 		return (pthread_mutex_destroy(&data->print),
 			pthread_mutex_destroy(&data->status),
 			error_cases(MALLOC));
+	if (pthread_mutex_init(&data->inout, NULL))
+		return (pthread_mutex_destroy(&data->print),
+			pthread_mutex_destroy(&data->status),
+			pthread_mutex_destroy(&data->meal_check),
+			error_cases(MALLOC));
 	return (0);
 }
 
@@ -68,9 +73,9 @@ int	philo_create(t_data *data)
 		if (pthread_create(&data->philo[i].thread, NULL,
 				&routine, &data->philo[i]))
 		{
-			pthread_mutex_lock(&data->status);
+			pthread_mutex_lock(&data->inout);
 			data->all_ready = -1;
-			pthread_mutex_unlock(&data->status);
+			pthread_mutex_unlock(&data->inout);
 			usleep(4000);
 			fail_free(data->philo, i, data->nop);
 			mutex_free(data);
@@ -78,8 +83,8 @@ int	philo_create(t_data *data)
 		}
 		i++;
 	}
-	pthread_mutex_lock(&data->status);
+	pthread_mutex_lock(&data->inout);
 	data->all_ready = 1;
-	pthread_mutex_unlock(&data->status);
+	pthread_mutex_unlock(&data->inout);
 	return (0);
 }
