@@ -6,7 +6,7 @@
 /*   By: ishchyro <ishchyro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 14:55:37 by ishchyro          #+#    #+#             */
-/*   Updated: 2025/07/23 18:35:42 by ishchyro         ###   ########.fr       */
+/*   Updated: 2025/07/29 20:22:32 by ishchyro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,5 @@ void	mutex_free(t_data *data)
 	pthread_mutex_destroy(&data->print);
 	pthread_mutex_destroy(&data->status);
 	pthread_mutex_destroy(&data->meal_check);
+	pthread_mutex_destroy(&data->inout);
 }
