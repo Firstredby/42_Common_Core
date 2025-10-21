@@ -1,22 +1,16 @@
-#include <iostream>
-#include <cstring>
+#include "Contact.hpp"
 
-class Contact
-{
-	public:
-		int	index;
-		std::string first_name;
-		std::string last_name;
-		std::string nickname;
-		std::string phone_number;
-		std::string darkest_secret;
-};
+#define cout std::cout
 
-class PhoneBook : Contact
+class PhoneBook
 {
 	private:
 		Contact contact[8];
 	public:
-		void	createcontact();
+		void	createcontact(int i);
+		void	showcontacts();
 		void	searchcontact();
+		void	replacecontact();
 };
+
+std::string Centered(const std::string& text, size_t tableWidth);
