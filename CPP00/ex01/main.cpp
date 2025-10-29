@@ -1,33 +1,22 @@
 #include "PhoneBook.hpp"
 
-void	title(int i)
+void	title()
 {
-	cout << "      ____  __                     __                __  " << std::endl
-			  << "     / __ \\/ /_  ____  ____  ___  / /_  ____  ____  / /__" << std::endl
-			  << "    / /_/ / __ \\/ __ \\/ __ \\/ _ \\/ __ \\/ __ \\/ __ \\/ //_/" << std::endl
-			  << "   / ____/ / / / /_/ / / / /  __/ /_/ / /_/ / /_/ / ,<   " << std::endl
-			  << "  /_/   /_/ /_/\\____/_/ /_/\\___/_.___/\\____/\\____/_/|_|  " << std::endl;
-	cout << "        ┌───────┬──────────┬──────────┬──────────┐" << std::endl
-			  << "        │ index │first name│last name │ nickname │" << std::endl;
-	if (!i)
-		cout << "        └───────┴──────────┴──────────┴──────────┘" << std::endl;
-	else
-		cout << "        ├───────┼──────────┼──────────┼──────────┤" << std::endl;
+	cout << "      ____  __                     __                __  " << endl
+		 << "     / __ \\/ /_  ____  ____  ___  / /_  ____  ____  / /__" << endl
+		 << "    / /_/ / __ \\/ __ \\/ __ \\/ _ \\/ __ \\/ __ \\/ __ \\/ //_/" << endl
+		 << "   / ____/ / / / /_/ / / / /  __/ /_/ / /_/ / /_/ / ,<   " << endl
+		 << "  /_/   /_/ /_/\\____/_/ /_/\\___/_.___/\\____/\\____/_/|_|  " << endl;
 }
 
-std::string Centered(const std::string& text, size_t tableWidth) {
-    if (text.length() > tableWidth) {
-        if (tableWidth > 3) {
-            return text.substr(0, tableWidth - 3) + "...";
-        } else {
-            return std::string(tableWidth, '.');
-        }
-    } else {
-        size_t totalPadding = tableWidth - text.length();
-        size_t paddingLeft = totalPadding / 2;
-        size_t paddingRight = totalPadding - paddingLeft;
-        return std::string(paddingLeft, ' ') + text + std::string(paddingRight, ' ');
-    }
+void grid(int i)
+{
+	cout << "        ┌───────┬──────────┬──────────┬──────────┐" << endl
+		 << "        │ index │first name│last name │ nickname │" << endl;
+	if (!i)
+		cout << "        └───────┴──────────┴──────────┴──────────┘" << endl;
+	else
+		cout << "        ├───────┼──────────┼──────────┼──────────┤" << endl;
 }
 
 int main()
@@ -36,37 +25,33 @@ int main()
 	(void)phonebook;
 	std::string input;
 	int order = 0;
-	int	exit = 0;
-	title(0);
-	while (!exit)
+	title();
+	while (1)
 	{
-		while (1) //std::cin
+		if (!std::cin)
 		{
-			cout << "Enter the command please (ADD/SEARCH/EXIT): ";
-			std::cin >> input;
-			std::cin.ignore();
-			if (input.compare("ADD") == 0) //check phone number for spaces
-			{ //when last name starts with space is invalid smh
-				if (order > 7)
-					phonebook.replacecontact();
-				phonebook.createcontact(order);
-				title(1);
-				phonebook.showcontacts();
-				order++;
-				break;
-			}
-			else if (input.compare("SEARCH") == 0)
-			{
-				phonebook.searchcontact();
-				break;
-			}
-			else if (input.compare("EXIT") == 0)
-			{
-				exit = 1;
-				break;
-			}
-			else
-				continue;
+			cout << "Unexpected EOL. Process terminated" << endl;
+			std::exit(1);
 		}
+		cout << "Enter the command please (ADD/SEARCH/EXIT): ";
+		std::cin >> input;
+		std::cin.ignore();
+		if (input.compare("ADD") == 0)
+		{
+			if (order > 7)
+				phonebook.replacecontact();
+			phonebook.createcontact(order);
+			order++;
+		}
+		else if (input.compare("SEARCH") == 0)
+		{
+			grid(order);
+			phonebook.showcontacts();
+			phonebook.searchcontact();
+		}
+		else if (input.compare("EXIT") == 0)
+			std::exit(0);
+		else
+			continue;
 	}
 }
