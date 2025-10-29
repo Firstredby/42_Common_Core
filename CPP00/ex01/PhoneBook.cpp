@@ -8,6 +8,14 @@ int	stringdigit(std::string str)
 	return 1;
 }
 
+bool strprintable(std::string str)
+{
+	for (int i = 0; str[i]; i++)
+		if ((unsigned char)str[i] > 126 || (unsigned char)str[i] < 33)
+			return 1;
+	return 0;
+}
+
 std::string	trim(std::string raw)
 {
 	int left = 0;
@@ -30,12 +38,13 @@ std::string	filldata(std::string str)
 	{
 		cout << str;
 		getline(std::cin, output);
+		if (!std::cin)
+			return "";
 		output = trim(output);
 		if (output.empty())
-		{
-			cout << "Your input should be not empty" << std::endl;
-			continue ; 
-		}
+			cout << "Your input should be not empty" << endl;
+		else if (strprintable(output))
+			cout << "Invalid input" << endl;
 		else
 			break ;
 	}
@@ -49,23 +58,25 @@ void	PhoneBook::createcontact(int i)
 		i = 7;
 	contact[i].setId(i + 1);
 	contact[i].setFN(filldata("Enter first name: "));
+	if (!std::cin)
+			return;
 	contact[i].setLN(filldata("Enter last name: "));
+	if (!std::cin)
+			return;
 	contact[i].setNN(filldata("Enter nickname: "));
+	if (!std::cin)
+			return;
 	while (1)
 	{
 		cout << "Enter phone number: ";
 		getline(std::cin, input);
+		if (!std::cin)
+			return;
 		input = trim(input);
 		if (input.empty())
-		{
-			cout << "Your input should be not empty" << std::endl;
-			continue;
-		}
+			cout << "Your input should be not empty" << endl;
 		else if(!stringdigit(input))
-		{
-			cout << "Phone number should contain only digits" << std::endl;
-			continue;
-		}
+			cout << "Phone number should contain only digits" << endl;
 		else
 		{
 			contact[i].setPN(input);
@@ -73,6 +84,8 @@ void	PhoneBook::createcontact(int i)
 		}
 	}
 	contact[i].setDS(filldata("Enter darkest secret: "));
+	if (!std::cin)
+			return;
 }
 
 void	PhoneBook::replacecontact()
@@ -90,20 +103,21 @@ void	PhoneBook::replacecontact()
 void	PhoneBook::showcontacts()
 {
 	int k = 0;
-	for (int i = 7; i >= 0; i--)
+	for (int i = 0; i < 7; i++)
 	{
 		if (contact[i].getFN().empty())
-			continue ;
+			break ;
 		else
 		{
-			cout << "        │   "<< i - (i - k) + 1 << "   │"
-				<< Centered(contact[i].getFN(), 10) << "│"
-				<< Centered(contact[i].getLN(), 10) << "│"
-				<< Centered(contact[i].getNN(), 10) << "│" << std::endl;
-			if (i && !contact[i - 1].getFN().empty())
-				cout << "        ├───────┼──────────┼──────────┼──────────┤" << std::endl;
+			cout << "\t│" << align(7) <<  i + 1 << "│";
+			cout << align(10) << cut(contact[i].getFN());
+			cout << "│" << align(10) << cut(contact[i].getLN());
+			cout << "│" << align(10) << cut(contact[i].getNN());
+			cout << "│" << endl;
+			if (!contact[i + 1].getFN().empty())
+				cout << "\t├───────┼──────────┼──────────┼──────────┤" << endl;
 			else
-				cout << "        └───────┴──────────┴──────────┴──────────┘" << std::endl;
+				cout << "\t└───────┴──────────┴──────────┴──────────┘" << endl;
 			k++;
 		}
 	}
@@ -112,21 +126,23 @@ void	PhoneBook::showcontacts()
 void	PhoneBook::searchcontact()
 {
 	int index;
-	cout << "Please write ID of contact you want to choose" << std::endl;
+	cout << "Please write ID of contact you want to choose" << endl;
 	std::cin >> index;
+	if (!std::cin)
+		return ;
 	if (std::isdigit(index))
 	{
-		cout << "Your request should contain only digits" << std::endl;
+		cout << "Your request should contain only digits" << endl;
 		return ;
 	}
 	else if (index <= 0 || index >= 8)
 	{
-		cout << "Invalid index, please choose contact from 1 to 8 inclusive" << std::endl;
+		cout << "Invalid index, please choose contact from 1 to 8 inclusive" << endl;
 		return ;
 	}
-	cout << "First name :\t\t" << contact[index - 1].getFN() << std::endl;
-	cout << "Last name :\t\t" << contact[index - 1].getLN() << std::endl;
-	cout << "Nickname :\t\t" << contact[index - 1].getNN() << std::endl;
-	cout << "Phone number :\t\t" << contact[index - 1].getPN() << std::endl;
-	cout << "Darkest secret :\t" << contact[index - 1].getDS() << std::endl;
+	cout << "First name :\t\t" << contact[index - 1].getFN() << endl;
+	cout << "Last name :\t\t" << contact[index - 1].getLN() << endl;
+	cout << "Nickname :\t\t" << contact[index - 1].getNN() << endl;
+	cout << "Phone number :\t\t" << contact[index - 1].getPN() << endl;
+	cout << "Darkest secret :\t" << contact[index - 1].getDS() << endl;
 }
