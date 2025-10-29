@@ -1,6 +1,11 @@
 #include "Contact.hpp"
+#include <iomanip>
+#include <cstdlib>
 
 #define cout std::cout
+#define endl std::endl
+#define align(len) std::setfill(' ') << std::setw(len)
+#define cut(str) ((str.size() <= 10) ? str : str.substr(0, 9) + ".")
 
 class PhoneBook
 {
@@ -12,5 +17,3 @@ class PhoneBook
 		void	searchcontact();
 		void	replacecontact();
 };
-
-std::string Centered(const std::string& text, size_t tableWidth);
