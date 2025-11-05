@@ -1,6 +1,7 @@
 #include "Contact.hpp"
 #include <iomanip>
 #include <cstdlib>
+#include <sstream>
 
 #define cout std::cout
 #define endl std::endl

@@ -103,7 +103,7 @@ void	PhoneBook::replacecontact()
 void	PhoneBook::showcontacts()
 {
 	int k = 0;
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 8; i++)
 	{
 		if (contact[i].getFN().empty())
 			break ;
@@ -114,7 +114,7 @@ void	PhoneBook::showcontacts()
 			cout << "│" << align(10) << cut(contact[i].getLN());
 			cout << "│" << align(10) << cut(contact[i].getNN());
 			cout << "│" << endl;
-			if (!contact[i + 1].getFN().empty())
+			if (i + 1 != 8 && contact[i + 1].getFN() != "")
 				cout << "\t├───────┼──────────┼──────────┼──────────┤" << endl;
 			else
 				cout << "\t└───────┴──────────┴──────────┴──────────┘" << endl;
@@ -125,24 +125,32 @@ void	PhoneBook::showcontacts()
 
 void	PhoneBook::searchcontact()
 {
-	int index;
+	std::string index;
+	int val;
 	cout << "Please write ID of contact you want to choose" << endl;
-	std::cin >> index;
+	getline(std::cin, index);
+	std::stringstream ss(index);
+	ss >> val;
 	if (!std::cin)
 		return ;
-	if (std::isdigit(index))
+	if (ss.fail())
 	{
 		cout << "Your request should contain only digits" << endl;
 		return ;
 	}
-	else if (index <= 0 || index >= 8)
+	else if (val <= 0 || val > 8)
 	{
 		cout << "Invalid index, please choose contact from 1 to 8 inclusive" << endl;
 		return ;
 	}
-	cout << "First name :\t\t" << contact[index - 1].getFN() << endl;
-	cout << "Last name :\t\t" << contact[index - 1].getLN() << endl;
-	cout << "Nickname :\t\t" << contact[index - 1].getNN() << endl;
-	cout << "Phone number :\t\t" << contact[index - 1].getPN() << endl;
-	cout << "Darkest secret :\t" << contact[index - 1].getDS() << endl;
+	if (contact[val - 1].getFN() == "")
+	{
+		cout << "Contact is empty!" << endl;
+		return ;
+	}
+	cout << "First name :\t\t" << contact[val - 1].getFN() << endl;
+	cout << "Last name :\t\t" << contact[val - 1].getLN() << endl;
+	cout << "Nickname :\t\t" << contact[val - 1].getNN() << endl;
+	cout << "Phone number :\t\t" << contact[val - 1].getPN() << endl;
+	cout << "Darkest secret :\t" << contact[val - 1].getDS() << endl;
 }
