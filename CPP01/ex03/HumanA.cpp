@@ -1,16 +1,8 @@
 #include "HumanA.hpp"
 
-HumanA::HumanA()
+HumanA::HumanA(std::string name, Weapon& weapon) : name(name), weapon(weapon)
 {
-	Weapon rock;
-	this->name = "Caveman";
-	this->weapon = rock;
-}
-
-HumanA::HumanA(std::string name, Weapon& weapon)
-{
-	this->name = name;
-	this->weapon = weapon;
+	cout << this->name << " appeared!" << endl;
 }
 
 HumanA::~HumanA()
