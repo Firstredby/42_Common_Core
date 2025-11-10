@@ -24,7 +24,7 @@ std::string	trim(std::string raw)
 		return raw;
 	for (int i = 0; (raw[i] <= 32 || raw[i] == 127) && raw[i] != 0; i++)
 		left++;
-	for (int k = raw.size() - 1; (raw[k] <= 32 || raw[k] == 127) && k != 0; k--)
+	for (int k = raw.size(); (raw[k] <= 32 || raw[k] == 127) && k != 0; k--)
 		right++;
 	if (!left && !right)
 		return raw;
