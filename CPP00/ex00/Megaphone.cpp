@@ -8,7 +8,7 @@ int main(int ac, char **av)
 	{
 		for (int i = 1; av[i]; i++)
 			for (int j = 0; av[i][j]; j++)
-				if (av[i][j] > 127)
+				if ((unsigned char)av[i][j] > 127)
 				{
 					std::cout << "Why tf you use unicode man?" << std::endl;
 					return 1;
