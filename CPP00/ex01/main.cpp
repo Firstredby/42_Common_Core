@@ -34,8 +34,7 @@ int main()
 			std::exit(1);
 		}
 		cout << "Enter the command please (ADD/SEARCH/EXIT): ";
-		std::cin >> input;
-		std::cin.ignore();
+		getline(std::cin, input);
 		if (input.compare("ADD") == 0)
 		{
 			if (order > 7)

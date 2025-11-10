@@ -22,9 +22,9 @@ std::string	trim(std::string raw)
 	int right = 0;
 	if (raw.empty())
 		return raw;
-	for (int i = 0; raw[i] <= 32 || raw[i] == 127; i++)
+	for (int i = 0; (raw[i] <= 32 || raw[i] == 127) && raw[i] != 0; i++)
 		left++;
-	for (int k = raw.size() - 1; raw[k] <= 32 || raw[k] == 127; k--)
+	for (int k = raw.size() - 1; (raw[k] <= 32 || raw[k] == 127) && raw[k] != 0; k--)
 		right++;
 	if (!left && !right)
 		return raw;
