@@ -1,7 +1,9 @@
 NAME = ZombieHorde
 SRC = Zombie.cpp main.cpp ZombieHorde.cpp
 OBJ = $(SRC:.cpp=.o)
-FLAGS = -std=c++98 -Wall -Werror -Wextra
+DEP = $(OBJ:.o=.d)
+FLAGS = -std=c++98 -Wall -Werror -Wextra -MMD
+-include $(DEP)
 all : $(NAME)
 
 $(NAME) : $(OBJ)
@@ -11,7 +13,7 @@ $(NAME) : $(OBJ)
 	c++ $(FLAGS) -c $< -o $@
 
 clean :
-	rm -rf $(OBJ)
+	rm -rf $(OBJ) $(DEP)
 
 fclean : clean
 	rm -rf $(NAME)

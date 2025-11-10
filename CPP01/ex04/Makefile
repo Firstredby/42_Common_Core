@@ -1,6 +1,7 @@
 NAME = SadSed
 SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
+DEP = $(OBJ:.o=.d)
 FLAGS = -std=c++98 -Wall -Werror -Wextra
 all : $(NAME)
 

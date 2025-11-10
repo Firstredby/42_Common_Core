@@ -1,9 +1,8 @@
-NAME = PhoneBook
-SRC = PhoneBook.cpp Contact.cpp main.cpp
+NAME = Harl2.0
+SRC = main.cpp Harl.cpp
 OBJ = $(SRC:.cpp=.o)
 DEP = $(OBJ:.o=.d)
 FLAGS = -std=c++98 -Wall -Werror -Wextra -MMD
-
 all : $(NAME)
 
 $(NAME) : $(OBJ)
