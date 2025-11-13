@@ -11,12 +11,12 @@ void	title()
 
 void grid(int i)
 {
-	cout << "        ┌───────┬──────────┬──────────┬──────────┐" << endl
-		 << "        │ index │first name│last name │ nickname │" << endl;
+	cout << "        ┌──────────┬──────────┬──────────┬──────────┐" << endl
+		 << "        │   index  │first name│last name │ nickname │" << endl;
 	if (!i)
-		cout << "        └───────┴──────────┴──────────┴──────────┘" << endl;
+		cout << "        └──────────┴──────────┴──────────┴──────────┘" << endl;
 	else
-		cout << "        ├───────┼──────────┼──────────┼──────────┤" << endl;
+		cout << "        ├──────────┼──────────┼──────────┼──────────┤" << endl;
 }
 
 int main()
@@ -28,6 +28,7 @@ int main()
 	title();
 	while (1)
 	{
+		
 		if (!std::cin)
 		{
 			cout << "Unexpected EOL. Process terminated" << endl;

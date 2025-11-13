@@ -18,17 +18,19 @@ bool strprintable(std::string str)
 
 std::string	trim(std::string raw)
 {
-	int left = 0;
-	int right = 0;
+
+	std::string newstr;
 	if (raw.empty())
 		return raw;
-	for (int i = 0; (raw[i] <= 32 || raw[i] == 127) && raw[i] != 0; i++)
-		left++;
-	for (int k = raw.size(); (raw[k] <= 32 || raw[k] == 127) && k != 0; k--)
-		right++;
-	if (!left && !right)
-		return raw;
-	return raw.substr(left, right - left + 1);
+	for (int i = 0; raw[i]; i++)
+	{
+		if (!std::isspace(raw[i]))
+			newstr += raw[i];
+		else if (std::isspace(raw[i]) && !std::isspace(raw[i + 1])
+				&& !newstr.empty() && raw[i + 1] != '\0')
+			newstr += ' ';
+	}
+	return newstr;
 }
 
 std::string	filldata(std::string str)
@@ -43,8 +45,8 @@ std::string	filldata(std::string str)
 		output = trim(output);
 		if (output.empty())
 			cout << "Your input should be not empty" << endl;
-		else if (strprintable(output))
-			cout << "Invalid input" << endl;
+		else if (str.size() > 50)
+			cout << "Input is too big";
 		else
 			break ;
 	}
@@ -77,6 +79,8 @@ void	PhoneBook::createcontact(int i)
 			cout << "Your input should be not empty" << endl;
 		else if(!stringdigit(input))
 			cout << "Phone number should contain only digits" << endl;
+		else if (input.size() > 50)
+			cout << "Input is too big";
 		else
 		{
 			contact[i].setPN(input);
@@ -109,15 +113,15 @@ void	PhoneBook::showcontacts()
 			break ;
 		else
 		{
-			cout << "\t│" << align(7) <<  i + 1 << "│";
+			cout << "\t│" << align(10) <<  i + 1 << "│";
 			cout << align(10) << cut(contact[i].getFN());
 			cout << "│" << align(10) << cut(contact[i].getLN());
 			cout << "│" << align(10) << cut(contact[i].getNN());
 			cout << "│" << endl;
 			if (i + 1 != 8 && contact[i + 1].getFN() != "")
-				cout << "\t├───────┼──────────┼──────────┼──────────┤" << endl;
+				cout << "\t├──────────┼──────────┼──────────┼──────────┤" << endl;
 			else
-				cout << "\t└───────┴──────────┴──────────┴──────────┘" << endl;
+				cout << "\t└──────────┴──────────┴──────────┴──────────┘" << endl;
 			k++;
 		}
 	}
