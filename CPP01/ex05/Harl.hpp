@@ -19,14 +19,17 @@ enum	elevel
 class Harl
 {
 	private:
-		void	debug(void);
-		void	info(void);
-		void	warning(void);
-		void	error(void);
+		void	Debug(void);
+		void	Info(void);
+		void	Warning(void);
+		void	Error(void);
 	public:
 		Harl();
 		~Harl();
 		void	complain(std::string level);
+		void	Undefined(void);
 };
+
+typedef void	(Harl::*func)(void);
 
 #endif
