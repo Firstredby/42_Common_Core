@@ -1,4 +1,4 @@
-NAME = Harl2.0
+NAME = Harl
 SRC = main.cpp Harl.cpp
 OBJ = $(SRC:.cpp=.o)
 DEP = $(OBJ:.o=.d)
