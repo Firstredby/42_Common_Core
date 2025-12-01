@@ -11,21 +11,22 @@ int	main(int ac, char** av)
 	std::string dest = av[2];
 	std::string src = av[3];
 	std::ifstream oldFile(filename.data());
-	int pos;
+	size_t pos;
 
-	while (getline(oldFile, checkstr))
+	while (std::getline(oldFile, checkstr))
 	{
 		pos = checkstr.find(dest);
-		while (pos >= 0)
+		while (pos != std::string::npos)
 		{
 			checkstr.erase(pos, dest.size());
 			checkstr.insert(pos, src);
-			pos = checkstr.find(dest);
+			pos = checkstr.find(dest, pos + src.size());
 		}
-		finalstring.append(checkstr);
+		finalstring.append(checkstr + "\n");
 	}
 	if (finalstring.empty())
 		return 0;
+	finalstring.erase(finalstring.size() - 1);
 	filename.append(".replace");
 	std::ofstream newFile(filename.data());
 	newFile << finalstring;
