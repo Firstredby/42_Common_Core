@@ -1,0 +1,62 @@
+#include "ScavTrap.hpp"
+
+ScavTrap::ScavTrap() : ClapTrap("Rob")
+{
+	ClapTrap::health = 100;
+	ClapTrap::energy = 50;
+	ClapTrap::damage = 20;
+	cout << ClapTrap::name << ": Behold, puny mortals! ScavTrap bursts onto the scene, "
+		 << "loud, dramatic, and absolutely convinced you've been "
+		 << "waiting for this moment!" << endl;
+}
+
+ScavTrap::ScavTrap(const std::string name) : ClapTrap(name)
+{
+	ClapTrap::health = 100;
+	ClapTrap::energy = 50;
+	ClapTrap::damage = 20;
+	cout << name << ": Behold, puny mortals! ScavTrap bursts onto the scene, "
+		 << "loud, dramatic, and absolutely convinced you've been "
+		 << "waiting for this moment!" << endl;
+}
+
+ScavTrap& ScavTrap::operator=(const ScavTrap& obj)
+{
+	ClapTrap::health = obj.health;
+	ClapTrap::damage = obj.damage;
+	ClapTrap::energy = obj.energy;
+	return *this;
+}
+
+ScavTrap::~ScavTrap()
+{
+	cout << name << ": ScavTrap, master of dramatic exits, vanishes now. Try "
+		 << "not to sob uncontrollably in my absence" << endl;
+}
+
+void	ScavTrap::beRepaired(unsigned int amount)
+{
+	if (this->energy > 0 && this->health < 100 && this->health > 0)
+	{
+		cout << "ClapTrap " << this->name << " repairing itself for "
+			 << amount << " points!" << endl;
+		this->energy--;
+	}
+	else if (this->energy > 0 && this->health >= 100)
+		cout << this->name << ": Great news! I tried to repair myself, but it turns "
+			 << "out I'm already at maximum fabulousness! Uh, I mean HP." << endl
+			 << "Any more healing and I might explode from perfection… "
+			 << "and not the cool kind!" << endl;
+	else if (this->energy == 0 && this->health > 0)
+		cout << this->name << ": Oh absolutely, I'd love to repair myself, just let me grab some "
+			 << "energy from the giant reserve of NOTHING I currently have." << endl;
+	else
+		cout << this->name << ": HEY! I was doing a perfectly convincing I'm-totally-dead performance "
+				"here, and you RUINED IT!\nI can't repair myself — I HAVE NO HP, so let me suffer "
+			 << "dramatically in peace!" << endl;
+}
+
+void	ScavTrap::guardGate()
+{
+	cout << this->name << " is guarding" << endl;
+}
