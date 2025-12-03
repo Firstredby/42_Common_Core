@@ -14,13 +14,25 @@ Fixed::Fixed(const Fixed& obj)
 
 Fixed::Fixed(const int i)
 {
-	// cout << "Int constructor called" << endl;
-	this->i = i << this->ci;
+	if (i > (INT32_MAX >> this->ci) || i < (INT32_MIN >> this->ci))
+	{
+		std::cerr << "value overflow" << endl;
+		this->i = 0;
+	}
+	else
+		this->i = i << this->ci;
 }
 
 Fixed::Fixed(const float f)
 {
-	// cout << "Float constructor called" << endl;
+	static const float maxVal = (float)INT32_MAX / (1 << ci);
+    static const float minVal = (float)INT32_MIN / (1 << ci);
+	if (f > maxVal || f < minVal)
+	{
+		std::cerr << "value overflow" << endl;
+		this->i = 0;
+	}
+	else
 	this->i = roundf(f * (1 << this->ci));
 }
 
@@ -41,7 +53,6 @@ float	Fixed::toFloat(void) const
 
 int		Fixed::getRawBits(void) const
 {
-	// cout << "getRawBits member function called" << endl;
 	return this->i;
 }
 
@@ -52,9 +63,16 @@ void	Fixed::setRawBits(int const raw)
 
 Fixed& Fixed::operator=(const Fixed& obj)
 {
-	// cout << "Copy assignment constructor called" << endl;
-	if (this != &obj)
-		this->setRawBits(obj.getRawBits());
+	if (i > (INT32_MAX >> 0) || i < (INT32_MIN >> 0))
+	{
+		std::cerr << "value overflow" << endl;
+		this->setRawBits(0);
+	}
+	else
+	{
+		if (this != &obj)
+			this->setRawBits(obj.getRawBits());
+	}
 	return *this;
 }
 
@@ -85,27 +103,41 @@ bool	Fixed::operator>(const Fixed& val) const
 
 bool	Fixed::operator<(const Fixed& val) const
 {
-	return (this->getRawBits() >= val.getRawBits());
+	return (this->getRawBits() < val.getRawBits());
 }
 
-float	Fixed::operator+(const Fixed& val)
+Fixed	Fixed::operator+(const Fixed& val) const
 {
-	return (this->toFloat() + val.toFloat());
+	Fixed res;
+	res.setRawBits(this->i + val.i);
+	return (res);
 }
 
-float	Fixed::operator-(const Fixed& val)
+Fixed	Fixed::operator-(const Fixed& val) const
 {
-	return (this->toFloat() - val.toFloat());
+	Fixed res;
+	res.setRawBits(this->i - val.i);
+	return (res);
 }
 
-float	Fixed::operator*(const Fixed& val)
+Fixed	Fixed::operator*(const Fixed& val) const
 {
-	return (this->toFloat() * val.toFloat());
+	Fixed res;
+	res.setRawBits(this->i * val.i);
+	return (res);
 }
 
-float	Fixed::operator/(const Fixed& val)
+Fixed	Fixed::operator/(const Fixed& val) const
 {
-	return (this->toFloat() / val.toFloat());
+	Fixed res;
+	if (val.i == 0)
+	{
+		std::cerr << "Can't divide by zero" << endl;
+		res.setRawBits(val.i);
+		return (res);
+	}
+	res.setRawBits(this->i / val.i);
+	return (res);
 }
 
 Fixed&	Fixed::operator++()
@@ -136,19 +168,19 @@ Fixed	Fixed::operator--(int)
 
 const Fixed&	Fixed::max(const Fixed& val1, const Fixed& val2)
 {
-	return (val1 > val2 ? val1 : val2);
+	return (val1 >= val2 ? val1 : val2);
 }
 const Fixed&	Fixed::min(const Fixed& val1, const Fixed& val2)
 {
-	return (val1 < val2 ? val1 : val2);
+	return (val1 <= val2 ? val1 : val2);
 }
 Fixed&	Fixed::max(Fixed& val1, Fixed& val2)
 {
-	return (val1 > val2 ? val1 : val2);
+	return (val1 >= val2 ? val1 : val2);
 }
 Fixed&	Fixed::min(Fixed& val1, Fixed& val2)
 {
-	return (val1 < val2 ? val1 : val2);
+	return (val1 <= val2 ? val1 : val2);
 }
 
 std::ostream& operator<<(std::ostream& os, const Fixed& obj)

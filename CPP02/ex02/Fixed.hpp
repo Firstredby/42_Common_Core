@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <stdint.h>
 
 #define cout std::cout
 #define endl std::endl
@@ -26,10 +27,10 @@ class Fixed {
 		bool	operator>(const Fixed&) const ;
 		bool	operator<(const Fixed&) const ;
 
-		float	operator+(const Fixed&);
-		float	operator-(const Fixed&);
-		float	operator*(const Fixed&);
-		float	operator/(const Fixed&);
+		Fixed	operator+(const Fixed&) const;
+		Fixed	operator-(const Fixed&) const;
+		Fixed	operator*(const Fixed&) const;
+		Fixed	operator/(const Fixed&) const;
 
 		Fixed&	operator++();
 		Fixed&	operator--();
