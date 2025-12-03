@@ -1,6 +1,6 @@
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap() : ClapTrap("FragChop")
+FragTrap::FragTrap() : ClapTrap("ChopTrap")
 {
 	ClapTrap::health = 100;
 	ClapTrap::damage = 30;
@@ -40,11 +40,30 @@ void	FragTrap::highFivesGuys(void)
 		 << "leave a bot hanging!" << endl;
 }
 
+void	FragTrap::attack(const std::string& target)
+{
+	if (this->energy > 0 && this->health > 0)
+	{
+		cout << "FragTrap " << this->name << " attacks "
+			 << target << ", causing " << damage
+			 << " points of damage!" << endl;
+		this->energy--;
+	}
+	else if (this->energy <= 0 && this->health > 0)
+		cout << this->name << ": Oh sure, I'd love to attack that guy. Really, I would."
+			 << " But I currently have the energy level of a dead toaster." << endl;
+	else
+		cout << this->name << ": I CAN'T ATTACK, OKAY?! I'm dead! Super-dead! Dramatically, "
+			 << "heroically, award-winningly dead.\nSo stop poking me unless "
+			 << "you want a ghostly guilt trip!" << endl;
+	return ;
+}
+
 void	FragTrap::beRepaired(unsigned int amount)
 {
 	if (this->energy > 0 && this->health < 100 && this->health > 0)
 	{
-		cout << "ClapTrap " << this->name << " repairing itself for "
+		cout << "FragTrap " << this->name << " repairing itself for "
 			 << amount << " points!" << endl;
 		this->energy--;
 	}

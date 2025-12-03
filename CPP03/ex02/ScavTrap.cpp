@@ -22,7 +22,6 @@ ScavTrap::ScavTrap(const std::string name) : ClapTrap(name)
 
 ScavTrap& ScavTrap::operator=(const ScavTrap& obj)
 {
-	cout << "ScavTrap copy assigment operator called!" << endl;
 	ClapTrap::health = obj.health;
 	ClapTrap::damage = obj.damage;
 	ClapTrap::energy = obj.energy;
@@ -35,11 +34,30 @@ ScavTrap::~ScavTrap()
 		 << "not to sob uncontrollably in my absence" << endl;
 }
 
+void	ScavTrap::attack(const std::string& target)
+{
+	if (this->energy > 0 && this->health > 0)
+	{
+		cout << "ScavTrap " << this->name << " attacks "
+			 << target << ", causing " << damage
+			 << " points of damage!" << endl;
+		this->energy--;
+	}
+	else if (this->energy <= 0 && this->health > 0)
+		cout << this->name << ": Oh sure, I'd love to attack that guy. Really, I would."
+			 << " But I currently have the energy level of a dead toaster." << endl;
+	else
+		cout << this->name << ": I CAN'T ATTACK, OKAY?! I'm dead! Super-dead! Dramatically, "
+			 << "heroically, award-winningly dead.\nSo stop poking me unless "
+			 << "you want a ghostly guilt trip!" << endl;
+	return ;
+}
+
 void	ScavTrap::beRepaired(unsigned int amount)
 {
 	if (this->energy > 0 && this->health < 100 && this->health > 0)
 	{
-		cout << "ClapTrap " << this->name << " repairing itself for "
+		cout << "ScavTrap " << this->name << " repairing itself for "
 			 << amount << " points!" << endl;
 		this->energy--;
 	}

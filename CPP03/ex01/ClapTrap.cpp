@@ -45,6 +45,7 @@ void	ClapTrap::attack(const std::string& target)
 			 << "you want a ghostly guilt trip!" << endl;
 	return ;
 }
+
 void	ClapTrap::takeDamage(unsigned int amount)
 {
 	if (this->health > 0)
