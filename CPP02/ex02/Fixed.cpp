@@ -64,10 +64,7 @@ void	Fixed::setRawBits(int const raw)
 Fixed& Fixed::operator=(const Fixed& obj)
 {
 	if (i > (INT32_MAX >> 0) || i < (INT32_MIN >> 0))
-	{
 		std::cerr << "value overflow" << endl;
-		this->setRawBits(0);
-	}
 	else
 	{
 		if (this != &obj)
@@ -108,36 +105,27 @@ bool	Fixed::operator<(const Fixed& val) const
 
 Fixed	Fixed::operator+(const Fixed& val) const
 {
-	Fixed res;
-	res.setRawBits(this->i + val.i);
-	return (res);
+	return (this->toFloat() + val.toFloat());
 }
 
 Fixed	Fixed::operator-(const Fixed& val) const
 {
-	Fixed res;
-	res.setRawBits(this->i - val.i);
-	return (res);
+	return (this->toFloat() - val.toFloat());
 }
 
 Fixed	Fixed::operator*(const Fixed& val) const
 {
-	Fixed res;
-	res.setRawBits(this->i * val.i);
-	return (res);
+	return (this->toFloat() * val.toFloat());
 }
 
 Fixed	Fixed::operator/(const Fixed& val) const
 {
-	Fixed res;
 	if (val.i == 0)
 	{
 		std::cerr << "Can't divide by zero" << endl;
-		res.setRawBits(val.i);
-		return (res);
+		return (0);
 	}
-	res.setRawBits(this->i / val.i);
-	return (res);
+	return (this->toFloat() / val.toFloat());
 }
 
 Fixed&	Fixed::operator++()
