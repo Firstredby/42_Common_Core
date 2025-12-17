@@ -46,7 +46,9 @@ void	ClapTrap::attack(const std::string& target)
 }
 void	ClapTrap::takeDamage(unsigned int amount)
 {
-	if (this->health > 0)
+	if ((int)amount < 0 || amount > 2147483647)
+		cout << this->name << ": i've got HOW MUCH DAMAGE? No, no, no, i don't play like this!\n";
+	else if (this->health > 0)
 	{
 		this->health -= amount;
 		if (this->health > 0)
@@ -62,6 +64,8 @@ void	ClapTrap::takeDamage(unsigned int amount)
 }
 void	ClapTrap::beRepaired(unsigned int amount)
 {
+	if ((int)amount < 0 || amount > 2147483647)
+		cout << this->name << ": Where did you get this numbers?\n";
 	if (this->energy > 0 && this->health < 10 && this->health > 0)
 	{
 		cout << "ClapTrap " << this->name << " repairing itself for "

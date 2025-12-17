@@ -55,7 +55,9 @@ void	ScavTrap::attack(const std::string& target)
 
 void	ScavTrap::beRepaired(unsigned int amount)
 {
-	if (this->energy > 0 && this->health < 100 && this->health > 0)
+	if ((int)amount < 0 || amount > 2147483647)
+		cout << this->name << ": i've got HOW MUCH DAMAGE? No, no, no, i don't play like this!\n";
+	else if (this->energy > 0 && this->health < 100 && this->health > 0)
 	{
 		cout << "ScavTrap " << this->name << " repairing itself for "
 			 << amount << " points!" << endl;

@@ -55,6 +55,8 @@ void	ScavTrap::attack(const std::string& target)
 
 void	ScavTrap::beRepaired(unsigned int amount)
 {
+	if ((int)amount < 0 || amount > 2147483647)
+		cout << this->name << ": Where did you get this numbers?\n";
 	if (this->energy > 0 && this->health < 100 && this->health > 0)
 	{
 		cout << "ScavTrap " << this->name << " repairing itself for "

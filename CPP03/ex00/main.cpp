@@ -13,7 +13,7 @@ int main()
 	b.attack("ClapBob");
 
 	cout << "\n=== Taking damage ===" << endl;
-	b.takeDamage(3);
+	b.takeDamage(-3);
 	b.takeDamage(8);
 
 	cout << "\n=== Repair test (normal) ===" << endl;
