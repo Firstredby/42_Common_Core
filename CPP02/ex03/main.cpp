@@ -5,9 +5,9 @@ static void printResult(const std::string& test, bool result, bool expected)
 {
 	cout << test << ": ";
 	if (result == expected)
-		cout << "PASS";
+		cout << "\x1B[32mPASS\033[0m";
 	else
-		cout << "FAIL";
+		cout << "\x1B[31mFAIL\033[0m";
 	cout << endl;
 }
 
