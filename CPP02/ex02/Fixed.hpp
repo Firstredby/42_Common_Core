@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <cmath>
-#include <stdint.h>
 
 #define cout std::cout
 #define endl std::endl

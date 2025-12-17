@@ -17,15 +17,6 @@ void test_constructors() {
     Fixed d(b);                  // Copy constructor
     cout << "Copy of b: " << d << "\n";
 
-    // overflow check
-    Fixed big1(INT32_MAX);
-    cout << "INT32_MAX: " << big1 << "\n";
-
-    Fixed big2(INT32_MIN);
-    cout << "INT32_MIN: " << big2 << "\n";
-
-    Fixed f1(999999999999.0f);   // float overflow
-    cout << "Huge float: " << f1 << "\n";
 }
 
 void test_assignment_operator() {

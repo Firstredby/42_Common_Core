@@ -14,25 +14,11 @@ Fixed::Fixed(const Fixed& obj)
 
 Fixed::Fixed(const int i)
 {
-	if (i > (INT32_MAX >> this->ci) || i < (INT32_MIN >> this->ci))
-	{
-		std::cerr << "value overflow" << endl;
-		this->i = 0;
-	}
-	else
-		this->i = i << this->ci;
+	this->i = i << this->ci;
 }
 
 Fixed::Fixed(const float f)
 {
-	static const float maxVal = (float)INT32_MAX / (1 << ci);
-    static const float minVal = (float)INT32_MIN / (1 << ci);
-	if (f > maxVal || f < minVal)
-	{
-		std::cerr << "value overflow" << endl;
-		this->i = 0;
-	}
-	else
 	this->i = roundf(f * (1 << this->ci));
 }
 
@@ -63,13 +49,9 @@ void	Fixed::setRawBits(int const raw)
 
 Fixed& Fixed::operator=(const Fixed& obj)
 {
-	if (i > (INT32_MAX >> 0) || i < (INT32_MIN >> 0))
-		std::cerr << "value overflow" << endl;
-	else
-	{
-		if (this != &obj)
-			this->setRawBits(obj.getRawBits());
-	}
+
+	if (this != &obj)
+		this->setRawBits(obj.getRawBits());
 	return *this;
 }
 
