@@ -2,29 +2,38 @@
 
 ScavTrap::ScavTrap() : ClapTrap("ScavRob")
 {
-	ClapTrap::health = 100;
-	ClapTrap::energy = 50;
-	ClapTrap::damage = 20;
-	cout << ClapTrap::name << ": Behold, puny mortals! ScavTrap bursts onto the scene, "
+	this->health = 100;
+	this->energy = 50;
+	this->damage = 20;
+	cout << this->name << ": Behold, puny mortals! ScavTrap bursts onto the scene, "
 		 << "loud, dramatic, and absolutely convinced you've been "
 		 << "waiting for this moment!" << endl;
 }
 
-ScavTrap::ScavTrap(const std::string name) : ClapTrap(name)
+ScavTrap::ScavTrap(const std::string& name) : ClapTrap(name)
 {
-	ClapTrap::health = 100;
-	ClapTrap::energy = 50;
-	ClapTrap::damage = 20;
+	this->health = 100;
+	this->energy = 50;
+	this->damage = 20;
 	cout << name << ": Behold, puny mortals! ScavTrap bursts onto the scene, "
 		 << "loud, dramatic, and absolutely convinced you've been "
 		 << "waiting for this moment!" << endl;
 }
 
+ScavTrap::ScavTrap(const ScavTrap& obj) : ClapTrap(obj)
+{
+	cout << "ScavTrap copy constructor called!" << endl;
+}
+
 ScavTrap& ScavTrap::operator=(const ScavTrap& obj)
 {
-	ClapTrap::health = obj.health;
-	ClapTrap::damage = obj.damage;
-	ClapTrap::energy = obj.energy;
+	cout << "ScavTrap copy assignment constructor called!" << endl;
+	if (this != &obj)
+	{
+		cout << this->name << ": Wait, what? I don't wanna cha.." << endl;
+		ClapTrap::operator=(obj);
+		cout  << this->name << ": Hello little fellas!" << endl;
+	}
 	return *this;
 }
 
@@ -55,12 +64,11 @@ void	ScavTrap::attack(const std::string& target)
 
 void	ScavTrap::beRepaired(unsigned int amount)
 {
-	if ((int)amount < 0 || amount > 2147483647)
-		cout << this->name << ": Where did you get this numbers?\n";
 	if (this->energy > 0 && this->health < 100 && this->health > 0)
 	{
 		cout << "ScavTrap " << this->name << " repairing itself for "
 			 << amount << " points!" << endl;
+		this->health += amount;
 		this->energy--;
 	}
 	else if (this->energy > 0 && this->health >= 100)

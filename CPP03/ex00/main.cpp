@@ -39,10 +39,14 @@ int main()
 	c.attack("anybody");
 	c.beRepaired(5);
 
-	cout << "\n=== Assignment operator ===" << endl;
-	ClapTrap d("CopyDest");
-	d = a;
+	cout << "\n=== Copy operator ===" << endl;
+	ClapTrap d(a);
 	d.attack("Someone");
+
+	cout << "\n=== Copy assignment operator ===" << endl;
+	ClapTrap f("CopyAssDest");
+	f = a;
+	f.attack("Someone");
 
 	cout << "\n\n========== [ HEAP ALLOCATION TESTS ] ==========\n";
 	cout << "\n-- Single object --\n";

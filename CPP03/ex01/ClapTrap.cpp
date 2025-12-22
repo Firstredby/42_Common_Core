@@ -6,18 +6,30 @@ ClapTrap::ClapTrap() : name("ClapBob"), health(10), energy(10), damage(0)
 		 << " uninvited, just the way you love it!" << endl;
 }
 
-ClapTrap::ClapTrap(const std::string name) : name(name), health(10), energy(10), damage(0)
+ClapTrap::ClapTrap(const std::string& name) : name(name), health(10), energy(10), damage(0)
 {
 	cout << this->name << ": Behold, meatbags! CL4P-TP has arrived, dramatically and"
 		 << " uninvited, just the way you love it!" << endl;
 }
 
+ClapTrap::ClapTrap(const ClapTrap& obj)
+		: name(obj.name), health(obj.health), energy(obj.energy), damage(obj.damage)
+{
+	cout << "ClapTrap copy constructor called!" << endl;
+}
+
 ClapTrap& ClapTrap::operator=(const ClapTrap& obj)
 {
-	cout << "Copy assigment operator called!" << endl;
-	this->health = obj.health;
-	this->damage = obj.damage;
-	this->energy = obj.energy;
+	cout << "ClapTrap copy assignment constructor called!" << endl;
+	if (this != &obj)
+	{
+		cout << this->name << ": Wait, what? I don't wanna cha.." << endl;
+		this->name = obj.name;
+		this->health = obj.health;
+		this->damage = obj.damage;
+		this->energy = obj.energy;
+		cout  << this->name << ": Hello little fellas!" << endl;
+	}
 	return *this;
 }
 
@@ -45,12 +57,9 @@ void	ClapTrap::attack(const std::string& target)
 			 << "you want a ghostly guilt trip!" << endl;
 	return ;
 }
-
 void	ClapTrap::takeDamage(unsigned int amount)
 {
-	if ((int)amount < 0 || amount > 2147483647)
-		cout << this->name << ": i've got HOW MUCH DAMAGE? No, no, no, i don't play like this!\n";
-	else if (this->health > 0)
+	if (this->health > 0)
 	{
 		this->health -= amount;
 		if (this->health > 0)
@@ -66,12 +75,11 @@ void	ClapTrap::takeDamage(unsigned int amount)
 }
 void	ClapTrap::beRepaired(unsigned int amount)
 {
-	if ((int)amount < 0 || amount > 2147483647)
-		cout << this->name << ": Where did you get this numbers?\n";
-	else if (this->energy > 0 && this->health < 10 && this->health > 0)
+	if (this->energy > 0 && this->health < 10 && this->health > 0)
 	{
 		cout << "ClapTrap " << this->name << " repairing itself for "
 			 << amount << " points!" << endl;
+		this->health += amount;
 		this->energy--;
 	}
 	else if (this->energy > 0 && this->health >= 10)

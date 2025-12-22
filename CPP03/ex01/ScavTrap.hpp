@@ -1,10 +1,13 @@
+#pragma once
+
 #include "ClapTrap.hpp"
 
 class ScavTrap : public ClapTrap
 {
 	public:
 		ScavTrap();
-		ScavTrap(std::string);
+		ScavTrap(const std::string&);
+		ScavTrap(const ScavTrap&);
 		ScavTrap& operator=(const ScavTrap&);
 		~ScavTrap();
 		void	attack(const std::string& target);

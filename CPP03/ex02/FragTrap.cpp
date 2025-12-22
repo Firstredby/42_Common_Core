@@ -2,28 +2,36 @@
 
 FragTrap::FragTrap() : ClapTrap("ChopTrap")
 {
-	ClapTrap::health = 100;
-	ClapTrap::damage = 30;
-	ClapTrap::energy = 100;
+	this->health = 100;
+	this->damage = 30;
+	this->energy = 100;
 	cout << this->name << ": Make way, boom-loving bystanders! FragTrap has arrived, "
 		 << "and the party just got 300% more explosive!" << endl;
 }
 
-FragTrap::FragTrap(const std::string name) : ClapTrap(name)
+FragTrap::FragTrap(const std::string& name) : ClapTrap(name)
 {
-	ClapTrap::health = 100;
-	ClapTrap::damage = 30;
-	ClapTrap::energy = 100;
+	this->health = 100;
+	this->damage = 30;
+	this->energy = 100;
 	cout << this->name << ": Make way, boom-loving bystanders! FragTrap has arrived, "
 		 << "and the party just got 300% more explosive!" << endl;
+}
+
+FragTrap::FragTrap(const FragTrap& obj) : ClapTrap(obj)
+{
+	cout << "FragTrap copy constructor called!" << endl;
 }
 
 FragTrap& FragTrap::operator=(const FragTrap& obj)
 {
-	cout << "FragTrap copy assigment operator called!" << endl;
-	this->health = obj.health;
-	this->energy = obj.energy;
-	this->damage = obj.damage;
+	cout << "FragTrap copy assignment operator called!" << endl;
+	if (this != &obj)
+	{
+		cout << this->name << ": Wait, what? I don't wanna cha.." << endl;
+		ClapTrap::operator=(obj);
+		cout  << this->name << ": Hello little fellas!" << endl;
+	}
 	return *this;
 }
 
@@ -61,12 +69,11 @@ void	FragTrap::attack(const std::string& target)
 
 void	FragTrap::beRepaired(unsigned int amount)
 {
-	if ((int)amount < 0 || amount > 2147483647)
-		cout << this->name << ": i've got HOW MUCH DAMAGE? No, no, no, i don't play like this!\n";
-	else if (this->energy > 0 && this->health < 100 && this->health > 0)
+	if (this->energy > 0 && this->health < 100 && this->health > 0)
 	{
 		cout << "FragTrap " << this->name << " repairing itself for "
 			 << amount << " points!" << endl;
+		this->health += amount;
 		this->energy--;
 	}
 	else if (this->energy > 0 && this->health >= 100)

@@ -8,11 +8,12 @@ using std::endl;
 class ClapTrap
 {
 	protected:
-		const std::string name;
+		std::string name;
 		int	health, energy, damage;
 	public:
 		ClapTrap();
-		ClapTrap(const std::string name);
+		ClapTrap(const std::string& name);
+		ClapTrap(const ClapTrap&);
 		ClapTrap& operator=(const ClapTrap&);
 		virtual	~ClapTrap();
 		virtual void	attack(const std::string& target);
