@@ -2,21 +2,20 @@
 
 WrongCat::WrongCat()
 {
-	this->type = "WrongCat";
 	cout << "WrongCat constructor called!\n";
+	this->type = "WrongCat";
 }
 
-WrongCat::WrongCat(const WrongCat& breed)
+WrongCat::WrongCat(const WrongCat& breed) : WrongAnimal(breed)
 {
 	cout << "WrongCat copy constructor called!\n";
-	WrongCat::operator=(breed);
 }
 
 WrongCat& WrongCat::operator=(const WrongCat& breed)
 {
 	cout << "WrongCat copy assign constructor called!\n";
 	if (this != &breed)
-		this->type = breed.type;
+		WrongAnimal::operator=(breed);
 	return *this;
 }
 

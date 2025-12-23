@@ -20,6 +20,26 @@ int	main()
 	delete dog;
 	delete animal;
 
+	std::cout << "\n----- Testing Copy & Assignment -----" << std::endl;
+
+	Cat cat1;
+	cat1.makeSound();
+
+	Cat cat2(cat1);
+	cat2.makeSound();
+
+	Cat cat3;
+	cat3 = cat1;
+	cat3.makeSound();
+
+	std::cout << "\n----- Testing Polymorphic Copy -----" << std::endl;
+	Animal* a1 = new Cat();
+	Animal* a2 = new Dog();
+	*a2 = *a1;
+	a2->makeSound();
+	delete a1;
+	delete a2;
+
 	std::cout << "\n----- Testing Wrong Animals -----" << std::endl;
 	const WrongAnimal* wronganimal = new WrongAnimal();
 	const WrongAnimal* wrongcat = new WrongCat();
@@ -30,6 +50,7 @@ int	main()
 
 	delete wrongcat;
 	delete wronganimal;
+	
 	std::cout << "\n----- WrongCat memory test -----" << std::endl;
 	WrongCat wc1;
 

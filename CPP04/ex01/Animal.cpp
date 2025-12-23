@@ -5,10 +5,9 @@ Animal::Animal()
 	cout << "Animal constructor called!\n";
 }
 
-Animal::Animal(const Animal& animal)
+Animal::Animal(const Animal& animal) : type(animal.type)
 {
 	cout << "Animal copy constructor called!\n";
-	Animal::operator=(animal);
 }
 
 Animal& Animal::operator=(const Animal& animal)

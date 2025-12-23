@@ -5,15 +5,15 @@
 using std::cout;
 using std::endl;
 
-class Animal
+class AAnimal
 {
 	protected:
 		std::string type;
 	public:
-		Animal(/* args */);
-		Animal(const Animal&);
-		Animal& operator=(const Animal&);
-		virtual ~Animal();
+		AAnimal(/* args */);
+		AAnimal(const AAnimal&);
+		AAnimal& operator=(const AAnimal&);
+		virtual ~AAnimal();
 		virtual void makeSound() const = 0;
 		const std::string getType() const;
 };

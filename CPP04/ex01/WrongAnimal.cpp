@@ -5,10 +5,9 @@ WrongAnimal::WrongAnimal()
 	cout << "WrongAnimal constructor called!\n";
 }
 
-WrongAnimal::WrongAnimal(const WrongAnimal& animal)
+WrongAnimal::WrongAnimal(const WrongAnimal& animal) : type(animal.type)
 {
 	cout << "WrongAnimal copy constructor called!\n";
-	WrongAnimal::operator=(animal);
 }
 
 WrongAnimal& WrongAnimal::operator=(const WrongAnimal& animal)

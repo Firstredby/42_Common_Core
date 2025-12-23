@@ -7,9 +7,8 @@ int main()
 {
 	std::cout << "===== BASIC POLYMORPHISM TEST =====" << std::endl;
 
-	const Animal* animal = new Animal();
-	const Animal* dog = new Dog();
-	const Animal* cat = new Cat();
+	const AAnimal* dog = new Dog();
+	const AAnimal* cat = new Cat();
 
 	std::cout << dog->getType() << std::endl;
 	dog->makeSound();
@@ -17,12 +16,8 @@ int main()
 	std::cout << cat->getType() << std::endl;
 	cat->makeSound();
 
-	std::cout << animal->getType() << std::endl;
-	animal->makeSound();
-
 	delete cat;
 	delete dog;
-	delete animal;
 
 	/* ------------------------------------------------------------ */
 
@@ -39,30 +34,6 @@ int main()
 
 	delete wrongCat;
 	delete wrongAnimal;
-
-	/* ------------------------------------------------------------ */
-
-	std::cout << "\n===== ANIMAL ARRAY TEST =====" << std::endl;
-
-	const int size = 10;
-	Animal* animals[size];
-
-	for (int i = 0; i < size; ++i)
-	{
-		if (i < size / 2)
-			animals[i] = new Dog();
-		else
-			animals[i] = new Cat();
-	}
-
-	std::cout << "\n--- Deleting animals via Animal* ---" << std::endl;
-
-	for (int i = 0; i < size; ++i)
-	{
-		delete animals[i];
-	}
-
-	/* ------------------------------------------------------------ */
 
 	std::cout << "\n===== DEEP COPY TEST (DOG) =====" << std::endl;
 

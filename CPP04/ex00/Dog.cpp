@@ -6,17 +6,16 @@ Dog::Dog()
 	this->type = "Dog";
 }
 
-Dog::Dog(const Dog& breed)
+Dog::Dog(const Dog& breed) : Animal(breed)
 {
 	cout << "Dog copy constructor called!\n";
-	Dog::operator=(breed);
 }
 
 Dog& Dog::operator=(const Dog& breed)
 {
 	cout << "Dog copy assign constructor called!\n";
 	if (this != &breed)
-		this->type = breed.type;
+		Animal::operator=(breed);
 	return *this;
 }
 

@@ -1,17 +1,16 @@
 #include "Animal.hpp"
 
-Animal::Animal()
+AAnimal::AAnimal()
 {
 	cout << "Animal constructor called!\n";
 }
 
-Animal::Animal(const Animal& animal)
+AAnimal::AAnimal(const AAnimal& animal) : type(animal.type)
 {
 	cout << "Animal copy constructor called!\n";
-	Animal::operator=(animal);
 }
 
-Animal& Animal::operator=(const Animal& animal)
+AAnimal& AAnimal::operator=(const AAnimal& animal)
 {
 	cout << "Animal copy assign constructor called!\n";
 	if (this != &animal)
@@ -19,16 +18,16 @@ Animal& Animal::operator=(const Animal& animal)
 	return *this;
 }
 
-Animal::~Animal()
+AAnimal::~AAnimal()
 {
 	cout << "Animal destructor called!\n";
 }
 
-void	Animal::makeSound() const
+void	AAnimal::makeSound() const
 {
 }
 
-const std::string	Animal::getType() const
+const std::string	AAnimal::getType() const
 {
 	return this->type;
 }

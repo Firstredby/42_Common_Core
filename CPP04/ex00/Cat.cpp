@@ -2,21 +2,20 @@
 
 Cat::Cat()
 {
-	this->type = "Cat";
 	cout << "Cat constructor called!\n";
+	this->type = "Cat";
 }
 
-Cat::Cat(const Cat& breed)
+Cat::Cat(const Cat& breed) : Animal(breed)
 {
 	cout << "Cat copy constructor called!\n";
-	Cat::operator=(breed);
 }
 
 Cat& Cat::operator=(const Cat& breed)
 {
 	cout << "Cat copy assign constructor called!\n";
 	if (this != &breed)
-		this->type = breed.type;
+		Animal::operator=(breed);
 	return *this;
 }
 
