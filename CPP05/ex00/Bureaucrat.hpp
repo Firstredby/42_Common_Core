@@ -9,7 +9,7 @@ class Bureaucrat
 {
 private:
 	const std::string name;
-	unsigned int grade;
+	int grade;
 public:
 	Bureaucrat();
 	Bureaucrat(const std::string&, int);
