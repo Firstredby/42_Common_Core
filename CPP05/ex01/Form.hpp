@@ -1,18 +1,24 @@
 #pragma once
 
-#include "Bureaucrat.hpp"
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
+class Bureaucrat;
 
 class Form
 {
 private:
 	const std::string	name;
 	bool				isSigned;
-	const int	gradeToSign;
-	const int	gradeToExecute;
+	const int			gradeToSign;
+	const int			gradeToExecute;
+	static int			validation(int);
 public:
 	Form();
 	Form(const Form&);
-	Form();
+	Form(const std::string&, int, int);
 	Form& operator=(const Form&);
 	~Form();
 
@@ -20,6 +26,8 @@ public:
 	bool		checkSign() const;
 	int			getGradeToSign() const;
 	int			getGradeToExecute() const;
+
+	void		beSigned(const Bureaucrat&);
 
 	class GradeTooHighException : public std::exception {
 	public:
@@ -43,4 +51,4 @@ public:
 	};
 };
 
-std::ostream& operator<<(std::ostream&, const Bureaucrat&);
+std::ostream& operator<<(std::ostream&, const Form&);

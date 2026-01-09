@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 static void printHeader(const std::string &title)
 {
@@ -8,11 +9,11 @@ static void printHeader(const std::string &title)
 int main()
 {
     /* ========================================================= */
-    printHeader("TC-01 / TC-02 / TC-03: Valid constructors");
+    printHeader("TC-01 / TC-02 / TC-03: Valid Form constructors");
     try {
-        Bureaucrat a("Alice", 42);
-        Bureaucrat b("Boss", 1);
-        Bureaucrat c("Intern", 150);
+        Form a("TaxForm", 50, 25);
+        Form b("TopSecret", 1, 1);
+        Form c("LowLevel", 150, 150);
 
         std::cout << a << std::endl;
         std::cout << b << std::endl;
@@ -22,84 +23,108 @@ int main()
     }
 
     /* ========================================================= */
-    printHeader("TC-04: Grade too high in constructor");
+    printHeader("TC-04: signGrade < 1");
     try {
-        Bureaucrat d("Error", 0);
-        std::cout << d << std::endl;
+        Form f("Error", 0, 50);
+        std::cout << f << std::endl;
     } catch (std::exception &e) {
         std::cout << "Caught exception: " << e.what() << std::endl;
     }
 
     /* ========================================================= */
-    printHeader("TC-05: Grade too low in constructor");
+    printHeader("TC-05: signGrade > 150");
     try {
-        Bureaucrat e("Error", 151);
-        std::cout << e << std::endl;
+        Form f("Error", 151, 50);
+        std::cout << f << std::endl;
     } catch (std::exception &e) {
         std::cout << "Caught exception: " << e.what() << std::endl;
     }
 
     /* ========================================================= */
-    printHeader("TC-06: incrementGrade normal case");
+    printHeader("TC-06: execGrade < 1");
     try {
-        Bureaucrat a("Alice", 42);
-        std::cout << a << std::endl;
-        a.incrGrade();
-        std::cout << a << std::endl;
+        Form f("Error", 50, 0);
+        std::cout << f << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "Caught exception: " << e.what() << std::endl;
+    }
+
+    /* ========================================================= */
+    printHeader("TC-07: execGrade > 150");
+    try {
+        Form f("Error", 50, 151);
+        std::cout << f << std::endl;
+    } catch (std::exception &e) {
+        std::cout << "Caught exception: " << e.what() << std::endl;
+    }
+
+    /* ========================================================= */
+    printHeader("TC-08: beSigned success");
+    try {
+        Bureaucrat b("Alice", 40);
+        Form f("Contract", 50, 20);
+
+        std::cout << f << std::endl;
+        f.beSigned(b);
+        std::cout << f << std::endl;
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }
 
     /* ========================================================= */
-    printHeader("TC-07: decrementGrade normal case");
+    printHeader("TC-09: beSigned failure (grade too low)");
     try {
-        Bureaucrat a("Alice", 42);
-        std::cout << a << std::endl;
-        a.decrGrade();
-        std::cout << a << std::endl;
+        Bureaucrat b("Bob", 100);
+        Form f("Contract", 50, 20);
+
+        std::cout << f << std::endl;
+        f.beSigned(b);
+    } catch (std::exception &e) {
+        std::cout << "Caught exception: " << e.what() << std::endl;
+    }
+
+    /* ========================================================= */
+    printHeader("TC-10: beSigned already signed");
+    try {
+        Bureaucrat b("Alice", 1);
+        Form f("Contract", 50, 20);
+
+        f.beSigned(b);
+        f.beSigned(b); // second attempt
+        std::cout << f << std::endl;
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }
 
     /* ========================================================= */
-    printHeader("TC-08: incrementGrade at grade 1");
+    printHeader("TC-11: Bureaucrat::signForm success");
     try {
-        Bureaucrat b("Boss", 1);
-        std::cout << b << std::endl;
-        b.incrGrade();
+        Bureaucrat b("Alice", 40);
+        Form f("Permit", 50, 20);
+
+        b.signForm(f);
+        std::cout << f << std::endl;
     } catch (std::exception &e) {
-        std::cout << "Caught exception: " << e.what() << std::endl;
+        std::cout << e.what() << std::endl;
     }
 
     /* ========================================================= */
-    printHeader("TC-09: decrementGrade at grade 150");
+    printHeader("TC-12: Bureaucrat::signForm failure");
     try {
-        Bureaucrat c("Intern", 150);
-        std::cout << c << std::endl;
-        c.decrGrade();
+        Bureaucrat b("Bob", 100);
+        Form f("Permit", 50, 20);
+
+        b.signForm(f);
+        std::cout << f << std::endl;
     } catch (std::exception &e) {
-        std::cout << "Caught exception: " << e.what() << std::endl;
+        std::cout << e.what() << std::endl;
     }
 
     /* ========================================================= */
-    printHeader("TC-10 / TC-11: what() message check");
+    printHeader("TC-13: operator<< formatting");
     try {
-        Bureaucrat x("X", 0);
-    } catch (std::exception &e) {
-        std::cout << "GradeTooHighException: " << e.what() << std::endl;
-    }
-
-    try {
-        Bureaucrat y("Y", 151);
-    } catch (std::exception &e) {
-        std::cout << "GradeTooLowException: " << e.what() << std::endl;
-    }
-
-    /* ========================================================= */
-    printHeader("TC-12: operator<< formatting");
-    try {
-        Bureaucrat a("Alice", 42);
-        std::cout << a << std::endl;
+        Form f("TaxForm", 50, 25);
+        std::cout << f << std::endl;
     } catch (std::exception &e) {
         std::cout << e.what() << std::endl;
     }
@@ -107,8 +132,8 @@ int main()
     /* ========================================================= */
     printHeader("TC-14: Copy constructor");
     try {
-        Bureaucrat a("Alice", 42);
-        Bureaucrat b(a);
+        Form a("A", 50, 25);
+        Form b(a);
 
         std::cout << a << std::endl;
         std::cout << b << std::endl;
@@ -117,10 +142,12 @@ int main()
     }
 
     /* ========================================================= */
-    printHeader("TC-15: Assignment operator");
+    printHeader("TC-15: Assignment operator (const fields)");
     try {
-        Bureaucrat a("Alice", 42);
-        Bureaucrat b("Bob", 10);
+        Form a("A", 50, 25);
+        Form b("B", 10, 5);
+
+        a.beSigned(Bureaucrat("Boss", 1));
 
         std::cout << "Before assignment:" << std::endl;
         std::cout << a << std::endl;
@@ -136,17 +163,15 @@ int main()
     }
 
     /* ========================================================= */
-    printHeader("TC-16: Multiple increment until exception");
+    printHeader("TC-16: Full scenario");
     try {
-        Bureaucrat a("Test", 3);
-        std::cout << a << std::endl;
-        a.incrGrade();
-        std::cout << a << std::endl;
-        a.incrGrade();
-        std::cout << a << std::endl;
-        a.incrGrade(); // must throw
+        Bureaucrat boss("Boss", 1);
+        Form f("TopSecret", 1, 1);
+
+        boss.signForm(f);
+        std::cout << f << std::endl;
     } catch (std::exception &e) {
-        std::cout << "Caught exception: " << e.what() << std::endl;
+        std::cout << e.what() << std::endl;
     }
 
     /* ========================================================= */

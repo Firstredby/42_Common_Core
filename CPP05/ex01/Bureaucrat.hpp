@@ -5,6 +5,8 @@
 using std::cout;
 using std::endl;
 
+class Form;
+
 class Bureaucrat
 {
 private:
@@ -21,6 +23,8 @@ public:
 	int getGrade() const;
 	void	incrGrade();
 	void	decrGrade();
+
+	void		signForm(Form&);
 
 	class GradeTooHighException : public std::exception
 	{
