@@ -15,7 +15,7 @@ $(NAME) : $(OBJ)
 	c++ $(FLAGS) -c $< -o $@
 
 clean :
-	rm -f $(OBJ) $(DEP)
+	rm -f $(OBJ) $(DEP) Forms.d
 
 fclean : clean
 	rm -f $(NAME)
