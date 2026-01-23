@@ -33,6 +33,11 @@ void	ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 		throw AForm::LowGradeExecution();
 	std::string fileName = executor.getName() + "_shrubbery";
 	std::ofstream newFile(fileName.data());
+	if (!newFile.is_open())
+	{
+		std::cerr << "Error: Couldn't create a file\n";
+		return ;
+	}
 	newFile << "              v .   ._, |_  .,\n"
     << "           `-._\\/  .  \\ /    |/_\n"
     << "               \\\\  _\\, y | \\//\n"
