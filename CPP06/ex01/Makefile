@@ -1,4 +1,4 @@
-NAME = Converter
+NAME = Serializer
 SRC = main.cpp Serializer.cpp
 OBJ = $(SRC:.cpp=.o)
 DEP = $(OBJ:.o=.d)

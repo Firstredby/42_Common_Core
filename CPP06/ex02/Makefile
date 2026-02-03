@@ -1,4 +1,4 @@
-NAME = Converter
+NAME = Base
 SRC = main.cpp Base.cpp
 OBJ = $(SRC:.cpp=.o)
 DEP = $(OBJ:.o=.d)
