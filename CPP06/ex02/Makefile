@@ -12,7 +12,7 @@ $(NAME) : $(OBJ)
 	c++ $(FLAGS) -c $< -o $@
 
 clean :
-	rm -f $(OBJ) $(DEP) Converter.d
+	rm -f $(OBJ) $(DEP) Base.d
 
 fclean : clean
 	rm -f $(NAME)
