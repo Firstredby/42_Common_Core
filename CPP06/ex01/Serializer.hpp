@@ -2,6 +2,9 @@
 
 #include <stdint.h>
 
+struct Data;
+
+
 class Serializer
 {
 private:
@@ -10,6 +13,6 @@ private:
 	Serializer& operator=(const Serializer&);
 	~Serializer();
 public:
-	static uintptr_t	serialize(void* ptr);
-	static void*		deserialize(uintptr_t raw);
+	static uintptr_t	serialize(Data* ptr);
+	static Data*		deserialize(uintptr_t raw);
 };

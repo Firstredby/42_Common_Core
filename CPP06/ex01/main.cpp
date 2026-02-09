@@ -26,7 +26,7 @@ int main()
 	raw = Serializer::serialize(&data);
 	cout << "\nSerialized Data (uintptr_t): " << raw << endl;
 
-	dataPtr = static_cast<Data*>(Serializer::deserialize(raw));
+	dataPtr = Serializer::deserialize(raw);
 	cout << "\nDeserialized Data address: " << dataPtr << endl;
 	cout << "Deserialized Data content:" << endl;
 	cout << "  str: " << dataPtr->str << endl;
