@@ -17,6 +17,22 @@ ScalarConverter::~ScalarConverter()
 {
 }
 
+bool	nonAlphaStr(const std::string& value)
+{
+	size_t i = 0;
+	if (value.size() == 1)
+		return false;
+	while (value[i] && !isalpha(value[i]))
+		i++;
+	if (i <= value.size() - 1)
+	{
+		if (value[i] == 'e' || value[i] == 'f')
+			return false;
+		return true;
+	}
+	return false;
+}
+
 bool	isInt(const std::string& value)
 {
     size_t i = 0;
@@ -33,47 +49,50 @@ bool	isInt(const std::string& value)
     for (; i < value.length(); i++)
         if (!std::isdigit(value[i]))
             return false;
-
     return true;
 }
 
-bool	isFloat(const std::string& value)
+bool isFloat(const std::string& value)
 {
-    size_t i = 0;
-
     if (value.empty())
         return false;
+
+    size_t i = 0;
+    bool hasDigit = false;
+    bool hasDot = false;
+    bool hasExp = false;
 
     if (value[i] == '+' || value[i] == '-')
         i++;
 
-    if (i == value.length())
-	{
-        return false;
-	}
-
-	bool dot = false;
     for (; i < value.length(); i++)
-        if (!std::isdigit(value[i]))
-		{
-			if (value[i] == 'f' && i == value.length())
-				continue;
-			else if (value[i] == '.' && !dot)
-			{
-				dot = true;
-				continue;
-			}
-			else
-				return false;
-		}
+    {
+        if (std::isdigit(value[i]))
+            hasDigit = true;
+        else if (value[i] == '.' && !hasDot && !hasExp)
+            hasDot = true;
+        else if ((value[i] == 'e') && !hasExp && hasDigit)
+        {
+            hasExp = true;
+            hasDigit = false;
 
-    return true;
+            if (i + 1 < value.length() &&
+                (value[i + 1] == '+' || value[i + 1] == '-'))
+                i++;
+        }
+        else if (value[i] == 'f' && i == value.length() - 1)
+            return hasDigit;
+        else
+            return false;
+    }
+
+    return false;
 }
 
 void	toInt(const std::string& value)
 {
 	std::stringstream ss(value);
-	int	num;
+	long	num;
 	ss >> num;
 	double cast = static_cast<double>(num);
 	cout << "char: ";
@@ -84,12 +103,15 @@ void	toInt(const std::string& value)
 	else
 		cout << "'" << static_cast<char>(cast) << "'\n";
 	cout << "int: ";
-	cout << static_cast<int>(num) << endl;
+	if (num < -2147483648 || num > 2147483647)
+		cout << "impossible\n";
+	else
+		cout << static_cast<int>(num) << endl;
 	cout << "float: ";
-	cout << std::fixed << std::setprecision(1)
+	cout << std::fixed << std::setprecision(3)
 			<< static_cast<float>(num) << "f" << endl;
 	cout << "double: ";
-	cout << std::fixed << std::setprecision(1)
+	cout << std::fixed << std::setprecision(3)
 			<< cast << endl;
 }
 
@@ -106,10 +128,10 @@ void	toChar(const std::string& value)
 	cout << "int: ";
 	cout << static_cast<int>(cast) << endl;
 	cout << "float: ";
-	cout << std::fixed << std::setprecision(1)
+	cout << std::fixed << std::setprecision(3)
 			<< static_cast<float>(cast) << "f" << endl;
 	cout << "double: ";
-	cout << std::fixed << std::setprecision(1)
+	cout << std::fixed << std::setprecision(3)
 			<< cast << endl;
 }
 
@@ -125,12 +147,15 @@ void	toFloat(const std::string& value)
 	else
 		cout << "'" << static_cast<char>(cast) << "'\n";
 	cout << "int: ";
-	cout << static_cast<int>(cast) << endl;
+	if (cast < -2147483648 || cast > 2147483647)
+		cout << "impossible\n";
+	else
+		cout << static_cast<int>(cast) << endl;
 	cout << "float: ";
-	cout << std::fixed << std::setprecision(1)
+	cout << std::fixed << std::setprecision(3)
 			<< static_cast<float>(cast) << "f" << endl;
 	cout << "double: ";
-	cout << std::fixed << std::setprecision(1)
+	cout << std::fixed << std::setprecision(3)
 			<< cast << endl;
 }
 
@@ -146,12 +171,15 @@ void	toDouble(const std::string& value)
 	else
 		cout << "'" << static_cast<char>(cast) << "'\n";
 	cout << "int: ";
-	cout << static_cast<int>(cast) << endl;
+	if (cast < -2147483648 || cast > 2147483647)
+		cout << "impossible\n";
+	else
+		cout << static_cast<int>(cast) << endl;
 	cout << "float: ";
-	cout << std::fixed << std::setprecision(1)
+	cout << std::fixed << std::setprecision(3)
 			<< static_cast<float>(cast) << "f" << endl;
 	cout << "double: ";
-	cout << std::fixed << std::setprecision(1)
+	cout << std::fixed << std::setprecision(3)
 			<< cast << endl;
 }
 
@@ -184,21 +212,20 @@ void	noType(const std::string& value)
 
 void ScalarConverter::convert(const std::string& value)
 {
-	std::string strToConvert = value.substr(value.find_first_not_of(" \t\n\r\f\v"), 
-									value.find_last_not_of(" \t\n\r\f\v") + 1);
-	
-	if (strToConvert.size() == 1 && !std::isdigit(strToConvert[0]))
-		toChar(strToConvert);
+	if ((value.find_first_of(" \t\b\n\v") != std::string::npos && value.size() > 1)
+		|| nonAlphaStr(value)) return noType(value);
+	if (value.size() == 1 && !std::isdigit(value[0]))
+		toChar(value);
 	else if (isInt(value))
-		toInt(strToConvert);
-	else if (value.find_first_of('.') != std::string::npos
-			&& value.find_first_of('.') == value.find_last_of('.'))
-		toDouble(strToConvert);
-	else if (isFloat(strToConvert))
-	{
-		strToConvert =  strToConvert.substr(0, strToConvert.size() - 1);
-		toFloat(strToConvert);
-	}
+		toInt(value);
+	else if (isFloat(value))
+		toFloat(value.substr(0, value.size() - 1));
+	else if ((value.find_first_of('.') != std::string::npos
+		&& value.find_first_of('.') == value.find_last_of('.')
+		&& value[value.find('.') + 1] != '\0')
+		|| (value.find_first_of('.') == std::string::npos
+			&& !nonAlphaStr(value)))
+		toDouble(value);
 	else
-		noType(strToConvert);
+		noType(value);
 }
